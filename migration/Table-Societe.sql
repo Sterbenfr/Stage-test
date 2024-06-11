@@ -1,7 +1,7 @@
 CREATE TABLE Societe (
-    code_Societe INT PRIMARY KEY, -- clé primaire
+    code_Societe INT PRIMARY KEY AUTO_INCREMENT, -- clé primaire
     raison_sociale VARCHAR(30) NOT NULL,
-    nom_commercial VARCHAR(30) DEFAULT 'raison sociale',
+    nom_commercial VARCHAR(30) DEFAULT raison_sociale,
     Logo BLOB, -- assuming Logo is an image or binary data
     site_Web VARCHAR(255),
     Siren CHAR(9) NOT NULL,
