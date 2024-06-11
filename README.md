@@ -4,9 +4,9 @@ This is a complete Next.js project template using TypeScript, linters like
 ESlint and Prettier and the app router. It allows you to skip the tedious
 details for the following:
 
-- Adding and configuring TypeScript support.
-- Enabling TypeScript linting.
-- Automatic linting and checks for Typescript errors on commit.
+-   Adding and configuring TypeScript support.
+-   Enabling TypeScript linting.
+-   Automatic linting and checks for Typescript errors on commit.
 
 > [!TIP]  
 > **Note that I am using npm for the following steps but you can do the same
