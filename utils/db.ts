@@ -1,8 +1,8 @@
 import mysql from 'mysql2'
 
-const pool = mysql
-    .createPool({
-        host: '127.0.0.1',
+const connection = mysql
+    .createConnection({
+        host: '172.29.240.1',
         user: 'root',
         password: 'Azerty1!',
         database: 'test_db',
@@ -10,4 +10,4 @@ const pool = mysql
     })
     .promise()
 
-export default pool
+export default connection
