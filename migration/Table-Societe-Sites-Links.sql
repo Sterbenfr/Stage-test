@@ -5,7 +5,7 @@ CREATE TABLE SuiviSociete (
     code_utilisateur_suivant INT,
     PRIMARY KEY (code_Societe, code_type_de_Site),
     FOREIGN KEY (code_Societe) REFERENCES Societe(code_Societe),
-    FOREIGN KEY (code_type_de_Site) REFERENCES TypeSite(code_type_de_Site),
-    FOREIGN KEY (code_site_suivi) REFERENCES Site(code_site),
-    FOREIGN KEY (code_utilisateur_suivant) REFERENCES Utilisateur(code_utilisateur)
+    FOREIGN KEY (code_type_de_Site) REFERENCES SiteTypes(code_type_Site),
+    FOREIGN KEY (code_site_suivi) REFERENCES Sites(code_site),
+    FOREIGN KEY (code_utilisateur_suivant) REFERENCES Utilisateurs(code_utilisateur)
 );

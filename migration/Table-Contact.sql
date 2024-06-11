@@ -7,10 +7,11 @@ CREATE TABLE Contacts (
     photo BLOB,
     fonction VARCHAR(30),
     service VARCHAR(30),
-    numeros_telephone TEXT,
-    adresses_mail TEXT,
+    numero_fixe TEXT,
+    numero_portable TEXT,
+    adresse_mail TEXT,
     commentaires VARCHAR(200),
     date_arret_contact DATE,
-    PRIMARY KEY (code_contact),
+    PRIMARY KEY (code_contact,code_entite),
     FOREIGN KEY (code_entite) REFERENCES Entites(code_entite)
 );

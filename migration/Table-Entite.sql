@@ -1,4 +1,4 @@
-CREATE TABLE Entites (
+CREATE TABLE Entite (
     code_entite INT(7) NOT NULL AUTO_INCREMENT,
     raison_sociale VARCHAR(30) NOT NULL,
     nom_commercial VARCHAR(30) DEFAULT '',
@@ -8,7 +8,7 @@ CREATE TABLE Entites (
     code_rna CHAR(10),
     code_societe_appartenance INT(6),
     adresse TEXT,
-    telephone VARCHAR(20),
+    telephone VARCHAR(12),
     mail VARCHAR(50),
     site_internet VARCHAR(50),
     commentaires VARCHAR(200),

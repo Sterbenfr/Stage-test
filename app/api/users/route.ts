@@ -1,10 +1,11 @@
-import { NextResponse } from 'next/server'
+import { NextApiResponse } from 'next'
+import { NextRequest, NextResponse } from 'next/server'
 import pool from '../../../utils/db'
 
-export async function GET() {
+export async function GET(req: NextRequest, res: NextApiResponse) {
     try {
         const [rows] = await pool.query('SELECT * FROM `user` LIMIT 1000')
-        return NextResponse.json(rows)
+        res.json(rows)
     } catch (err) {
         console.log(err)
         return NextResponse.json(
