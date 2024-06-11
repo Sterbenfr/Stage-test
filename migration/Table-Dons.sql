@@ -23,7 +23,7 @@ CREATE TABLE Dons (
     FOREIGN KEY (code_type_competences) REFERENCES TypeCompetences(code_type_competences),
     FOREIGN KEY (code_type_produits) REFERENCES TypeProduits(code_type_produits),
     FOREIGN KEY (code_mode_conservation_produits) REFERENCES ModeConservationProduits(code_mode_conservation_produits),
-    FOREIGN KEY (code_Utilisateur_saisie_don) REFERENCES Utilisateur(code_utilisateur),
-    FOREIGN KEY (code_Utilisateur_accepte_refuse_don) REFERENCES Utilisateur(code_utilisateur),
+    FOREIGN KEY (code_Utilisateur_saisie_don) REFERENCES Utilisateurs(code_utilisateur),
+    FOREIGN KEY (code_Utilisateur_accepte_refuse_don) REFERENCES Utilisateurs(code_utilisateur),
     FOREIGN KEY (code_site_beneficiaire_don) REFERENCES Site(code_site)
 );

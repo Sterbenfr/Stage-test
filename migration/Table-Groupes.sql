@@ -1,5 +1,5 @@
 CREATE TABLE Groupe (
-    code_Groupe INT PRIMARY KEY, -- clé primaire
+    code_Groupe INT PRIMARY KEY AUTO_INCREMENT, -- clé primaire
     nom_du_Groupe VARCHAR(255) NOT NULL,
     Logo BLOB, -- assuming Logo is an image or binary data
     site_Web VARCHAR(255),
