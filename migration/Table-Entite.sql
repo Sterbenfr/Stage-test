@@ -1,0 +1,33 @@
+CREATE TABLE Entites (
+    code_entite INT(7) NOT NULL AUTO_INCREMENT,
+    raison_sociale VARCHAR(30) NOT NULL,
+    nom_commercial VARCHAR(30) DEFAULT '',
+    logo BLOB,
+    siret CHAR(14),
+    code_ape CHAR(5),
+    code_rna CHAR(10),
+    code_societe_appartenance INT(6),
+    adresse TEXT,
+    telephone VARCHAR(20),
+    mail VARCHAR(50),
+    site_internet VARCHAR(50),
+    commentaires VARCHAR(200),
+    code_type_entite CHAR(4) NOT NULL,
+    code_type_don CHAR(4),
+    code_type_produit CHAR(4),
+    code_type_competence CHAR(4),
+    commentaires_logistique VARCHAR(200),
+    presence_quai CHAR(1),
+    pieces_associees BLOB,
+    cerfa CHAR(1),
+    code_frequence_cerfa CHAR(4),
+    date_arret_activite DATE,
+    PRIMARY KEY (code_entite),
+    FOREIGN KEY (code_type_entite) REFERENCES TypesEntites(code_type_entite),
+    FOREIGN KEY (code_type_don) REFERENCES TypesDons(code_type_don),
+    FOREIGN KEY (code_type_produit) REFERENCES TypesProduits(code_type_produit),
+    FOREIGN KEY (code_type_competence) REFERENCES TypesCompetences(code_type_competence),
+    FOREIGN KEY (code_frequence_cerfa) REFERENCES FrequencesCerfa(code_frequence_cerfa)
+);
+
+

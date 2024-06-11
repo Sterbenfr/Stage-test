@@ -1,0 +1,14 @@
+CREATE TABLE Sites (
+    code_site INT(5) NOT NULL AUTO_INCREMENT,
+    designation_longue VARCHAR(40) NOT NULL,
+    designation_courte VARCHAR(15) NOT NULL,
+    adresse TEXT NOT NULL,
+    code_type_site CHAR(4) NOT NULL,
+    date_ouverture DATE,
+    date_fermeture DATE,
+    numeros_telephone TEXT,
+    adresses_mail TEXT,
+    commentaires VARCHAR(200),
+    PRIMARY KEY (code_site),
+    FOREIGN KEY (code_type_site) REFERENCES SiteTypes(code_type_site)
+);
