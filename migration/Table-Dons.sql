@@ -19,11 +19,11 @@ CREATE TABLE Dons (
     code_site_beneficiaire_don INT,
     FOREIGN KEY (code_Entite_donatrice) REFERENCES Entite(code_Entite),
     FOREIGN KEY (code_contact_Entite_donatrice) REFERENCES ContactEntite(code_contact_entite),
-    FOREIGN KEY (code_type_don) REFERENCES TypeDons(code_type_don),
-    FOREIGN KEY (code_type_competences) REFERENCES TypeCompetences(code_type_competences),
-    FOREIGN KEY (code_type_produits) REFERENCES TypeProduits(code_type_produits),
+    FOREIGN KEY (code_type_don) REFERENCES TypesDons(code_type_don),
+    FOREIGN KEY (code_type_competences) REFERENCES TypesCompetences(code_type_competence),
+    FOREIGN KEY (code_type_produits) REFERENCES TypesProduits(code_type_produits),
     FOREIGN KEY (code_mode_conservation_produits) REFERENCES ModeConservationProduits(code_mode_conservation_produits),
     FOREIGN KEY (code_Utilisateur_saisie_don) REFERENCES Utilisateurs(code_utilisateur),
     FOREIGN KEY (code_Utilisateur_accepte_refuse_don) REFERENCES Utilisateurs(code_utilisateur),
-    FOREIGN KEY (code_site_beneficiaire_don) REFERENCES Site(code_site)
+    FOREIGN KEY (code_site_beneficiaire_don) REFERENCES Sites(code_site)
 );

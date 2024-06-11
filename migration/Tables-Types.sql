@@ -65,12 +65,12 @@ VALUES
 
 
 CREATE TABLE TypesProduits (
-    code_type_produit CHAR(4) PRIMARY KEY,
+    code_type_produits CHAR(4) PRIMARY KEY,
     libelle VARCHAR(50) NOT NULL
 );
 
 -- Insert predefined types of produits
-INSERT INTO TypesProduits (code_type_produit, libelle)
+INSERT INTO TypesProduits (code_type_produits, libelle)
 VALUES
 ('ALI', 'Alimentaire'),
 ('VET', 'Vêtements'),
