@@ -1,16 +1,16 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-interface User {
+interface Don {
     code_type_don: string
     libelle: string
 }
 
-export default function UsersPage() {
-    const [users, setUsers] = useState<User[]>([])
+export default function DonsPage() {
+    const [Dons, setDons] = useState<Don[]>([])
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchDons = async () => {
             const res = await fetch('http://localhost:3000/api/type_don')
 
             if (!res.ok) {
@@ -19,20 +19,20 @@ export default function UsersPage() {
                 throw new Error('Failed to fetch data')
             }
 
-            const users: User[] = await res.json()
-            setUsers(users)
+            const Dons: Don[] = await res.json()
+            setDons(Dons)
         }
 
-        fetchUsers()
+        fetchDons()
     }, [])
 
     return (
         <div>
             <h1>Types de Dons</h1>
-            {users.map(user => (
-                <div key={user.code_type_don}>
-                    <p>Code Type Don: {user.code_type_don}</p>
-                    <p>Libelle: {user.libelle}</p>
+            {Dons.map(Don => (
+                <div key={Don.code_type_don}>
+                    <p>Code Type Don: {Don.code_type_don}</p>
+                    <p>Libelle: {Don.libelle}</p>
                 </div>
             ))}
         </div>
