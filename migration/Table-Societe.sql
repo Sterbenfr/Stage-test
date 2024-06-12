@@ -11,3 +11,19 @@ CREATE TABLE Societe (
     date_arret_activite_Societe DATE,
     FOREIGN KEY (code_type_activite_Societe) REFERENCES TypeActiviteSociete(code);
 );
+INSERT INTO Societe (
+    raison_sociale,
+    nom_commercial,
+    Logo,
+    site_Web,
+    Siren,
+    code_type_activite_Societe,
+    commentaires,
+    code_Groupe_appartenance,
+    date_arret_activite_Societe
+) VALUES 
+('Société Alpha', NULL, NULL, 'http://www.alpha.com', '123456789', 'TA01', 'Première société', 1, NULL),
+('Société Beta', NULL, NULL, 'http://www.beta.com', '234567890', 'TA02', 'Deuxième société', 2, NULL),
+('Société Gamma', NULL, NULL, 'http://www.gamma.com', '345678901', 'TA03', 'Troisième société', 3, NULL),
+('Société Delta', NULL, NULL, 'http://www.delta.com', '456789012', 'TA04', 'Quatrième société', 4, NULL),
+('Société Epsilon', NULL, NULL, 'http://www.epsilon.com', '567890123', 'TA05', 'Cinquième société', 5, NULL);

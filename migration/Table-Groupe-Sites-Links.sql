@@ -9,3 +9,14 @@ CREATE TABLE SuiviGroupe (
     FOREIGN KEY (code_site_suivi) REFERENCES Sites(code_site),
     FOREIGN KEY (code_utilisateur_suivant) REFERENCES Utilisateurs(code_utilisateur)
 );
+INSERT INTO SuiviGroupe (
+    code_Groupe,
+    code_type_de_Site,
+    code_site_suivi,
+    code_utilisateur_suivant
+) VALUES 
+(1, 'ST01', 501, 301),
+(2, 'ST02', 502, 302),
+(3, 'ST03', 503, 303),
+(4, 'ST04', 504, 304),
+(5, 'ST05', 505, 305);
