@@ -6,11 +6,11 @@ interface type_utilisateur {
     libelle: string
 }
 
-export default function UsersPage() {
-    const [Utilisateurs, setUsers] = useState<type_utilisateur[]>([])
+export default function UtilisateursPage() {
+    const [Utilisateurs, setUtilisateurs] = useState<type_utilisateur[]>([])
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchUtilisateurs = async () => {
             const res = await fetch(
                 'http://localhost:3000/api/type_utilisateur',
             )
@@ -22,10 +22,10 @@ export default function UsersPage() {
             }
 
             const Utilisateurs: type_utilisateur[] = await res.json()
-            setUsers(Utilisateurs)
+            setUtilisateurs(Utilisateurs)
         }
 
-        fetchUsers()
+        fetchUtilisateurs()
     }, [])
 
     return (
