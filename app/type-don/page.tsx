@@ -11,7 +11,7 @@ export default function DonsPage() {
 
     useEffect(() => {
         const fetchDons = async () => {
-            const res = await fetch('http://localhost:3000/api/type_don')
+            const res = await fetch('http://localhost:3000/api/type-don')
 
             if (!res.ok) {
                 console.log('Status:', res.status)
@@ -29,10 +29,10 @@ export default function DonsPage() {
     return (
         <div>
             <h1>Types de Dons</h1>
-            {Dons.map(Don => (
-                <div key={Don.code_type_don}>
-                    <p>Code Type Don: {Don.code_type_don}</p>
-                    <p>Libelle: {Don.libelle}</p>
+            {Dons.map(TypesDons => (
+                <div key={TypesDons.code_type_don}>
+                    <p>Code Type Don: {TypesDons.code_type_don}</p>
+                    <p>Libelle: {TypesDons.libelle}</p>
                 </div>
             ))}
         </div>
