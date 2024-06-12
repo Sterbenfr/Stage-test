@@ -11,12 +11,12 @@ interface Utilisateurs {
     commentaires: string
 }
 
-export default function UsersPage() {
+export default function UtilisateursPage() {
     const [Utilisateurs, setUtilisateurs] = useState<Utilisateurs[]>([])
 
     useEffect(() => {
         const fetchUtilisateurs = async () => {
-            const res = await fetch('http://localhost:3000/api/Utilisateurs')
+            const res = await fetch('http://localhost:3000/api/utilisateurs')
 
             if (!res.ok) {
                 console.log('Status:', res.status)
@@ -33,7 +33,7 @@ export default function UsersPage() {
 
     return (
         <div>
-            <h1>Type activite societe</h1>
+            <h1>Utilisateurs</h1>
             {Utilisateurs.map(TypeUtilisateurs => (
                 <div key={TypeUtilisateurs.code_utilisateur}>
                     <h2>{TypeUtilisateurs.code_utilisateur}</h2>

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 interface Prestataire {
-    code_type_prestataire: string
+    code_type_de_Prestataire: string
     libelle: string
 }
 
@@ -32,9 +32,9 @@ export default function PrestatairesPage() {
         <div>
             <h1>Type Prestataires</h1>
             {Prestataires.map(TypePrestataires => (
-                <div key={TypePrestataires.code_type_prestataire}>
+                <div key={TypePrestataires.code_type_de_Prestataire}>
                     <h2>{TypePrestataires.libelle}</h2>
-                    <h2>{TypePrestataires.code_type_prestataire}</h2>
+                    <h2>{TypePrestataires.code_type_de_Prestataire}</h2>
                 </div>
             ))}
         </div>

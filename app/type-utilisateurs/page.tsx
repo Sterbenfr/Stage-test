@@ -12,7 +12,7 @@ export default function UtilisateursPage() {
     useEffect(() => {
         const fetchUtilisateurs = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type_utilisateur',
+                'http://localhost:3000/api/type-utilisateurs',
             )
 
             if (!res.ok) {

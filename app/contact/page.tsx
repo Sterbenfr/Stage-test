@@ -48,14 +48,13 @@ export default function ContactsPage() {
                     <p>Nom: {contact.nom}</p>
                     <p>Prenom: {contact.prenom}</p>
                     <p>Civilite: {contact.civilite}</p>
-                    <p>Photo: <img src={URL.createObjectURL(contact.photo)} alt="Contact Photo" /></p>
                     <p>Fonction: {contact.fonction}</p>
                     <p>Service: {contact.service}</p>
                     <p>Numero Fixe: {contact.numero_fixe}</p>
                     <p>Numero Portable: {contact.numero_portable}</p>
                     <p>Adresse Mail: {contact.adresse_mail}</p>
                     <p>Commentaires: {contact.commentaires}</p>
-                    <p>Date Arret Contact: {contact.date_arret_contact.toString()}</p>
+                    <p>Date Arret Contact: {contact.date_arret_contact==null ? "" : contact.date_arret_contact.toString()}</p>
                 </div>
             ))}
         </div>

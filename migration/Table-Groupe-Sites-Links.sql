@@ -15,8 +15,8 @@ INSERT INTO SuiviGroupe (
     code_site_suivi,
     code_utilisateur_suivant
 ) VALUES 
-(1, 'AN', 501, 301),
-(2, 'AD', 502, 302),
-(3, 'CD', 503, 303),
-(4, 'DR', 504, 304),
-(5, 'EO', 505, 305);
+(1, 'AN', 1, 1),
+(2, 'AD', 2, 2),
+(3, 'CD', 3, 3),
+(4, 'DR', 4, 4),
+(5, 'EO', 5, 5);

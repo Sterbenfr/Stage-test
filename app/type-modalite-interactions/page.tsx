@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 interface Modalite_Interactions {
-    code_type_modalite_interactions: string
+    code_modalite_interaction: string
     libelle: string
 }
 
@@ -12,7 +12,7 @@ export default function Modalites_InteractionsPage() {
     useEffect(() => {
         const fetchModalites_Interactions = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type-modalites-interactions',
+                'http://localhost:3000/api/type-modalite-interactions',
             )
 
             if (!res.ok) {
@@ -27,14 +27,13 @@ export default function Modalites_InteractionsPage() {
 
         fetchModalites_Interactions()
     }, [])
-
     return (
         <div>
             <h1>Modalite Interactions</h1>
             {Modalites_Interactions.map(ModaliteInteractions => (
-                <div key={ModaliteInteractions.code_type_modalite_interactions}>
+                <div key={ModaliteInteractions.code_modalite_interaction}>
                     <h2>{ModaliteInteractions.libelle}</h2>
-                    <h2>{ModaliteInteractions.code_type_modalite_interactions}</h2>
+                    <h2>{ModaliteInteractions.code_modalite_interaction}</h2>
                 </div>
             ))}
         </div>

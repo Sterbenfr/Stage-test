@@ -14,7 +14,7 @@ export default function AffectationsPage() {
 
     useEffect(() => {
         const fetchAffectation = async () => {
-            const res = await fetch('http://localhost:3000/api/table-affectation')
+            const res = await fetch('http://localhost:3000/api/affectation')
 
             if (!res.ok) {
                 console.log('Status:', res.status)
@@ -38,7 +38,7 @@ export default function AffectationsPage() {
                     <p>Code Entité: {Affectation.code_Entite}</p>
                     <p>Commentaires: {Affectation.commentaires}</p>
                     <p>Date Affectation: {Affectation.date_affectation.toString()}</p>
-                    <p>Date Arrêt Affectation: {Affectation.date_arret_affectation.toString()}</p>
+                    <p>Date Arrêt Affectation: {Affectation.date_arret_affectation==null ? "" : Affectation.date_arret_affectation.toString()}</p>
                 </div>
             ))}
         </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 interface Cerfa {
     numero_Cerfa: number
-    code_don: number
+    code_Don: number
     montant_HT_Cerfa: number
     date_realisation_Cerfa: Date
     date_envoi_Cerfa: Date
@@ -35,7 +35,7 @@ export default function CerfaPage() {
             {cerfas.map(cerfa => (
                 <div key={cerfa.numero_Cerfa}>
                     <h2>
-                        {cerfa.code_don} : {cerfa.montant_HT_Cerfa}
+                        {cerfa.code_Don} : {cerfa.montant_HT_Cerfa}
                     </h2>
                     <p>date_realisation_Cerfa: {cerfa.date_realisation_Cerfa.toString()}</p>
                     <p>date_envoi_Cerfa: {cerfa.date_envoi_Cerfa.toString()}</p>

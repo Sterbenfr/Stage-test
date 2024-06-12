@@ -19,7 +19,7 @@ export default function SitesPage() {
 
     useEffect(() => {
         const fetchSites = async () => {
-            const res = await fetch('http://localhost:3000/api/Sites')
+            const res = await fetch('http://localhost:3000/api/sites')
 
             if (!res.ok) {
                 console.log('Status:', res.status)
@@ -45,7 +45,7 @@ export default function SitesPage() {
                     <p>{TypeSites.adresse}</p>
                     <p>{TypeSites.code_type_site}</p>
                     <p>{TypeSites.date_ouverture.toString()}</p>
-                    <p>{TypeSites.date_fermeture.toString()}</p>
+                    <p>{TypeSites.date_fermeture==null ? "": TypeSites.date_fermeture.toString()}</p>
                     <p>{TypeSites.numero_telephone}</p>
                     <p>{TypeSites.adresse_mail}</p>
                     <p>{TypeSites.commentaire}</p>

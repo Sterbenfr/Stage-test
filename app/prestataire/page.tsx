@@ -61,7 +61,7 @@ export default function PrestatairesPage() {
                     <p>telephone_contact_prestataire: {Prestataire.telephone_contact_prestataire}</p>
                     <p>mail_contact_prestataire: {Prestataire.mail_contact_prestataire}</p>
                     <p>commentaires: {Prestataire.commentaires}</p>
-                    <p>date_arret_activite_du_prestataire: {Prestataire.date_arret_activite_du_prestataire.toString()}</p>
+                    <p>date_arret_activite_du_prestataire: {Prestataire.date_arret_activite_du_prestataire==null ? "" : Prestataire.date_arret_activite_du_prestataire.toString()}</p>
                 </div>
             ))}
         </div>

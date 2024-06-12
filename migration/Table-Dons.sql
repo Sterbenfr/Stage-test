@@ -47,8 +47,8 @@ INSERT INTO Dons (
     code_Utilisateur_accepte_refuse_don,
     code_site_beneficiaire_don
 ) VALUES 
-(1, 101, '2023-01-01', 201, 'T001', 'C001', 'P001', 'M001', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 301, 'Valide', '2023-01-15', 'A', 302, 401),
-(2, 102, '2023-02-01', 202, 'T002', 'C002', 'P002', 'M002', '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 303, 'Valide', '2023-02-15', 'A', 304, 402),
-(3, 103, '2023-03-01', 203, 'T003', 'C003', 'P003', 'M003', '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 305, 'Refuse', '2023-03-15', 'R', 306, 403),
-(4, 104, '2023-04-01', 204, 'T004', 'C004', 'P004', 'M004', '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 307, 'Valide', '2023-04-15', 'A', 308, 404),
-(5, 105, '2023-05-01', 205, 'T005', 'C005', 'P005', 'M005', '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 309, 'Refuse', '2023-05-15', 'R', 310, 405);
+(1, 1, '2023-01-01', 1, 'MAR', NULL, 'ALI', 'AMB', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 1, 'Valide', '2023-01-15', 'A', 1, 1),
+(2, 2, '2023-02-01', 2, 'FIN', NULL, 'VET', NULL, '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 2, 'Valide', '2023-02-15', 'A', 2, 2),
+(3, 3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'Refuse', '2023-03-15', 'R', 3, 3),
+(4, 4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'Valide', '2023-04-15', 'A', 4, 4),
+(5, 5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'Refuse', '2023-05-15', 'R', 5, 5);
