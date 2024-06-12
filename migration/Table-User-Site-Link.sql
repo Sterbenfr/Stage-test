@@ -14,8 +14,8 @@ INSERT INTO SitesRattachement (
     code_type_utilisateur,
     date_fin_activite
 ) VALUES 
-(101, 1, 'TU001', NULL),
-(102, 2, 'TU002', NULL),
-(103, 3, 'TU003', NULL),
-(104, 4, 'TU004', NULL),
-(105, 5, 'TU005', NULL);
+(101, 1, 'PR', NULL),
+(102, 2, 'AP', NULL),
+(103, 3, 'RR', NULL),
+(104, 4, 'RC', NULL),
+(105, 5, 'RR', NULL);
