@@ -2,10 +2,10 @@ import mysql from 'mysql2'
 
 const connection = mysql
     .createConnection({
-        host: '172.29.240.1',
+        host: '172.22.240.1',
         user: 'root',
-        password: 'Azerty1!',
-        database: 'test_db',
+        password: 'welcome1',
+        database: 'test_stage',
         port: 3306,
     })
     .promise()

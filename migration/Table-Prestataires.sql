@@ -2,7 +2,7 @@ CREATE TABLE Prestataires (
     code_Prestataire INT PRIMARY KEY,
     code_type_de_Prestataire CHAR(4) NOT NULL,
     raison_sociale VARCHAR(30) NOT NULL,
-    nom_commercial VARCHAR(30) DEFAULT raison sociale,
+    nom_commercial VARCHAR(30) DEFAULT 'raison sociale',
     Siren CHAR(9),
     Siret CHAR(14),
     telephone VARCHAR(12),

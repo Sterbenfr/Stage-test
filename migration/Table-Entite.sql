@@ -25,9 +25,7 @@ CREATE TABLE Entite (
     PRIMARY KEY (code_entite),
     FOREIGN KEY (code_type_entite) REFERENCES TypesEntites(code_type_entite),
     FOREIGN KEY (code_type_don) REFERENCES TypesDons(code_type_don),
-    FOREIGN KEY (code_type_produit) REFERENCES TypesProduits(code_type_produit),
+    FOREIGN KEY (code_type_produit) REFERENCES TypesProduits(code_type_produits),
     FOREIGN KEY (code_type_competence) REFERENCES TypesCompetences(code_type_competence),
     FOREIGN KEY (code_frequence_cerfa) REFERENCES FrequencesCerfa(code_frequence_cerfa)
 );
-
-

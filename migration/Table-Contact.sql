@@ -13,5 +13,5 @@ CREATE TABLE Contacts (
     commentaires VARCHAR(200),
     date_arret_contact DATE,
     PRIMARY KEY (code_contact,code_entite),
-    FOREIGN KEY (code_entite) REFERENCES Entites(code_entite)
+    FOREIGN KEY (code_entite) REFERENCES Entite(code_entite)
 );
