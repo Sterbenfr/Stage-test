@@ -7,10 +7,10 @@ interface TypeActiviteSociete {
 }
 
 export default function UsersPage() {
-    const [users, setUsers] = useState<TypeActiviteSociete[]>([])
+    const [TypesActiviteSociete, setTypesActiviteSociete] = useState<TypeActiviteSociete[]>([])
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchTypesActiviteSociete = async () => {
             const res = await fetch('http://localhost:3000/api/activite-societe')
 
             if (!res.ok) {
@@ -19,17 +19,17 @@ export default function UsersPage() {
                 throw new Error('Failed to fetch data')
             }
 
-            const users: TypeActiviteSociete[] = await res.json()
-            setUsers(users)
+            const TypesActiviteSociete: TypeActiviteSociete[] = await res.json()
+            setTypesActiviteSociete(TypesActiviteSociete)
         }
 
-        fetchUsers()
+        fetchTypesActiviteSociete()
     }, [])
 
     return (
         <div>
             <h1>Type activite societe</h1>
-            {users.map(TypeActiviteSociete => (
+            {TypesActiviteSociete.map(TypeActiviteSociete => (
                 <div key={TypeActiviteSociete.code}>
                     <h2>
                         {TypeActiviteSociete.code}
