@@ -3,7 +3,7 @@ import pool from '../../../utils/db'
 
 export async function GET() {
     try {
-        const [rows] = await pool.query('SELECT * FROM `TypeLivraison` LIMIT 1000')
+        const [rows] = await pool.query('SELECT * FROM `typelivraison` LIMIT 1000')
         return NextResponse.json(rows)
     } catch (err) {
         console.log(err)

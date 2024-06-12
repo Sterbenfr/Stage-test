@@ -12,7 +12,7 @@ export default function Type_LivraisonsPage() {
     useEffect(() => {
         const fetchType_Livraisons = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type-type_livraisons',
+                'http://localhost:3000/api/type-livraison',
             )
 
             if (!res.ok) {
