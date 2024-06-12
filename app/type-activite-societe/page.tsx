@@ -6,10 +6,9 @@ interface TypeActiviteSociete {
     libelle: string
 }
 
-export default function ActiviteSocietePage() {
-    const [TypesActiviteSociete, setTypesActiviteSociete] = useState<
-        TypeActiviteSociete[]
-    >([])
+export default function TypesActiviteSocietesPage() {
+    const [TypesActiviteSociete, setTypesActiviteSociete] = useState<TypeActiviteSociete[]>([])
+
 
     useEffect(() => {
         const fetchTypesActiviteSociete = async () => {
