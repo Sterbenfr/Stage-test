@@ -9,3 +9,14 @@ CREATE TABLE ContactEntite (
     FOREIGN KEY (code_site_suivi) REFERENCES Sites(code_site),
     FOREIGN KEY (code_utilisateur_suivant) REFERENCES Utilisateurs(code_utilisateur)
 );
+INSERT INTO ContactEntite (
+    code_entite,
+    code_type_site,
+    code_site_suivi,
+    code_utilisateur_suivant
+) VALUES 
+(101, 'T001', 501, 301),
+(102, 'T002', 502, 302),
+(103, 'T003', 503, 303),
+(104, 'T004', 504, 304),
+(105, 'T005', 505, 305);

@@ -15,3 +15,18 @@ CREATE TABLE Interactions (
     FOREIGN KEY (code_modalite_interaction) REFERENCES ModaliteInteractions(code_modalite_interaction),
     FOREIGN KEY (code_contact_entite) REFERENCES ContactEntite(code_utilisateur_suivant)
 );
+INSERT INTO Interactions (
+    code_Utilisateur_Prospecteur,
+    code_Entite_Prospectee,
+    date_interaction,
+    code_type_interaction,
+    code_modalite_interaction,
+    code_contact_entite,
+    commentaires,
+    pieces_associees,
+    date_relance
+) VALUES 
+(301, 101, '2023-06-01', 'T001', 'M001', 201, 'Première interaction avec l\'entité 101', NULL, '2023-06-15'),
+(302, 102, '2023-06-02', 'T002', 'M002', 202, 'Deuxième interaction avec l\'entité 102', NULL, '2023-06-16'),
+(303, 103, '2023-06-03', 'T003', 'M003', 203, 'Troisième interaction avec l\'entité 103', NULL, '2023-06-17'),
+(304, 104, '2023-06-04', 'T004', 'M004', 204, 'Quatrième interaction avec l\'entité 104', NULL, '
