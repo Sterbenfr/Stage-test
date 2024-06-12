@@ -9,9 +9,12 @@ interface TypeActiviteSociete {
 export default function TypesActiviteSocietesPage() {
     const [TypesActiviteSociete, setTypesActiviteSociete] = useState<TypeActiviteSociete[]>([])
 
+
     useEffect(() => {
         const fetchTypesActiviteSociete = async () => {
-            const res = await fetch('http://localhost:3000/api/activite-societe')
+            const res = await fetch(
+                'http://localhost:3000/api/activite-societe',
+            )
 
             if (!res.ok) {
                 console.log('Status:', res.status)
@@ -31,9 +34,7 @@ export default function TypesActiviteSocietesPage() {
             <h1>Type activite societe</h1>
             {TypesActiviteSociete.map(TypeActiviteSociete => (
                 <div key={TypeActiviteSociete.code}>
-                    <h2>
-                        {TypeActiviteSociete.code}
-                    </h2>
+                    <h2>{TypeActiviteSociete.code}</h2>
                     <p>Libelle: {TypeActiviteSociete.libelle}</p>
                 </div>
             ))}
