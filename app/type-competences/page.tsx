@@ -12,7 +12,7 @@ export default function CompetencePage() {
     useEffect(() => {
         const fetchCompetences = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type_competences',
+                'http://localhost:3000/api/type-competences',
             )
 
             if (!res.ok) {

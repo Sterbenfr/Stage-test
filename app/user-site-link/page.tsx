@@ -14,7 +14,7 @@ export default function Sites_RattachementPage() {
     useEffect(() => {
         const fetchSites_Rattachement = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/site-rattachement',
+                'http://localhost:3000/api/user-site-link',
             )
 
             if (!res.ok) {
@@ -38,7 +38,7 @@ export default function Sites_RattachementPage() {
                     <h2>{SitesRattachement.code_site}</h2>
                     <h2>{SitesRattachement.code_utilisateur}</h2>
                     <h2>{SitesRattachement.code_type_utilisateur}</h2>
-                    <h2>{SitesRattachement.date_fin_activite.toString()}</h2>
+                    <h2>{SitesRattachement.date_fin_activite==null ? "" : SitesRattachement.date_fin_activite.toString()}</h2>
                 </div>
             ))}
         </div>

@@ -15,8 +15,8 @@ INSERT INTO AffectationDonateursProspecteurs (
     date_affectation,
     date_arret_affectation
 ) VALUES 
-(1, 101, 'Premier affectation', '2023-01-01', '2023-12-31'),
-(2, 102, 'Deuxième affectation', '2023-02-01', '2023-11-30'),
-(3, 103, 'Troisième affectation', '2023-03-01', NULL),
-(4, 104, 'Quatrième affectation', '2023-04-01', '2023-10-31'),
-(5, 105, 'Cinquième affectation', '2023-05-01', '2023-09-30');
+(1, 1, 'Premier affectation', '2023-01-01', '2023-12-31'),
+(2, 2, 'Deuxième affectation', '2023-02-01', '2023-11-30'),
+(3, 3, 'Troisième affectation', '2023-03-01', NULL),
+(4, 4, 'Quatrième affectation', '2023-04-01', '2023-10-31'),
+(5, 5, 'Cinquième affectation', '2023-05-01', '2023-09-30');

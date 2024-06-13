@@ -22,7 +22,7 @@ export default function ReceptionsPage() {
 
     useEffect(() => {
         const fetchReception = async () => {
-            const res = await fetch('http://localhost:3000/api/table-reception')
+            const res = await fetch('http://localhost:3000/api/reception')
 
             if (!res.ok) {
                 console.log('Status:', res.status)

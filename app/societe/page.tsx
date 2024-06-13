@@ -43,13 +43,12 @@ export default function SocietesPage() {
                         {Societe.code_Societe} : {Societe.nom_commercial}
                     </h2>
                     <p>raison_sociale: {Societe.raison_sociale}</p>
-                    <img src={URL.createObjectURL(Societe.Logo)} alt="" />
                     <p>site_Web: {Societe.site_Web}</p>
                     <p>Siren: {Societe.Siren}</p>
                     <p>code_type_activite_Societe: {Societe.code_type_activite_Societe}</p>
                     <p>commentaires: {Societe.commentaires}</p>
                     <p>code_Groupe_appartenance: {Societe.code_Groupe_appartenance}</p>
-                    <p>date_arret_activite_Societe: {Societe.date_arret_activite_Societe.toString()}</p>
+                    <p>date_arret_activite_Societe: {Societe.date_arret_activite_Societe==null ? "" : Societe.date_arret_activite_Societe.toString()}</p>
                 </div>
             ))}
         </div>

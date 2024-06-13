@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 interface Mode_Conservation_Produits {
-    code_type_mode_conservation_produits: string
+    code_mode_conservation_produits: string
     libelle: string
 }
 
@@ -32,9 +32,9 @@ export default function Mode_Conservations_ProduitsPage() {
         <div>
             <h1>Mode Conservation Produits</h1>
             {Mode_Conservations_Produits.map(ModeConservationProduits => (
-                <div key={ModeConservationProduits.code_type_mode_conservation_produits}>
+                <div key={ModeConservationProduits.code_mode_conservation_produits}>
                     <h2>{ModeConservationProduits.libelle}</h2>
-                    <h2>{ModeConservationProduits.code_type_mode_conservation_produits}</h2>
+                    <h2>{ModeConservationProduits.code_mode_conservation_produits}</h2>
                 </div>
             ))}
         </div>

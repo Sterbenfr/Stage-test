@@ -13,7 +13,7 @@ export default function TypesActiviteSocietesPage() {
     useEffect(() => {
         const fetchTypesActiviteSociete = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/activite-societe',
+                'http://localhost:3000/api/type-activite-societe',
             )
 
             if (!res.ok) {

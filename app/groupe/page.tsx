@@ -38,10 +38,9 @@ export default function GroupesPage() {
                     <h2>
                         {Groupe.code_Groupe} : {Groupe.nom_du_Groupe}
                     </h2>
-                    <img src={URL.createObjectURL(Groupe.Logo)} alt="" />
                     <p>site_Web: {Groupe.site_Web}</p>
                     <p>commentaires: {Groupe.commentaires}</p>
-                    <p>date_arret_activite_du_Groupe: {Groupe.date_arret_activite_du_Groupe.toString()}</p>
+                    <p>date_arret_activite_du_Groupe: {Groupe.date_arret_activite_du_Groupe==null ? "" : Groupe.date_arret_activite_du_Groupe.toString()}</p>
                 </div>
             ))}
         </div>

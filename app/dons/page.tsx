@@ -59,7 +59,6 @@ export default function DonsPage() {
                     <p>date_debut_mise_disposition: {don.date_debut_mise_disposition.toString()}</p>
                     <p>date_fin_mise_disposition: {don.date_fin_mise_disposition.toString()}</p>
                     <p>commentaires: {don.commentaires}</p>
-                    <p>pieces_associees: {don.pieces_associees.toString()}</p>
                     <p>code_Utilisateur_saisie_don: {don.code_Utilisateur_saisie_don}</p>
                     <p>statut_acceptation_don: {don.statut_acceptation_don}</p>
                     <p>date_acceptation_refus_don: {don.date_acceptation_refus_don.toString()}</p>

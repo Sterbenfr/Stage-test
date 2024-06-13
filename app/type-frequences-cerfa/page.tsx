@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 interface Frequence_cerfa {
-    code_type_frequence_cerfa: string
+    code_frequence_cerfa: string
     libelle: string
 }
 
@@ -32,9 +32,9 @@ export default function Frequences_cerfaPage() {
         <div>
             <h1>Types Frequences Cerfa</h1>
             {Frequences_cerfa.map(TypesFrequences_cerfa => (
-                <div key={TypesFrequences_cerfa.code_type_frequence_cerfa}>
+                <div key={TypesFrequences_cerfa.code_frequence_cerfa}>
                     <h2>{TypesFrequences_cerfa.libelle}</h2>
-                    <h2>{TypesFrequences_cerfa.code_type_frequence_cerfa}</h2>
+                    <h2>{TypesFrequences_cerfa.code_frequence_cerfa}</h2>
                 </div>
             ))}
         </div>

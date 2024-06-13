@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 interface Produit {
-    code_type_Produit: string
+    code_type_produits: string
     libelle: string
 }
 
@@ -32,9 +32,9 @@ export default function ProduitsPage() {
         <div>
             <h1>Types Produits</h1>
             {Produits.map(TypesProduits => (
-                <div key={TypesProduits.code_type_Produit}>
+                <div key={TypesProduits.code_type_produits}>
                     <h2>{TypesProduits.libelle}</h2>
-                    <h2>{TypesProduits.code_type_Produit}</h2>
+                    <h2>{TypesProduits.code_type_produits}</h2>
                 </div>
             ))}
         </div>

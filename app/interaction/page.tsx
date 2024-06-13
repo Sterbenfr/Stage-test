@@ -18,7 +18,7 @@ export default function InteractionsPage() {
 
     useEffect(() => {
         const fetchInteractions = async () => {
-            const res = await fetch('http://localhost:3000/api/Interactions')
+            const res = await fetch('http://localhost:3000/api/interactions')
 
             if (!res.ok) {
                 console.log('Status:', res.status)

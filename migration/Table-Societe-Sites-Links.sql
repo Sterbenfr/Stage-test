@@ -15,8 +15,8 @@ INSERT INTO SuiviSociete (
     code_site_suivi,
     code_utilisateur_suivant
 ) VALUES 
-(1, 'ST001', 1, 101),
-(2, 'ST002', 2, 102),
-(3, 'ST003', 3, 103),
-(4, 'ST004', 4, 104),
-(5, 'ST005', 5, 105);
+(61, 'AN', 1, 1),
+(62, 'DR', 2, 2),
+(63, 'AD', 3, 3),
+(64, 'CD', 4, 4),
+(65, 'EO', 5, 5);

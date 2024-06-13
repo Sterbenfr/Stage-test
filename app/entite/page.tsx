@@ -32,7 +32,7 @@ export default function EntitesPage() {
 
     useEffect(() => {
         const fetchEntite = async () => {
-            const res = await fetch('http://localhost:3000/api/table-entite')
+            const res = await fetch('http://localhost:3000/api/entite')
 
             if (!res.ok) {
                 console.log('Status:', res.status)

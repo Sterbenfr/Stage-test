@@ -26,7 +26,7 @@ INSERT INTO Interactions (
     pieces_associees,
     date_relance
 ) VALUES 
-(301, 101, '2023-06-01', 'PRE', 'TEL', 201, 'Première interaction avec l\'entité 101', NULL, '2023-06-15'),
-(302, 102, '2023-06-02', 'PRE', 'TEL', 202, 'Deuxième interaction avec l\'entité 102', NULL, '2023-06-16'),
-(303, 103, '2023-06-03', 'REL', 'SMS', 203, 'Troisième interaction avec l\'entité 103', NULL, '2023-06-17'),
-(304, 104, '2023-06-04', 'PRE', 'MAI', 204, 'Quatrième interaction avec l\'entité 104', NULL, '2023-06-18');
+(1, 1, '2023-06-01', 'PRE', 'TEL', 1, "Première interaction avec l'entité 101", NULL, '2023-06-15'),
+(2, 2, '2023-06-02', 'PRE', 'TEL', 2, "Deuxième interaction avec l'entité 102", NULL, '2023-06-16'),
+(3, 3, '2023-06-03', 'REL', 'SMS', 3, "Troisième interaction avec l'entité 103", NULL, '2023-06-17'),
+(4, 4, '2023-06-04', 'PRE', 'MAI', 4, "Quatrième interaction avec l'entité 104", NULL, '2023-06-18');
