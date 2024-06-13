@@ -14,7 +14,7 @@ VALUES
 
 
 CREATE TABLE SiteTypes (
-    code_type_site CHAR(4) PRIMARY KEY,
+    code_type_site VARCHAR(4) NOT NULL PRIMARY KEY,
     libelle VARCHAR(50) NOT NULL
 );
 
@@ -210,7 +210,7 @@ CREATE TABLE Societe (
     commentaires VARCHAR(200),
     code_Groupe_appartenance INT,
     date_arret_activite_Societe DATE,
-    FOREIGN KEY (code_type_activite_Societe) REFERENCES TypeActiviteSociete(code);
+    FOREIGN KEY (code_type_activite_Societe) REFERENCES TypeActiviteSociete(code)
 );
 INSERT INTO Societe (
     raison_sociale,
@@ -276,11 +276,11 @@ INSERT INTO SitesRattachement (
     code_type_utilisateur,
     date_fin_activite
 ) VALUES 
-(101, 1, 'PR', NULL),
-(102, 2, 'AP', NULL),
-(103, 3, 'RR', NULL),
-(104, 4, 'RC', NULL),
-(105, 5, 'RR', NULL);
+(1, 1, 'PR', NULL),
+(2, 2, 'AP', NULL),
+(3, 3, 'RR', NULL),
+(4, 4, 'RC', NULL),
+(5, 5, 'RR', NULL);
 
 CREATE TABLE SuiviSociete (
     code_Societe INT,
@@ -289,7 +289,7 @@ CREATE TABLE SuiviSociete (
     code_utilisateur_suivant INT,
     PRIMARY KEY (code_Societe, code_type_de_Site),
     FOREIGN KEY (code_Societe) REFERENCES Societe(code_Societe),
-    FOREIGN KEY (code_type_de_Site) REFERENCES SiteTypes(code_type_Site),
+    FOREIGN KEY (code_type_de_Site) REFERENCES SiteTypes(code_type_site),
     FOREIGN KEY (code_site_suivi) REFERENCES Sites(code_site),
     FOREIGN KEY (code_utilisateur_suivant) REFERENCES Utilisateurs(code_utilisateur)
 );
@@ -299,17 +299,17 @@ INSERT INTO SuiviSociete (
     code_site_suivi,
     code_utilisateur_suivant
 ) VALUES 
-(61, 'AN', 1, 1),
-(62, 'DR', 2, 2),
-(63, 'AD', 3, 3),
-(64, 'CD', 4, 4),
-(65, 'EO', 5, 5);
+(1, 'AN', 1, 1),
+(2, 'DR', 2, 2),
+(3, 'AD', 3, 3),
+(4, 'CD', 4, 4),
+(5, 'EO', 5, 5);
 
 CREATE TABLE Prestataires (
     code_Prestataire INT PRIMARY KEY,
     code_type_de_Prestataire CHAR(4) NOT NULL,
     raison_sociale VARCHAR(30) NOT NULL,
-    nom_commercial VARCHAR(30) DEFAULT raison sociale,
+    nom_commercial VARCHAR(30),
     Siren CHAR(9),
     Siret CHAR(14),
     telephone VARCHAR(12),
@@ -342,11 +342,11 @@ INSERT INTO Prestataires (
     commentaires,
     date_arret_activite_du_prestataire
 ) VALUES 
-(401, 'TRA', 'Société Alpha', 'Société Alpha', '123456789', '12345678901234', '0123456789', 'contact@alpha.com', '123 Rue de Paris, 75001 Paris', 'M.', 'Dupont', 'Jean', '0123456789', 'jean.dupont@alpha.com', 'Premier prestataire', NULL),
-(402, 'TRA', 'Société Beta', 'Société Beta', '234567890', '23456789012345', '0234567890', 'contact@beta.com', '456 Avenue de Lyon, 69000 Lyon', 'Mme', 'Martin', 'Sophie', '0234567890', 'sophie.martin@beta.com', 'Deuxième prestataire', NULL),
-(403, 'TRA', 'Société Gamma', 'Société Gamma', '345678901', '34567890123456', '0345678901', 'contact@gamma.com', '789 Boulevard de Nice, 06000 Nice', 'M.', 'Durand', 'Pierre', '0345678901', 'pierre.durand@gamma.com', 'Troisième prestataire', NULL),
-(404, 'TRA', 'Société Delta', 'Société Delta', '456789012', '45678901234567', '0456789012', 'contact@delta.com', '101 Rue de Marseille, 13000 Marseille', 'Mme', 'Leroy', 'Claire', '0456789012', 'claire.leroy@delta.com', 'Quatrième prestataire', NULL),
-(405, 'TRA', 'Société Epsilon', 'Société Epsilon', '567890123', '56789012345678', '0567890123', 'contact@epsilon.com', '202 Place de Bordeaux, 33000 Bordeaux', 'M.', 'Moreau', 'Louis', '0567890123', 'louis.moreau@epsilon.com', 'Cinquième prestataire', NULL);
+(1, 'TRA', 'Société Alpha', 'Société Alpha', '123456789', '12345678901234', '0123456789', 'contact@alpha.com', '123 Rue de Paris, 75001 Paris', 'M.', 'Dupont', 'Jean', '0123456789', 'jean.dupont@alpha.com', 'Premier prestataire', NULL),
+(2, 'TRA', 'Société Beta', 'Société Beta', '234567890', '23456789012345', '0234567890', 'contact@beta.com', '456 Avenue de Lyon, 69000 Lyon', 'Mme', 'Martin', 'Sophie', '0234567890', 'sophie.martin@beta.com', 'Deuxième prestataire', NULL),
+(3, 'TRA', 'Société Gamma', 'Société Gamma', '345678901', '34567890123456', '0345678901', 'contact@gamma.com', '789 Boulevard de Nice, 06000 Nice', 'M.', 'Durand', 'Pierre', '0345678901', 'pierre.durand@gamma.com', 'Troisième prestataire', NULL),
+(4, 'TRA', 'Société Delta', 'Société Delta', '456789012', '45678901234567', '0456789012', 'contact@delta.com', '101 Rue de Marseille, 13000 Marseille', 'Mme', 'Leroy', 'Claire', '0456789012', 'claire.leroy@delta.com', 'Quatrième prestataire', NULL),
+(5, 'TRA', 'Société Epsilon', 'Société Epsilon', '567890123', '56789012345678', '0567890123', 'contact@epsilon.com', '202 Place de Bordeaux, 33000 Bordeaux', 'M.', 'Moreau', 'Louis', '0567890123', 'louis.moreau@epsilon.com', 'Cinquième prestataire', NULL);
 
 CREATE TABLE Groupe (
     code_Groupe INT PRIMARY KEY AUTO_INCREMENT, -- clé primaire
@@ -369,28 +369,6 @@ INSERT INTO Groupe (
 ('Groupe Delta', NULL, 'http://www.delta.com', 'Quatrième groupe', NULL),
 ('Groupe Epsilon', NULL, 'http://www.epsilon.com', 'Cinquième groupe', NULL);
 
-CREATE TABLE SuiviGroupe (
-    code_Groupe INT,
-    code_type_de_Site VARCHAR(4) NOT NULL,
-    code_site_suivi INT NOT NULL,
-    code_utilisateur_suivant INT,
-    PRIMARY KEY (code_Groupe, code_type_de_Site),
-    FOREIGN KEY (code_Groupe) REFERENCES Groupe(code_Groupe),
-    FOREIGN KEY (code_type_de_Site) REFERENCES SiteTypes(code_type_de_Site),
-    FOREIGN KEY (code_site_suivi) REFERENCES Sites(code_site),
-    FOREIGN KEY (code_utilisateur_suivant) REFERENCES Utilisateurs(code_utilisateur)
-);
-INSERT INTO SuiviGroupe (
-    code_Groupe,
-    code_type_de_Site,
-    code_site_suivi,
-    code_utilisateur_suivant
-) VALUES 
-(1, 'AN', 1, 1),
-(2, 'AD', 2, 2),
-(3, 'CD', 3, 3),
-(4, 'DR', 4, 4),
-(5, 'EO', 5, 5);
 
 CREATE TABLE Entite (
     code_entite INT(7) NOT NULL AUTO_INCREMENT,
@@ -478,65 +456,6 @@ INSERT INTO ContactEntite (
 (4, 'CD', 4, 4),
 (5, 'EO', 5, 5);
 
-CREATE TABLE Dons (
-    code_Don INT PRIMARY KEY,
-    code_Entite_donatrice INT,
-    date_proposition_don DATE NOT NULL,
-    code_contact_Entite_donatrice INT,
-    code_type_don CHAR(4) NOT NULL,
-    code_type_competences CHAR(4),
-    code_type_produits CHAR(4),
-    code_mode_conservation_produits CHAR(4),
-    date_debut_mise_disposition DATE,
-    date_fin_mise_disposition DATE,
-    commentaires VARCHAR(200),
-    pieces_associees BLOB,
-    code_Utilisateur_saisie_don INT NOT NULL,
-    statut_acceptation_don ENUM('V', 'R', 'B'),
-    date_acceptation_refus_don DATE,
-    type_date_acceptation_refus ENUM('A', 'R'),
-    code_Utilisateur_accepte_refuse_don INT,
-    code_site_beneficiaire_don INT,
-    indicateur_remerciement ENUM('O','N'),
-    date_remerciement DATE,
-    FOREIGN KEY (code_Entite_donatrice) REFERENCES Entite(code_Entite),
-    FOREIGN KEY (code_contact_Entite_donatrice) REFERENCES ContactEntite(code_contact_entite),
-    FOREIGN KEY (code_type_don) REFERENCES TypesDons(code_type_don),
-    FOREIGN KEY (code_type_competences) REFERENCES TypesCompetences(code_type_competence),
-    FOREIGN KEY (code_type_produits) REFERENCES TypesProduits(code_type_produits),
-    FOREIGN KEY (code_mode_conservation_produits) REFERENCES ModeConservationProduits(code_mode_conservation_produits),
-    FOREIGN KEY (code_Utilisateur_saisie_don) REFERENCES Utilisateurs(code_utilisateur),
-    FOREIGN KEY (code_Utilisateur_accepte_refuse_don) REFERENCES Utilisateurs(code_utilisateur),
-    FOREIGN KEY (code_site_beneficiaire_don) REFERENCES Sites(code_site)
-);
-INSERT INTO Dons (
-    code_Don,
-    code_Entite_donatrice,
-    date_proposition_don,
-    code_contact_Entite_donatrice,
-    code_type_don,
-    code_type_competences,
-    code_type_produits,
-    code_mode_conservation_produits,
-    date_debut_mise_disposition,
-    date_fin_mise_disposition,
-    commentaires,
-    pieces_associees,
-    code_Utilisateur_saisie_don,
-    statut_acceptation_don,
-    date_acceptation_refus_don,
-    type_date_acceptation_refus,
-    code_Utilisateur_accepte_refuse_don,
-    code_site_beneficiaire_don,
-    indicateur_remerciement,
-    date_remerciement
-) VALUES 
-(1, 1, '2023-01-01', 1, 'MAR', NULL, 'ALI', 'AMB', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 1, 'Valide', '2023-01-15', 'A', 1, 1,'N',NULL),
-(2, 2, '2023-02-01', 2, 'FIN', NULL, 'VET', NULL, '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 2, 'Valide', '2023-02-15', 'A', 2, 2,'O','2023-06-25'),
-(3, 3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'Refuse', '2023-03-15', 'R', 3, 3,'N',NULL),
-(4, 4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'Valide', '2023-04-15', 'A', 4, 4,'O','2023-07-08'),
-(5, 5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'Refuse', '2023-05-15', 'R', 5, 5,'N',NULL);
-
 CREATE TABLE Contacts (
     code_entite INT(7) NOT NULL,
     code_contact INT(3) NOT NULL AUTO_INCREMENT,
@@ -574,38 +493,7 @@ INSERT INTO Contacts (
 (4, 'Mme', 'Leroy', 'Claire', NULL, 'Assistante', 'Ressources Humaines', '01 23 45 67 92', '06 12 34 56 81', 'claire.leroy@example.com', 'Quatrième contact', NULL),
 (5, 'M.', 'Moreau', 'Louis', NULL, 'Chef de projet', 'Marketing', '01 23 45 67 93', '06 12 34 56 82', 'louis.moreau@example.com', 'Cinquième contact', NULL);
 
-CREATE TABLE Cerfa (
-    numero_Cerfa INT PRIMARY KEY,
-    code_Don INT,
-    montant_HT_Cerfa DECIMAL(10, 2),
-    date_realisation_Cerfa DATE,
-    date_envoi_Cerfa DATE,
-    addresse_Cerfa VARCHAR(255),
-    civilite_destinataire_Cerfa CHAR(3),
-    nom_destinataire_Cerfa VARCHAR(20),
-    prenom_destinataire_Cerfa VARCHAR(20),
-    telephone_destinataire_Cerfa VARCHAR(12),
-    mail_destinataire_Cerfa VARCHAR(255),
-    FOREIGN KEY (code_Don) REFERENCES Dons(code_Don)
-);
-INSERT INTO Cerfa (
-    numero_Cerfa,
-    code_Don,
-    montant_HT_Cerfa,
-    date_realisation_Cerfa,
-    date_envoi_Cerfa,
-    addresse_Cerfa,
-    civilite_destinataire_Cerfa,
-    nom_destinataire_Cerfa,
-    prenom_destinataire_Cerfa,
-    telephone_destinataire_Cerfa,
-    mail_destinataire_Cerfa
-) VALUES 
-(1, 1, 1500.00, '2023-01-10', '2023-01-15', '123 Main St', 'Mr.', 'Smith', 'John', '1234567890', 'john.smith@example.com'),
-(2, 2, 2500.50, '2023-02-20', '2023-02-25', '456 Oak Ave', 'Ms.', 'Johnson', 'Jane', '0987654321', 'jane.johnson@example.com'),
-(3, 3, 3200.75, '2023-03-05', '2023-03-10', '789 Pine Ln', 'Dr.', 'Williams', 'Robert', '1122334455', 'robert.williams@example.com'),
-(4, 4, 4500.00, '2023-04-15', '2023-04-20', '321 Elm Dr', 'Mrs.', 'Brown', 'Emily', '2233445566', 'emily.brown@example.com'),
-(5, 5, 1200.20, '2023-05-25', '2023-05-30', '654 Maple Ct', 'Mr.', 'Davis', 'James', '3344556677', 'james.davis@example.com');
+
 
 CREATE TABLE AffectationDonateursProspecteurs (
     code_Utilisateur_Prospecteur INT,
@@ -634,7 +522,7 @@ CREATE TABLE Interactions (
     code_Utilisateur_Prospecteur INT,
     code_Entite_Prospectee INT,
     date_interaction DATE,
-    code_type_interaction CHAR(4),
+    code_type_interactions CHAR(4),
     code_modalite_interaction CHAR(4),
     code_contact_entite INT,
     commentaires VARCHAR(200),
@@ -643,7 +531,7 @@ CREATE TABLE Interactions (
     PRIMARY KEY (code_Utilisateur_Prospecteur, code_Entite_Prospectee, date_interaction),
     FOREIGN KEY (code_Utilisateur_Prospecteur) REFERENCES Utilisateurs(code_utilisateur),
     FOREIGN KEY (code_Entite_Prospectee) REFERENCES Entite(code_Entite),
-    FOREIGN KEY (code_type_interaction) REFERENCES TypeInteractions(code_type_interaction),
+    FOREIGN KEY (code_type_interactions) REFERENCES TypeInteractions(code_type_interaction),
     FOREIGN KEY (code_modalite_interaction) REFERENCES ModaliteInteractions(code_modalite_interaction),
     FOREIGN KEY (code_contact_entite) REFERENCES ContactEntite(code_utilisateur_suivant)
 );
@@ -651,7 +539,7 @@ INSERT INTO Interactions (
     code_Utilisateur_Prospecteur,
     code_Entite_Prospectee,
     date_interaction,
-    code_type_interaction,
+    code_type_interactions,
     code_modalite_interaction,
     code_contact_entite,
     commentaires,
@@ -662,6 +550,121 @@ INSERT INTO Interactions (
 (2, 2, '2023-06-02', 'PRE', 'TEL', 2, "Deuxième interaction avec l'entité 102", NULL, '2023-06-16'),
 (3, 3, '2023-06-03', 'REL', 'SMS', 3, "Troisième interaction avec l'entité 103", NULL, '2023-06-17'),
 (4, 4, '2023-06-04', 'PRE', 'MAI', 4, "Quatrième interaction avec l'entité 104", NULL, '2023-06-18');
+
+CREATE TABLE SuiviGroupe (
+    code_Groupe INT,
+    code_type_de_Site CHAR(4) NOT NULL,
+    code_site_suivi INT NOT NULL,
+    code_utilisateur_suivant INT,
+    PRIMARY KEY (code_Groupe, code_type_de_Site),
+    FOREIGN KEY (code_Groupe) REFERENCES Groupe(code_Groupe),
+    FOREIGN KEY (code_type_de_Site) REFERENCES SiteTypes(code_type_site),
+    FOREIGN KEY (code_site_suivi) REFERENCES Sites(code_site),
+    FOREIGN KEY (code_utilisateur_suivant) REFERENCES Utilisateurs(code_utilisateur)
+);
+INSERT INTO SuiviGroupe (
+    code_Groupe,
+    code_type_de_Site,
+    code_site_suivi,
+    code_utilisateur_suivant
+) VALUES 
+(1, 'AN', 1, 1),
+(2, 'AD', 2, 2),
+(3, 'CD', 3, 3),
+(4, 'DR', 4, 4),
+(5, 'EO', 5, 5);
+
+CREATE TABLE Dons (
+    code_Don INT PRIMARY KEY,
+    code_Entite_donatrice INT,
+    date_proposition_don DATE NOT NULL,
+    code_contact_Entite_donatrice INT(6),
+    code_type_don CHAR(4) NOT NULL,
+    code_type_competences CHAR(4),
+    code_type_produits CHAR(4),
+    code_mode_conservation_produits CHAR(4),
+    date_debut_mise_disposition DATE,
+    date_fin_mise_disposition DATE,
+    commentaires VARCHAR(200),
+    pieces_associees BLOB,
+    code_Utilisateur_saisie_don INT NOT NULL,
+    statut_acceptation_don ENUM('V', 'R', 'B'),
+    date_acceptation_refus_don DATE,
+    type_date_acceptation_refus ENUM('A', 'R'),
+    code_Utilisateur_accepte_refuse_don INT,
+    code_site_beneficiaire_don INT,
+    indicateur_remerciement ENUM('O','N'),
+    date_remerciement DATE,
+    FOREIGN KEY (code_Entite_donatrice) REFERENCES Entite(code_Entite),
+    FOREIGN KEY (code_contact_Entite_donatrice) REFERENCES ContactEntite(code_utilisateur_suivant),
+    FOREIGN KEY (code_type_don) REFERENCES TypesDons(code_type_don),
+    FOREIGN KEY (code_type_competences) REFERENCES TypesCompetences(code_type_competence),
+    FOREIGN KEY (code_type_produits) REFERENCES TypesProduits(code_type_produits),
+    FOREIGN KEY (code_mode_conservation_produits) REFERENCES ModeConservationProduits(code_mode_conservation_produits),
+    FOREIGN KEY (code_Utilisateur_saisie_don) REFERENCES Utilisateurs(code_utilisateur),
+    FOREIGN KEY (code_Utilisateur_accepte_refuse_don) REFERENCES Utilisateurs(code_utilisateur),
+    FOREIGN KEY (code_site_beneficiaire_don) REFERENCES Sites(code_site)
+);
+INSERT INTO Dons (
+    code_Don,
+    code_Entite_donatrice,
+    date_proposition_don,
+    code_contact_Entite_donatrice,
+    code_type_don,
+    code_type_competences,
+    code_type_produits,
+    code_mode_conservation_produits,
+    date_debut_mise_disposition,
+    date_fin_mise_disposition,
+    commentaires,
+    pieces_associees,
+    code_Utilisateur_saisie_don,
+    statut_acceptation_don,
+    date_acceptation_refus_don,
+    type_date_acceptation_refus,
+    code_Utilisateur_accepte_refuse_don,
+    code_site_beneficiaire_don,
+    indicateur_remerciement,
+    date_remerciement
+) VALUES 
+(1, 1, '2023-01-01', 1, 'MAR', NULL, 'ALI', 'AMB', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 1, 'V', '2023-01-15', 'A', 1, 1,'N',NULL),
+(2, 2, '2023-02-01', 2, 'FIN', NULL, 'VET', NULL, '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 2, 'V', '2023-02-15', 'A', 2, 2,'O','2023-06-25'),
+(3, 3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'R', '2023-03-15', 'R', 3, 3,'N',NULL),
+(4, 4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'V', '2023-04-15', 'A', 4, 4,'O','2023-07-08'),
+(5, 5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'R', '2023-05-15', 'R', 5, 5,'N',NULL);
+
+CREATE TABLE Cerfa (
+    numero_Cerfa INT PRIMARY KEY,
+    code_Don INT,
+    montant_HT_Cerfa DECIMAL(10, 2),
+    date_realisation_Cerfa DATE,
+    date_envoi_Cerfa DATE,
+    addresse_Cerfa VARCHAR(255),
+    civilite_destinataire_Cerfa CHAR(4),
+    nom_destinataire_Cerfa VARCHAR(20),
+    prenom_destinataire_Cerfa VARCHAR(20),
+    telephone_destinataire_Cerfa VARCHAR(12),
+    mail_destinataire_Cerfa VARCHAR(255),
+    FOREIGN KEY (code_Don) REFERENCES Dons(code_Don)
+);
+INSERT INTO Cerfa (
+    numero_Cerfa,
+    code_Don,
+    montant_HT_Cerfa,
+    date_realisation_Cerfa,
+    date_envoi_Cerfa,
+    addresse_Cerfa,
+    civilite_destinataire_Cerfa,
+    nom_destinataire_Cerfa,
+    prenom_destinataire_Cerfa,
+    telephone_destinataire_Cerfa,
+    mail_destinataire_Cerfa
+) VALUES 
+(1, 1, 1500.00, '2023-01-10', '2023-01-15', '123 Main St', 'Mr.', 'Smith', 'John', '1234567890', 'john.smith@example.com'),
+(2, 2, 2500.50, '2023-02-20', '2023-02-25', '456 Oak Ave', 'Ms.', 'Johnson', 'Jane', '0987654321', 'jane.johnson@example.com'),
+(3, 3, 3200.75, '2023-03-05', '2023-03-10', '789 Pine Ln', 'Dr.', 'Williams', 'Robert', '1122334455', 'robert.williams@example.com'),
+(4, 4, 4500.00, '2023-04-15', '2023-04-20', '321 Elm Dr', 'Mrs.', 'Brown', 'Emily', '2233445566', 'emily.brown@example.com'),
+(5, 5, 1200.20, '2023-05-25', '2023-05-30', '654 Maple Ct', 'Mr.', 'Davis', 'James', '3344556677', 'james.davis@example.com');
 
 CREATE TABLE ModalitesLivraison (
     numero_livraison INT PRIMARY KEY,
@@ -694,7 +697,7 @@ CREATE TABLE ModalitesLivraison (
     FOREIGN KEY (code_type_livraison) REFERENCES TypeLivraison(code_type_livraison),
     FOREIGN KEY (code_Prestataire_transporteur) REFERENCES Prestataires(code_Prestataire)
 );
-INSERT INTO BonLivraison (
+INSERT INTO ModalitesLivraison (
     numero_livraison,
     code_Don,
     code_type_livraison,
@@ -722,16 +725,16 @@ INSERT INTO BonLivraison (
     commentaires,
     pieces_associees
 ) VALUES 
-(1, 1, 'EXP', '2024-06-15', '14:00:00', "123 Rue de l'Enlèvement, Paris", 'M.', 'Dupont', 'Jean', '0123456789', 'jean.dupont@example.com', 401, '456 Rue de la Livraison, Lyon', 'Mme', 'Martin', 'Marie', '0987654321', 'marie.martin@example.com', 5, 5, 50, 1000, 'O', 4, 'Livraison urgente', NULL),
-(2, 2, 'IMP', '2024-06-16', '09:00:00', "789 Rue de l'Enlèvement, Marseille", 'Mme', 'Durand', 'Sophie', '0234567890', 'sophie.durand@example.com', 402, '321 Rue de la Livraison, Lille', 'M.', 'Bernard', 'Pierre', '0876543210', 'pierre.bernard@example.com', 3, 3, 30, 600, 'N', 2, 'Livraison standard', NULL),
-(3, 3, 'RET', '2024-06-17', '16:00:00', "456 Rue de l'Enlèvement, Nice", 'M.', 'Moreau', 'Luc', '0345678901', 'luc.moreau@example.com', 403, '654 Rue de la Livraison, Bordeaux', 'Mme', 'Lefevre', 'Claire', '0765432109', 'claire.lefevre@example.com', 7, 7, 70, 1400, 'O', 5, 'Livraison avec retour', NULL),
-(4, 4, 'EXP', '2024-06-18', '11:00:00', "123 Rue de l'Enlèvement, Toulouse", 'Mme', 'Fabre', 'Julie', '0456789012', 'julie.fabre@example.com', 404, '987 Rue de la Livraison, Strasbourg', 'M.', 'Roux', 'Paul', '0654321098', 'paul.roux@example.com', 4, 4, 40, 800, 'N', 3, 'Livraison express', NULL),
-(5, 5, 'IMP', '2024-06-19', '13:00:00', "789 Rue de l'Enlèvement, Nantes", 'M.', 'Garnier', 'Antoine', '0567890123', 'antoine.garnier@example.com', 405, '321 Rue de la Livraison, Montpellier', 'Mme', 'Perrin', 'Lucie', '0543210987', 'lucie.perrin@example.com', 2, 2, 20, 400, 'O', 1, 'Livraison internationale', NULL);
+(1, 1, 'DON', '2024-06-15', '14:00:00', "123 Rue de l'Enlèvement, Paris", 'M.', 'Dupont', 'Jean', '0123456789', 'jean.dupont@example.com', 1, '456 Rue de la Livraison, Lyon', 'Mme', 'Martin', 'Marie', '0987654321', 'marie.martin@example.com', 5, 5, 50, 1000, 'O', 4, 'Livraison urgente', NULL),
+(2, 2, 'RES', '2024-06-16', '09:00:00', "789 Rue de l'Enlèvement, Marseille", 'Mme', 'Durand', 'Sophie', '0234567890', 'sophie.durand@example.com', 2, '321 Rue de la Livraison, Lille', 'M.', 'Bernard', 'Pierre', '0876543210', 'pierre.bernard@example.com', 3, 3, 30, 600, 'N', 2, 'Livraison standard', NULL),
+(3, 3, 'TRA', '2024-06-17', '16:00:00', "456 Rue de l'Enlèvement, Nice", 'M.', 'Moreau', 'Luc', '0345678901', 'luc.moreau@example.com', 3, '654 Rue de la Livraison, Bordeaux', 'Mme', 'Lefevre', 'Claire', '0765432109', 'claire.lefevre@example.com', 7, 7, 70, 1400, 'O', 5, 'Livraison avec retour', NULL),
+(4, 4, 'DON', '2024-06-18', '11:00:00', "123 Rue de l'Enlèvement, Toulouse", 'Mme', 'Fabre', 'Julie', '0456789012', 'julie.fabre@example.com', 4, '987 Rue de la Livraison, Strasbourg', 'M.', 'Roux', 'Paul', '0654321098', 'paul.roux@example.com', 4, 4, 40, 800, 'N', 3, 'Livraison express', NULL),
+(5, 5, 'RES', '2024-06-19', '13:00:00', "789 Rue de l'Enlèvement, Nantes", 'M.', 'Garnier', 'Antoine', '0567890123', 'antoine.garnier@example.com', 5, '321 Rue de la Livraison, Montpellier', 'Mme', 'Perrin', 'Lucie', '0543210987', 'lucie.perrin@example.com', 2, 2, 20, 400, 'O', 1, 'Livraison internationale', NULL);
 
 CREATE TABLE Reception (
     numero_reception INT PRIMARY KEY,
     code_Don INT,
-    numero_BL INT,
+    numero_livraison INT,
     date_reception DATE,
     heure_reception TIME,
     nombre_palettes_recues INT,
@@ -743,12 +746,12 @@ CREATE TABLE Reception (
     commentaires VARCHAR(200),
     pieces_associees BLOB,
     FOREIGN KEY (code_Don) REFERENCES Dons(code_Don),
-    FOREIGN KEY (numero_livraion) REFERENCES ModalitesLivraison(numero_livraison)
+    FOREIGN KEY (numero_livraison) REFERENCES ModalitesLivraison(numero_livraison)
 );
 INSERT INTO Reception (
     numero_reception,
     code_Don,
-    numero_BL,
+    numero_livraison,
     date_reception,
     heure_reception,
     nombre_palettes_recues,
