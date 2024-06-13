@@ -12,11 +12,13 @@ CREATE TABLE Dons (
     commentaires VARCHAR(200),
     pieces_associees BLOB,
     code_Utilisateur_saisie_don INT NOT NULL,
-    statut_acceptation_don ENUM('Valide', 'Refuse'),
+    statut_acceptation_don ENUM('V', 'R', 'B'),
     date_acceptation_refus_don DATE,
     type_date_acceptation_refus ENUM('A', 'R'),
     code_Utilisateur_accepte_refuse_don INT,
     code_site_beneficiaire_don INT,
+    indicateur_remerciement ENUM('O','N'),
+    date_remerciement DATE,
     FOREIGN KEY (code_Entite_donatrice) REFERENCES Entite(code_Entite),
     FOREIGN KEY (code_contact_Entite_donatrice) REFERENCES ContactEntite(code_contact_entite),
     FOREIGN KEY (code_type_don) REFERENCES TypesDons(code_type_don),
@@ -45,10 +47,12 @@ INSERT INTO Dons (
     date_acceptation_refus_don,
     type_date_acceptation_refus,
     code_Utilisateur_accepte_refuse_don,
-    code_site_beneficiaire_don
+    code_site_beneficiaire_don,
+    indicateur_remerciement,
+    date_remerciement
 ) VALUES 
-(1, 1, '2023-01-01', 1, 'MAR', NULL, 'ALI', 'AMB', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 1, 'Valide', '2023-01-15', 'A', 1, 1),
-(2, 2, '2023-02-01', 2, 'FIN', NULL, 'VET', NULL, '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 2, 'Valide', '2023-02-15', 'A', 2, 2),
-(3, 3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'Refuse', '2023-03-15', 'R', 3, 3),
-(4, 4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'Valide', '2023-04-15', 'A', 4, 4),
-(5, 5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'Refuse', '2023-05-15', 'R', 5, 5);
+(1, 1, '2023-01-01', 1, 'MAR', NULL, 'ALI', 'AMB', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 1, 'Valide', '2023-01-15', 'A', 1, 1,'N',NULL),
+(2, 2, '2023-02-01', 2, 'FIN', NULL, 'VET', NULL, '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 2, 'Valide', '2023-02-15', 'A', 2, 2,'O','2023-06-25'),
+(3, 3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'Refuse', '2023-03-15', 'R', 3, 3,'N',NULL),
+(4, 4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'Valide', '2023-04-15', 'A', 4, 4,'O','2023-07-08'),
+(5, 5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'Refuse', '2023-05-15', 'R', 5, 5,'N',NULL);

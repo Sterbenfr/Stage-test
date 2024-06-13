@@ -7,6 +7,12 @@ interface Cerfa {
     montant_HT_Cerfa: number
     date_realisation_Cerfa: Date
     date_envoi_Cerfa: Date
+    addresse_Cerfa: string
+    civilite_destinataire_Cerfa: string
+    nom_destinataire_Cerfa: string
+    prenom_destinataire_Cerfa: string
+    telephone_destinataire_Cerfa: string
+    mail_destinataire_Cerfa: string
 }
 
 export default function CerfaPage() {
@@ -39,6 +45,12 @@ export default function CerfaPage() {
                     </h2>
                     <p>date_realisation_Cerfa: {cerfa.date_realisation_Cerfa.toString()}</p>
                     <p>date_envoi_Cerfa: {cerfa.date_envoi_Cerfa.toString()}</p>
+                    <p>addresse_Cerfa: {cerfa.addresse_Cerfa}</p>
+                    <p>civilite_destinataire_Cerfa: {cerfa.civilite_destinataire_Cerfa}</p>
+                    <p>nom_destinataire_Cerfa: {cerfa.nom_destinataire_Cerfa}</p>
+                    <p>prenom_destinataire_Cerfa: {cerfa.prenom_destinataire_Cerfa}</p>
+                    <p>telephone_destinataire_Cerfa: {cerfa.telephone_destinataire_Cerfa}</p>
+                    <p>mail_destinataire_Cerfa: {cerfa.mail_destinataire_Cerfa}</p>
                 </div>
             ))}
         </div>

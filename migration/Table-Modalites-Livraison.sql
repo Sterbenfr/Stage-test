@@ -1,5 +1,5 @@
-CREATE TABLE BonLivraison (
-    numero_BL INT PRIMARY KEY,
+CREATE TABLE ModalitesLivraison (
+    numero_livraison INT PRIMARY KEY,
     code_Don INT,
     code_type_livraison CHAR(3),
     date_prevue_livraison DATE,
@@ -30,7 +30,7 @@ CREATE TABLE BonLivraison (
     FOREIGN KEY (code_Prestataire_transporteur) REFERENCES Prestataires(code_Prestataire)
 );
 INSERT INTO BonLivraison (
-    numero_BL,
+    numero_livraison,
     code_Don,
     code_type_livraison,
     date_prevue_livraison,
