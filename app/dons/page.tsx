@@ -20,6 +20,8 @@ interface Don {
     type_date_acceptation_refus: string
     code_Utilisateur_accepte_refuse_don: number
     code_site_beneficiaire_don: number
+    indicateur_remerciement: string
+    date_remerciement: Date
 }
 
 export default function DonsPage() {
@@ -65,6 +67,8 @@ export default function DonsPage() {
                     <p>type_date_acceptation_refus: {don.type_date_acceptation_refus}</p>
                     <p>code_Utilisateur_accepte_refuse_don: {don.code_Utilisateur_accepte_refuse_don}</p>
                     <p>code_site_beneficiaire_don: {don.code_site_beneficiaire_don}</p>
+                    <p>indicateur_remerciement: {don.indicateur_remerciement}</p>
+                    <p>date_remerciement: {don.date_remerciement==null ? "" : don.date_remerciement.toString()}</p>
                 </div>
             ))}
         </div>

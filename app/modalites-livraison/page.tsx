@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 interface BonLivraison {
-    numero_BL: number
+    numero_livraison: number
     code_Don: number
     code_type_livraison: string
     date_prevue_livraison: Date
@@ -53,7 +53,7 @@ export default function BonLivraisonPage() {
         <div>
             <h1>Bon Livraison</h1>
             {BonLivraison.map(TypeBonLivraion => (
-                <div key={TypeBonLivraion.numero_BL}>
+                <div key={TypeBonLivraion.numero_livraison}>
                     <h2>{TypeBonLivraion.code_Don}</h2>
                     <h2>{TypeBonLivraion.code_type_livraison}</h2>
                     <h2>{TypeBonLivraion.date_prevue_livraison.toString()}</h2>

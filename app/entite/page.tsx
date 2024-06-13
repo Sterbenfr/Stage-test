@@ -9,6 +9,7 @@ interface Entite {
     siret : string
     code_ape : string
     code_rna : string
+    code_cee: string
     code_societe_appartenance : number
     adresse : string
     telephone : string
@@ -56,23 +57,24 @@ export default function EntitesPage() {
                     <p>Code Entité: {Entite.raison_sociale}</p>
                     <p>Commentaires: {Entite.nom_commercial}</p>
                     <img src="{Entite.logo}" alt="logo"/>
-                    <p>Date Arrêt Affectation: {Entite.code_ape}</p>
-                    <p>Date Arrêt Affectation: {Entite.code_rna}</p>
-                    <p>Date Arrêt Affectation: {Entite.code_societe_appartenance}</p>
-                    <p>Date Arrêt Affectation: {Entite.adresse}</p>
-                    <p>Date Arrêt Affectation: {Entite.telephone}</p>
-                    <p>Date Arrêt Affectation: {Entite.mail}</p>
-                    <p>Date Arrêt Affectation: {Entite.site_internet}</p>
-                    <p>Date Arrêt Affectation: {Entite.commentaires}</p>
-                    <p>Date Arrêt Affectation: {Entite.code_type_entite}</p>
-                    <p>Date Arrêt Affectation: {Entite.code_type_produit}</p>
-                    <p>Date Arrêt Affectation: {Entite.code_type_competence}</p>
-                    <p>Date Arrêt Affectation: {Entite.commentaires_logistique}</p>
-                    <p>Date Arrêt Affectation: {Entite.presence_quai}</p>
+                    <p>Code APE: {Entite.code_ape}</p>
+                    <p>Code RNA: {Entite.code_rna}</p>
+                    <p>Code CEE: {Entite.code_cee}</p>
+                    <p>code_societe_appartenance: {Entite.code_societe_appartenance}</p>
+                    <p>adresse: {Entite.adresse}</p>
+                    <p>telephone: {Entite.telephone}</p>
+                    <p>mail: {Entite.mail}</p>
+                    <p>site_internet: {Entite.site_internet}</p>
+                    <p>commentaires: {Entite.commentaires}</p>
+                    <p>code_type_entite: {Entite.code_type_entite}</p>
+                    <p>code_type_produit: {Entite.code_type_produit}</p>
+                    <p>code_type_competence: {Entite.code_type_competence}</p>
+                    <p>commentaires_logistique: {Entite.commentaires_logistique}</p>
+                    <p>presence_quai: {Entite.presence_quai}</p>
                     <img src="{Entite.pieces_associees}" alt="pieces_associees"/>
-                    <p>Date Arrêt Affectation: {Entite.cerfa}</p>
-                    <p>Date Arrêt Affectation: {Entite.code_frequence_cerfa}</p>
-                    <p>Date Arrêt Affectation: {Entite.date_arret_activite}</p>
+                    <p>cerfa: {Entite.cerfa}</p>
+                    <p>code_frequence_cerfa: {Entite.code_frequence_cerfa}</p>
+                    <p>date_arret_activite: {Entite.date_arret_activite}</p>
                 </div>
             ))}
         </div>
