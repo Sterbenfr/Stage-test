@@ -1,0 +1,22 @@
+.line {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.functionBlock {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.btnFunctionBlock {
+    border-radius: 20%;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.list {
+}
