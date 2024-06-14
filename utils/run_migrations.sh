@@ -1,9 +1,9 @@
 #!/bin/bash
 
-DATABASE_NAME=stage
-USERNAME=root
-PASSWORD=Azerty1!
-HOST=172.29.240.1
+DATABASE_NAME=${DATABASE_NAME:-stage}
+USERNAME=${USERNAME:-root}
+PASSWORD=${PASSWORD:-Azerty1!}
+HOST=${HOST:-172.29.240.1}
 
 for file in ../migration/Runable.sql
 do
