@@ -46,12 +46,12 @@ export default function PrestatairesPage() {
             <h1>Préstataires</h1>
             <List
                 items={prestataires.map(prestataire => ({
-                    value1: prestataire.raison_sociale.toString(),
-                    value2: prestataire.Siren.toString(),
-                    value3: prestataire.Siret.toString(),
-                    value4: prestataire.telephone.toString(),
-                    value5: prestataire.mail.toString(),
-                    value6: prestataire.commentaires.toString(),
+                    value1: prestataire.code_Prestataire.toString(),
+                    value2: prestataire.raison_sociale.toString(),
+                    value3: prestataire.telephone.toString(),
+                    value4: prestataire.mail.toString(),
+                    value5: prestataire.telephone_contact_prestataire.toString(),
+                    value6: prestataire.mail_contact_prestataire.toString(),
                 }))}
             />
         </div>

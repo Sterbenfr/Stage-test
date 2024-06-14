@@ -57,7 +57,7 @@ export default function EntitesPage() {
                 value2: entite.raison_sociale,
                 value3: entite.telephone,
                 value4: entite.mail,
-                value5: entite.site_internet,
+                value5: entite.adresse,
                 value6: entite.date_arret_activite==null ? "" : entite.date_arret_activite.toString().split("T")[0]
             }))} />
         </div>

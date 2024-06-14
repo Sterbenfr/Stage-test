@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
-import pool from '../../../../../utils/db'
+import pool from '../../../../utils/db'
 
 export async function GET() {
     try {
-        const [rows] = await pool.query('SELECT * FROM `Contacts` LIMIT 1000')
+        const [rows] = await pool.query('SELECT * FROM `SuiviSociete` LIMIT 1000')
         return NextResponse.json(rows)
     } catch (err) {
         console.log(err)

@@ -11,7 +11,7 @@ export default function DonsPage() {
 
     useEffect(() => {
         const fetchDons = async () => {
-            const res = await fetch('http://localhost:3000/api/type-don')
+            const res = await fetch('http://localhost:3000/api/dons/type-don')
 
             if (!res.ok) {
                 console.log('Status:', res.status)

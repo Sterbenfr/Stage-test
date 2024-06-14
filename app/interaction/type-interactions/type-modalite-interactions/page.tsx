@@ -12,7 +12,7 @@ export default function Modalites_InteractionsPage() {
     useEffect(() => {
         const fetchModalites_Interactions = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type-modalite-interactions',
+                'http://localhost:3000/api/interactions/type-modalite-interactions',
             )
 
             if (!res.ok) {

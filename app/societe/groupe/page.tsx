@@ -38,7 +38,8 @@ export default function GroupesPage() {
                 value1: groupe.code_Groupe.toString(),
                 value2: groupe.nom_du_Groupe,
                 value3: groupe.site_Web,
-                value4: groupe.date_arret_activite_du_Groupe==null ? "" : groupe.date_arret_activite_du_Groupe.toString().split("T")[0]
+                value4: groupe.commentaires,
+                value5: groupe.date_arret_activite_du_Groupe==null ? "" : groupe.date_arret_activite_du_Groupe.toString().split("T")[0]
             }))} />
         </div>
     )
