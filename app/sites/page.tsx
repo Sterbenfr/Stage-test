@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '@/components/list'
 
 interface Sites {
     code_site: number
@@ -35,22 +36,14 @@ export default function SitesPage() {
     }, [])
 
     return (
-        <div>
-            <h1>Sites</h1>
-            {Sites.map(TypeSites => (
-                <div key={TypeSites.code_site}>
-                    <h2>{TypeSites.code_site}</h2>
-                    <p>{TypeSites.designation_longue}</p>
-                    <p>{TypeSites.designation_courte}</p>
-                    <p>{TypeSites.adresse}</p>
-                    <p>{TypeSites.code_type_site}</p>
-                    <p>{TypeSites.date_ouverture.toString()}</p>
-                    <p>{TypeSites.date_fermeture==null ? "": TypeSites.date_fermeture.toString()}</p>
-                    <p>{TypeSites.numero_telephone}</p>
-                    <p>{TypeSites.adresse_mail}</p>
-                    <p>{TypeSites.commentaire}</p>
-                </div>
-            ))}
-        </div>
+        <List
+            items={Sites.map(Sites => ({
+                value1: Sites.designation_longue.toString(),
+                value2: Sites.adresse.toString(),
+                value3: Sites.date_ouverture.toString().split('T')[0],
+                value4: Sites.numero_telephone.toString(),
+                value5: Sites.adresse_mail.toString(),
+            }))}
+        />
     )
 }
