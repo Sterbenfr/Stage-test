@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '@/components/list'
 
 interface Interactions {
     code_Utilisateur_Prospecteur: number
@@ -34,21 +35,13 @@ export default function InteractionsPage() {
     }, [])
 
     return (
-        <div>
-            <h1>Interactions</h1>
-            {Interactions.map(TypeInteractions => (
-                <div key={TypeInteractions.code_Utilisateur_Prospecteur}>
-                    <h2>{TypeInteractions.code_Utilisateur_Prospecteur}</h2>
-                    <p>{TypeInteractions.code_Entite_Prospectee}</p>
-                    <p>{TypeInteractions.date_interaction.toString()}</p>
-                    <p>{TypeInteractions.code_type_interaction}</p>
-                    <p>{TypeInteractions.code_modalite_interaction}</p>
-                    <p>{TypeInteractions.code_contact_entite}</p>
-                    <p>{TypeInteractions.commentaires}</p>
-                    <img src='TypeInteractions.pieces_associees' alt='' />
-                    <p>{TypeInteractions.date_relance.toString()}</p>
-                </div>
-            ))}
-        </div>
+        <List
+            items={Interactions.map(Interactions => ({
+                value1: Interactions.code_Entite_Prospectee.toString(),
+                value2: Interactions.date_interaction.toString().split('T')[0],
+                value3: Interactions.code_contact_entite.toString(),
+                value4: Interactions.date_relance.toString().split('T')[0],
+            }))}
+        />
     )
 }
