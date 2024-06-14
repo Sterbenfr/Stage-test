@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '../../../components/list'
 
 interface Groupe {
     code_Groupe: number
@@ -15,7 +16,7 @@ export default function GroupesPage() {
 
     useEffect(() => {
         const fetchGroupes = async () => {
-            const res = await fetch('http://localhost:3000/api/groupe')
+            const res = await fetch('http://localhost:3000/api/societe/groupe')
 
             if (!res.ok) {
                 console.log('Status:', res.status)
@@ -33,16 +34,12 @@ export default function GroupesPage() {
     return (
         <div>
             <h1>Groupes</h1>
-            {groupes.map(Groupe => (
-                <div key={Groupe.code_Groupe}>
-                    <h2>
-                        {Groupe.code_Groupe} : {Groupe.nom_du_Groupe}
-                    </h2>
-                    <p>site_Web: {Groupe.site_Web}</p>
-                    <p>commentaires: {Groupe.commentaires}</p>
-                    <p>date_arret_activite_du_Groupe: {Groupe.date_arret_activite_du_Groupe==null ? "" : Groupe.date_arret_activite_du_Groupe.toString()}</p>
-                </div>
-            ))}
+            <List items={groupes.map(groupe => ({
+                value1: groupe.code_Groupe.toString(),
+                value2: groupe.nom_du_Groupe,
+                value3: groupe.site_Web,
+                value4: groupe.date_arret_activite_du_Groupe==null ? "" : groupe.date_arret_activite_du_Groupe.toString().split("T")[0]
+            }))} />
         </div>
     )
 }

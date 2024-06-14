@@ -4,8 +4,8 @@ export interface LineProps {
     param1: string
     param2: string
     param3: string
-    param4: string
-    param5: string
+    param4?: string
+    param5?: string
 }
 
 const Line: React.FC<LineProps> = ({

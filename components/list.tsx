@@ -7,8 +7,8 @@ interface ListProps {
     value2: string
     value3: string
     value4: string
-    value5: string
-    value6: string
+    value5?: string
+    value6?: string
 }
 
 const List: React.FC<{ items: ListProps[] }> = ({ items }) => {
