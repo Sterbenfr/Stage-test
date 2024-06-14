@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from  '../../components/list'
 
 interface Societe {
     code_Societe: number
@@ -36,21 +37,13 @@ export default function SocietesPage() {
 
     return (
         <div>
-            <h1>Societes</h1>
-            {societes.map(Societe => (
-                <div key={Societe.code_Societe}>
-                    <h2>
-                        {Societe.code_Societe} : {Societe.nom_commercial}
-                    </h2>
-                    <p>raison_sociale: {Societe.raison_sociale}</p>
-                    <p>site_Web: {Societe.site_Web}</p>
-                    <p>Siren: {Societe.Siren}</p>
-                    <p>code_type_activite_Societe: {Societe.code_type_activite_Societe}</p>
-                    <p>commentaires: {Societe.commentaires}</p>
-                    <p>code_Groupe_appartenance: {Societe.code_Groupe_appartenance}</p>
-                    <p>date_arret_activite_Societe: {Societe.date_arret_activite_Societe==null ? "" : Societe.date_arret_activite_Societe.toString()}</p>
-                </div>
-            ))}
+            <h1>Sociétés</h1>
+            <List items={societes.map(societe => ({
+                value1: societe.code_Societe.toString(),
+                value2: societe.raison_sociale,
+                value3: societe.site_Web,
+                value4: societe.date_arret_activite_Societe==null ? "" : societe.date_arret_activite_Societe.toString().split("T")[0]
+            }))} />
         </div>
     )
 }

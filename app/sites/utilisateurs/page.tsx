@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import List from '@/components/list'
 
+
 interface Utilisateurs {
     code_utilisateur: number
     civilite: string
@@ -35,17 +36,14 @@ export default function UtilisateursPage() {
     return (
         <div>
             <h1>Utilisateurs</h1>
-            {Utilisateurs.map(TypeUtilisateurs => (
-                <div key={TypeUtilisateurs.code_utilisateur}>
-                    <h2>{TypeUtilisateurs.code_utilisateur}</h2>
-                    <p>{TypeUtilisateurs.civilite}</p>
-                    <p>{TypeUtilisateurs.nom}</p>
-                    <p>{TypeUtilisateurs.prenom}</p>
-                    <p>{TypeUtilisateurs.tel_perso}</p>
-                    <p>{TypeUtilisateurs.mail_restos_du_coeur}</p>
-                    <p>{TypeUtilisateurs.commentaires}</p>
-                </div>
-            ))}
+            <List items={Utilisateurs.map(user => ({
+                value1: user.code_utilisateur.toString(),
+                value2: user.civilite,
+                value3: user.nom,
+                value4: user.prenom,
+                value5: user.tel_perso,
+                value6: user.mail_restos_du_coeur
+            }))} />
         </div>
     )*/
     return (
