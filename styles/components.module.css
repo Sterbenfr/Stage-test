@@ -20,3 +20,25 @@
 
 .list {
 }
+
+.navbar {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 10vh;
+    background-color: #969494; /* Couleur de fond de la barre de navigation */
+}
+
+.links {
+    color: #f2f2f2; /* Couleur du texte des liens */
+    text-decoration: none; /* Supprime le soulignement des liens */
+    padding: 3vh 4vh; /* Espacement autour des liens */
+    transition: background-color 0.3s; /* Animation de la couleur de fond */
+}
+
+.links:hover {
+    background-color: #e5007d; /* Couleur de fond des liens au survol */
+    color: black; /* Couleur du texte des liens au survol */
+}
