@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '../../components/list'
 
 interface Prestataire {
     code_Prestataire: number
@@ -42,28 +43,17 @@ export default function PrestatairesPage() {
 
     return (
         <div>
-            <h1>Prestataires</h1>
-            {prestataires.map(Prestataire => (
-                <div key={Prestataire.code_Prestataire}>
-                    <h2>
-                        {Prestataire.code_Prestataire} : {Prestataire.raison_sociale}
-                    </h2>
-                    <p>code_type_de_Prestataire: {Prestataire.code_type_de_Prestataire}</p>
-                    <p>nom_commercial: {Prestataire.nom_commercial}</p>
-                    <p>Siren: {Prestataire.Siren}</p>
-                    <p>Siret: {Prestataire.Siret}</p>
-                    <p>telephone: {Prestataire.telephone}</p>
-                    <p>mail: {Prestataire.mail}</p>
-                    <p>adresse: {Prestataire.adresse}</p>
-                    <p>civilite_contact_prestataire: {Prestataire.civilite_contact_prestataire}</p>
-                    <p>nom_contact_prestataire: {Prestataire.nom_contact_prestataire}</p>
-                    <p>prenom_contact_prestataire: {Prestataire.prenom_contact_prestataire}</p>
-                    <p>telephone_contact_prestataire: {Prestataire.telephone_contact_prestataire}</p>
-                    <p>mail_contact_prestataire: {Prestataire.mail_contact_prestataire}</p>
-                    <p>commentaires: {Prestataire.commentaires}</p>
-                    <p>date_arret_activite_du_prestataire: {Prestataire.date_arret_activite_du_prestataire==null ? "" : Prestataire.date_arret_activite_du_prestataire.toString()}</p>
-                </div>
-            ))}
+            <h1>Préstataires</h1>
+            <List
+                items={prestataires.map(prestataire => ({
+                    value1: prestataire.raison_sociale.toString(),
+                    value2: prestataire.Siren.toString(),
+                    value3: prestataire.Siret.toString(),
+                    value4: prestataire.telephone.toString(),
+                    value5: prestataire.mail.toString(),
+                    value6: prestataire.commentaires.toString(),
+                }))}
+            />
         </div>
     )
 }
