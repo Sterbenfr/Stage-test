@@ -12,7 +12,7 @@ export default function InteractionsPage() {
     useEffect(() => {
         const fetchInteractions = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type-interactions',
+                'http://localhost:3000/api/interactions/type-interactions',
             )
 
             if (!res.ok) {

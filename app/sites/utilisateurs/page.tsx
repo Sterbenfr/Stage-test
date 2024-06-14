@@ -21,7 +21,7 @@ export default function UtilisateursPage() {
     useEffect(() => {
         const fetchUtilisateurs = async () => {
             const res = await fetch(
-                `http://localhost:3000/api/utilisateurs?page=${page}&limit=${itemsPerPage}`,
+                `http://localhost:3000/api/sites/utilisateurs?page=${page}&limit=${itemsPerPage}`,
             )
 
             if (!res.ok) {

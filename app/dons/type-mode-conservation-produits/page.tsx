@@ -12,7 +12,7 @@ export default function Mode_Conservations_ProduitsPage() {
     useEffect(() => {
         const fetchMode_Conservations_Produits = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type-mode-conservations-produits',
+                'http://localhost:3000/api/dons/type-mode-conservations-produits',
             )
 
             if (!res.ok) {

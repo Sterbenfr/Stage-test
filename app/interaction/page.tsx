@@ -41,6 +41,7 @@ export default function InteractionsPage() {
                 value2: Interactions.date_interaction.toString().split('T')[0],
                 value3: Interactions.code_contact_entite.toString(),
                 value4: Interactions.date_relance.toString().split('T')[0],
+                value5: Interactions.commentaires
             }))}
         />
     )

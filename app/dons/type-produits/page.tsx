@@ -12,7 +12,7 @@ export default function ProduitsPage() {
     useEffect(() => {
         const fetchProduits = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type-produits',
+                'http://localhost:3000/api/dons/type-produits',
             )
 
             if (!res.ok) {

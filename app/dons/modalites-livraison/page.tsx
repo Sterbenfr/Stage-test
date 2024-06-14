@@ -34,7 +34,7 @@ export default function BonLivraisonPage() {
 
     useEffect(() => {
         const fetchBonLivraison = async () => {
-            const res = await fetch('http://localhost:3000/api/bon-livraison')
+            const res = await fetch('http://localhost:3000/api/dons/modalites-livraison')
 
             if (!res.ok) {
                 console.log('Status:', res.status)

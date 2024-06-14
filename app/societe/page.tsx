@@ -42,7 +42,8 @@ export default function SocietesPage() {
                 value1: societe.code_Societe.toString(),
                 value2: societe.raison_sociale,
                 value3: societe.site_Web,
-                value4: societe.date_arret_activite_Societe==null ? "" : societe.date_arret_activite_Societe.toString().split("T")[0]
+                value4: societe.commentaires,
+                value5: societe.date_arret_activite_Societe==null ? "" : societe.date_arret_activite_Societe.toString().split("T")[0]
             }))} />
         </div>
     )

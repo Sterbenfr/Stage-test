@@ -12,7 +12,7 @@ export default function SiteTypesPage() {
     useEffect(() => {
         const fetchSiteTypes = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type-site-types',
+                'http://localhost:3000/api/sites/type-site-types',
             )
 
             if (!res.ok) {

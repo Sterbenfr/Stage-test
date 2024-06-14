@@ -12,7 +12,7 @@ export default function PrestatairesPage() {
     useEffect(() => {
         const fetchPrestataires = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/type-prestataires',
+                'http://localhost:3000/api/prestataire/type-prestataires',
             )
 
             if (!res.ok) {
