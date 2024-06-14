@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '../../components/list'
 
 interface Cerfa {
     numero_Cerfa: number
@@ -38,21 +39,15 @@ export default function CerfaPage() {
     return (
         <div>
             <h1>Cerfas</h1>
-            {cerfas.map(cerfa => (
-                <div key={cerfa.numero_Cerfa}>
-                    <h2>
-                        {cerfa.code_Don} : {cerfa.montant_HT_Cerfa}
-                    </h2>
-                    <p>date_realisation_Cerfa: {cerfa.date_realisation_Cerfa.toString()}</p>
-                    <p>date_envoi_Cerfa: {cerfa.date_envoi_Cerfa.toString()}</p>
-                    <p>addresse_Cerfa: {cerfa.addresse_Cerfa}</p>
-                    <p>civilite_destinataire_Cerfa: {cerfa.civilite_destinataire_Cerfa}</p>
-                    <p>nom_destinataire_Cerfa: {cerfa.nom_destinataire_Cerfa}</p>
-                    <p>prenom_destinataire_Cerfa: {cerfa.prenom_destinataire_Cerfa}</p>
-                    <p>telephone_destinataire_Cerfa: {cerfa.telephone_destinataire_Cerfa}</p>
-                    <p>mail_destinataire_Cerfa: {cerfa.mail_destinataire_Cerfa}</p>
-                </div>
-            ))}
+            <List
+                items={cerfas.map(cerfa => ({
+                    value1: cerfa.numero_Cerfa.toString(),
+                    value2: cerfa.code_Don.toString(),
+                    value3: cerfa.montant_HT_Cerfa.toString(),
+                    value4: cerfa.nom_destinataire_Cerfa.toString(),
+                    value5: cerfa.prenom_destinataire_Cerfa.toString(),
+                }))}
+            />
         </div>
     )
 }

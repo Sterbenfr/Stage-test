@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '../../components/list'
 
 interface Don {
     code_Don: number
@@ -47,30 +48,15 @@ export default function DonsPage() {
     return (
         <div>
             <h1>Dons</h1>
-            {dons.map(don => (
-                <div key={don.code_Don}>
-                    <h2>
-                        {don.code_Don} : {don.code_Entite_donatrice}
-                    </h2>
-                    <p>date_proposition_don: {don.date_proposition_don.toString()}</p>
-                    <p>code_contact_Entite_donatrice: {don.code_contact_Entite_donatrice}</p>
-                    <p>code_type_don: {don.code_type_don}</p>
-                    <p>code_type_competences: {don.code_type_competences}</p>
-                    <p>code_type_produits: {don.code_type_produits}</p>
-                    <p>code_mode_conservation_produits: {don.code_mode_conservation_produits}</p>
-                    <p>date_debut_mise_disposition: {don.date_debut_mise_disposition.toString()}</p>
-                    <p>date_fin_mise_disposition: {don.date_fin_mise_disposition.toString()}</p>
-                    <p>commentaires: {don.commentaires}</p>
-                    <p>code_Utilisateur_saisie_don: {don.code_Utilisateur_saisie_don}</p>
-                    <p>statut_acceptation_don: {don.statut_acceptation_don}</p>
-                    <p>date_acceptation_refus_don: {don.date_acceptation_refus_don.toString()}</p>
-                    <p>type_date_acceptation_refus: {don.type_date_acceptation_refus}</p>
-                    <p>code_Utilisateur_accepte_refuse_don: {don.code_Utilisateur_accepte_refuse_don}</p>
-                    <p>code_site_beneficiaire_don: {don.code_site_beneficiaire_don}</p>
-                    <p>indicateur_remerciement: {don.indicateur_remerciement}</p>
-                    <p>date_remerciement: {don.date_remerciement==null ? "" : don.date_remerciement.toString()}</p>
-                </div>
-            ))}
+            <List
+                items={dons.map(don => ({
+                    value1: don.code_Don.toString(),
+                    value2: don.code_Entite_donatrice.toString(),
+                    value3: don.date_proposition_don.toString().split('T')[0],
+                    value4: don.commentaires,
+                    value5: don.statut_acceptation_don.toString(),
+                }))}
+            />
         </div>
     )
 }
