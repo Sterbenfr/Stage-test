@@ -25,10 +25,10 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
                 <Link href='/sites' className={styles.links}>
                     Sites
                 </Link>
-                <Link href='/prestataires' className={styles.links}>
+                <Link href='/prestataire' className={styles.links}>
                     Prestataires
                 </Link>
-                <Link href='/Cerfa' className={styles.links}>
+                <Link href='/cerfa' className={styles.links}>
                     Cerfa
                 </Link>
             </nav>

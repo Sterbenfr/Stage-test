@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
-import List from  '../../components/list'
+import List from '../../components/list'
+import { Pagination } from '@/components/pagination'
 
 interface Societe {
     code_Societe: number
@@ -16,11 +17,15 @@ interface Societe {
 }
 
 export default function SocietesPage() {
-    const [societes, setSocietes] = useState<Societe[]>([])
-
+    const [Societes, setSocietes] = useState<Societe[]>([])
+    const [page, setPage] = useState(1) // new state for the current page
+    const [totalItems, setTotalItems] = useState(0)
+    const [itemsPerPage, setItemsPerPage] = useState(3)
     useEffect(() => {
         const fetchSocietes = async () => {
-            const res = await fetch('http://localhost:3000/api/societe')
+            const res = await fetch(
+                `http://localhost:3000/api/societe?page=${page}&limit=${itemsPerPage}`,
+            )
 
             if (!res.ok) {
                 console.log('Status:', res.status)
@@ -28,23 +33,49 @@ export default function SocietesPage() {
                 throw new Error('Failed to fetch data')
             }
 
-            const societes: Societe[] = await res.json()
-            setSocietes(societes)
+            const { data, total }: { data: Societe[]; total: number } =
+                await res.json()
+            setSocietes(data)
+            setTotalItems(total) // set the total items
         }
 
         fetchSocietes()
-    }, [])
+    }, [page, itemsPerPage])
+
+    // add a function to handle page changes
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage)
+    }
+
+    const handleItemsPerPageChange = (newItemsPerPage: number) => {
+        setItemsPerPage(newItemsPerPage)
+        setPage(1) // reset page to 1 when items per page changes
+    }
 
     return (
-        <div>
-            <h1>Sociétés</h1>
-            <List items={societes.map(societe => ({
-                value1: societe.code_Societe.toString(),
-                value2: societe.raison_sociale,
-                value3: societe.site_Web,
-                value4: societe.commentaires,
-                value5: societe.date_arret_activite_Societe==null ? "" : societe.date_arret_activite_Societe.toString().split("T")[0]
-            }))} />
-        </div>
+        <>
+            <List
+                items={Societes.map(Societe => ({
+                    value1: Societe.code_Societe.toString(),
+                    value2: Societe.raison_sociale,
+                    value3: Societe.site_Web,
+                    value4: Societe.commentaires,
+                    value5:
+                        Societe.date_arret_activite_Societe == null
+                            ? ''
+                            : Societe.date_arret_activite_Societe
+                                  .toString()
+                                  .split('T')[0],
+                }))}
+            />
+            <Pagination
+                onPageChange={handlePageChange}
+                onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
+                totalItems={totalItems} // use the total items from the state
+                itemsPerPage={itemsPerPage}
+                currentPage={page}
+            />
+            {''}
+        </>
     )
 }
