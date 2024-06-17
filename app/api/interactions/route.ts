@@ -1,14 +1,32 @@
 import { NextResponse } from 'next/server'
 import pool from '../../../utils/db'
 
-export async function GET() {
+type CountResult = { count: number }[]
+
+export async function GET(request: Request) {
+    const { searchParams } = new URL(request.url)
+    const page = searchParams.get('page') || '1'
+    const limit = searchParams.get('limit') || '10'
+
     try {
+        const pageNumber = Number(page)
+        const limitNumber = Number(limit)
+        const offset = (pageNumber - 1) * limitNumber
+
         const [rows] = await pool.query(
-            'SELECT * FROM `Interactions` LIMIT 1000',
+            'SELECT * FROM `interactions` LIMIT ?, ?',
+            [offset, limitNumber],
         )
-        return NextResponse.json(rows)
+
+        const [totalResult] = await pool.query(
+            'SELECT COUNT(*) as count FROM `interactions`',
+        )
+
+        const total = totalResult as CountResult
+
+        return NextResponse.json({ data: rows, total: total[0].count })
     } catch (err) {
-        console.log(err)
+        console.error(err)
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 },
