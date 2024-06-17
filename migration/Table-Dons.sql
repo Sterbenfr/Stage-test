@@ -56,3 +56,15 @@ INSERT INTO Dons (
 (3, 3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'Refuse', '2023-03-15', 'R', 3, 3,'N',NULL),
 (4, 4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'Valide', '2023-04-15', 'A', 4, 4,'O','2023-07-08'),
 (5, 5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'Refuse', '2023-05-15', 'R', 5, 5,'N',NULL);
+
+SELECT Dons.code_Don, Entite.raison_sociale, date_proposition_don,code_contact_Entite_donatrice, TypesDons.libelle as TD_libelle, TypesCompetences.libelle as TC_libelle,TypesProduits.libelle as TP_libelle, ModeConservationProduits.libelle as MCP_libelle, date_debut_mise_disposition, date_fin_mise_disposition, Dons.commentaires, Dons.pieces_associees, Utilisateur_saisie_don.nom as Utilisateur_saisie_don, statut_acceptation_don, date_acceptation_refus_don, type_date_acceptation_refus, Utilisateur_accepte_refuse_don.nom as Utilisateur_accepte_refuse_don, Sites.designation_longue,indicateur_remerciement,date_remerciement FROM Dons
+LEFT JOIN Entite ON Dons.code_Entite_donatrice = Entite.code_Entite
+LEFT JOIN ContactEntite ON Dons.code_contact_Entite_donatrice = ContactEntite.code_utilisateur_suivant
+LEFT JOIN TypesDons ON Dons.code_type_don = TypesDons.code_type_don
+LEFT JOIN TypesCompetences ON Dons.code_type_competences = TypesCompetences.code_type_competence
+LEFT JOIN TypesProduits ON Dons.code_type_produits = TypesProduits.code_type_produits
+LEFT JOIN ModeConservationProduits ON Dons.code_mode_conservation_produits = ModeConservationProduits.code_mode_conservation_produits
+LEFT JOIN Utilisateurs as Utilisateur_saisie_don ON Dons.code_Utilisateur_saisie_don = Utilisateur_saisie_don.code_utilisateur 
+LEFT JOIN Utilisateurs as Utilisateur_accepte_refuse_don ON Dons.code_Utilisateur_accepte_refuse_don = Utilisateur_accepte_refuse_don.code_utilisateur
+LEFT JOIN Sites ON Dons.code_site_beneficiaire_don = Sites.code_site
+WHERE Dons.code_don = '1';
