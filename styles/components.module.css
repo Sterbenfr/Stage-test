@@ -1,44 +1,109 @@
-.line {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.functionBlock {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.btnFunctionBlock {
-    border-radius: 20%;
-    border: 1px solid black;
-    text-align: center;
-}
-
-.list {
-}
-
 .navbar {
     display: flex;
     text-align: center;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     overflow: hidden;
     height: 10vh;
-    background-color: #969494; /* Couleur de fond de la barre de navigation */
+    background-color: #212529;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    margin-bottom: 2rem;
+}
+
+.img_nav {
+    text-decoration: None;
 }
 
 .links {
     color: #f2f2f2; /* Couleur du texte des liens */
     text-decoration: none; /* Supprime le soulignement des liens */
-    padding: 3vh 4vh; /* Espacement autour des liens */
     transition: background-color 0.3s; /* Animation de la couleur de fond */
+    width: 5rem;
+    font-size: 1.1rem;
 }
 
 .links:hover {
-    background-color: #e5007d; /* Couleur de fond des liens au survol */
-    color: black; /* Couleur du texte des liens au survol */
+    color: #e5007d; /* Couleur du texte des liens au survol */
+    text-decoration: underline;
+    transition: 0.4s;
+}
+
+.functionBlock {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-bottom: 1rem;
+    margin-right: 20rem;
+}
+
+.btnFunctionBlockDEL {
+    border-radius: 5%;
+    border: 2px solid black;
+    text-align: center;
+    padding: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background-color: white;
+    font-size: 1.1rem;
+    margin: 0.5rem;
+    width: 7rem;
+}
+
+.btnFunctionBlockADD {
+    border-radius: 5%;
+    border: 2px solid black;
+    text-align: center;
+    padding: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background-color: white;
+    font-size: 1.1rem;
+    margin: 0.5rem;
+    width: 7rem;
+}
+
+.btnFunctionBlockDEL:hover {
+    border: 2px solid red;
+    transition: 0.2s;
+}
+
+.btnFunctionBlockADD:hover {
+    border: 2px solid green;
+    transition: 0.2s;
+}
+
+.body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 80%;
+    margin-top: 1rem;
+}
+
+.checkbox {
+    width: 7rem;
+    margin-right: 2rem;
+}
+
+.check {
+    width: 20px;
+    height: 20px;
+    border: 10px solid white;
+    background-color: black;
+    accent-color: #9b59b6;
+}
+
+.Ztext {
+    width: 12rem;
+    text-align: start;
+    padding-left: 2rem;
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import styles from '../styles/components.module.css'
+import Image from 'next/image'
 
 interface NavBarProps {
     children?: React.ReactNode
@@ -10,8 +11,13 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
     return (
         <main>
             <nav className={styles.navbar}>
-                <Link href='/' className={styles.links}>
-                    <img src='/logo.png' alt='Logo' />
+                <Link href='/' className={styles.img_nav}>
+                    <Image
+                        src='/IMG/logo_bl.png'
+                        alt='logo'
+                        width={150}
+                        height={80}
+                    />
                 </Link>
                 <Link href='/dons' className={styles.links}>
                     Dons
