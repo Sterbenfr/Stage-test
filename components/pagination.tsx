@@ -1,3 +1,5 @@
+import styles from '../styles/components.module.css'
+
 interface PaginationProps {
     onPageChange: (page: number) => void
     onItemsPerPageChange: (itemsPerPage: number) => void
@@ -34,12 +36,17 @@ export const Pagination: React.FC<PaginationProps> = ({
     }
 
     return (
-        <div>
-            <button onClick={handlePrevious} disabled={currentPage === 1}>
+        <div className={styles.pagination}>
+            <button
+                className={styles.previous}
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+            >
                 Previous
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                 <button
+                    className={styles.number}
                     key={page}
                     onClick={() => onPageChange(page)}
                     disabled={currentPage === page}
@@ -47,10 +54,18 @@ export const Pagination: React.FC<PaginationProps> = ({
                     {page}
                 </button>
             ))}
-            <button onClick={handleNext} disabled={currentPage === totalPages}>
+            <button
+                className={styles.next}
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+            >
                 Next
             </button>
-            <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
+            <select
+                className={styles.select}
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+            >
                 <option value='20'>20</option>
                 <option value='50'>50</option>
                 <option value='100'>100</option>

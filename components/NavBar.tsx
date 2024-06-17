@@ -15,7 +15,7 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
                     <Image
                         src='/IMG/logo_bl.png'
                         alt='logo'
-                        width={150}
+                        width={180}
                         height={80}
                     />
                 </Link>

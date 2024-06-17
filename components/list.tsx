@@ -1,6 +1,7 @@
 import React from 'react'
 import Line from './line'
 import FunctionBlock from './functionBlock'
+import style from '../styles/components.module.css'
 
 interface ListProps {
     value1: string
@@ -15,7 +16,7 @@ const List: React.FC<{ items: ListProps[] }> = ({ items }) => {
     return (
         <>
             <FunctionBlock fonc1='Add' fonc2='Delete' />
-            <div>
+            <div className={style.list_line}>
                 {items.map(item => (
                     <Line
                         key={item.value1}
