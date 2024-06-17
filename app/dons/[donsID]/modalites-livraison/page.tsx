@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import List from '../../../components/list'
+import List from '../../../../components/list'
 
 interface BonLivraison {
     numero_livraison: number

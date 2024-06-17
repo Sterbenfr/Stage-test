@@ -28,3 +28,7 @@ INSERT INTO Sites (
 ('Bureau Régional', 'Bureau', '789 Boulevard de Nice, 06000 Nice', 'AD', '2020-03-01', NULL, '0345678901', 'bureau@entreprise.com', 'Commentaires sur le bureau régional'),
 ('Centre de Distribution', 'Distribution', '101 Rue de Marseille, 13000 Marseille', 'DR', '2020-04-01', NULL, '0456789012', 'distribution@entreprise.com', 'Commentaires sur le centre de distribution'),
 ('Magasin de Détail', 'Magasin', '202 Place de Bordeaux, 33000 Bordeaux', 'CD', '2020-05-01', NULL, '0567890123', 'magasin@entreprise.com', 'Commentaires sur le magasin de détail');
+
+SELECT code_site,designation_longue,designation_courte,adresse,SiteTypes.libelle as st_libelle,date_ouverture,date_fermeture,numero_telephone,adresse_mail,commentaires FROM Sites
+JOIN SiteTypes ON Sites.code_type_site = SiteTypes.code_type_site
+WHERE code_site = ?;
