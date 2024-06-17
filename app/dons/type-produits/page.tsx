@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-interface Produit {
+export interface Produit {
     code_type_produits: string
     libelle: string
 }
