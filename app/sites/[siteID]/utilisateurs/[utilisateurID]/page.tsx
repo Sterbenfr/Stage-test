@@ -14,7 +14,7 @@ interface UtilisateurID {
 export default function UtilisateurPage({
     params,
 }: {
-    params: { utilisateurID: string }
+    params: { siteID: string; utilisateurID: string }
 }) {
     const [Utilisateur, setUtilisateur] = useState<UtilisateurID[]>([])
 
@@ -23,7 +23,7 @@ export default function UtilisateurPage({
             if (!params.utilisateurID) return
 
             const res = await fetch(
-                `http://localhost:3000/api/sites/utilisateurs/${params.utilisateurID}`,
+                `http://localhost:3000/api/sites/${params.siteID}/utilisateurs/${params.utilisateurID}`,
             )
 
             if (!res.ok) {
@@ -37,7 +37,7 @@ export default function UtilisateurPage({
         }
 
         fetchUtilisateur()
-    }, [params.utilisateurID])
+    }, [params.utilisateurID, params.siteID])
     console.log(Utilisateur)
     if (!Utilisateur || Utilisateur.length === 0) return <div>Loading...</div>
 

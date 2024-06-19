@@ -13,7 +13,7 @@ interface Utilisateurs {
     commentaires: string
 }
 
-export default function UtilisateursPage() {
+export default function UtilisateursPage(params: { siteID: string }) {
     const [Utilisateurs, setUtilisateurs] = useState<Utilisateurs[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
@@ -21,7 +21,7 @@ export default function UtilisateursPage() {
     useEffect(() => {
         const fetchUtilisateurs = async () => {
             const res = await fetch(
-                `http://localhost:3000/api/sites/utilisateurs?page=${page}&limit=${itemsPerPage}`,
+                `http://localhost:3000/api/sites/${params.siteID}/utilisateurs?page=${page}&limit=${itemsPerPage}`,
             )
 
             if (!res.ok) {
@@ -37,7 +37,7 @@ export default function UtilisateursPage() {
         }
 
         fetchUtilisateurs()
-    }, [page, itemsPerPage])
+    }, [page, itemsPerPage, params.siteID])
 
     // add a function to handle page changes
     const handlePageChange = (newPage: number) => {

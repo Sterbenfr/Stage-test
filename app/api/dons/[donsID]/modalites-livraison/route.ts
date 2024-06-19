@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import pool from '../../../../utils/db'
+import pool from '../../../../../utils/db'
 
 type CountResult = { count: number }[]
 

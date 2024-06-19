@@ -28,15 +28,21 @@ interface modalite_livraisonID {
     commentaires: string
     pieces_associees: Blob
 }
-export default function Modalites_livraisonPage({ params }: { params: { modalites_livraisonID: string } }) {
-    const [modalite_livraison, setModalites_livraison] = useState<modalite_livraisonID[]>([])
+export default function Modalites_livraisonPage({
+    params,
+}: {
+    params: { donsID: string; modalites_livraisonID: string }
+}) {
+    const [modalite_livraison, setModalites_livraison] = useState<
+        modalite_livraisonID[]
+    >([])
 
     useEffect(() => {
         const fetchModalites_livraison = async () => {
             if (!params.modalites_livraisonID) return
 
             const res = await fetch(
-                `http://localhost:3000/api/dons/modalites-livraison/${params.modalites_livraisonID}`
+                `http://localhost:3000/api/dons/${params.donsID}/modalites-livraison/${params.modalites_livraisonID}`,
             )
 
             if (!res.ok) {
@@ -45,13 +51,14 @@ export default function Modalites_livraisonPage({ params }: { params: { modalite
                 throw new Error('Failed to fetch data')
             }
 
-            const modalite_livraison : modalite_livraisonID[] = await res.json()
+            const modalite_livraison: modalite_livraisonID[] = await res.json()
             setModalites_livraison(modalite_livraison)
         }
 
         fetchModalites_livraison()
-    }, [params.modalites_livraisonID])
-    if (!modalite_livraison || modalite_livraison.length===0) return <div>Loading...</div>
+    }, [params.modalites_livraisonID, params.donsID])
+    if (!modalite_livraison || modalite_livraison.length === 0)
+        return <div>Loading...</div>
 
     return (
         <div>
@@ -59,7 +66,13 @@ export default function Modalites_livraisonPage({ params }: { params: { modalite
             <p>{modalite_livraison[0].numero_livraison}</p>
             <p>{modalite_livraison[0].code_Don}</p>
             <p>{modalite_livraison[0].code_type_livraison}</p>
-            <p>{modalite_livraison[0].date_prevue_livraison.toString().split('T')[0]}</p>
+            <p>
+                {
+                    modalite_livraison[0].date_prevue_livraison
+                        .toString()
+                        .split('T')[0]
+                }
+            </p>
             <p>{modalite_livraison[0].prenom_contact_enlevement}</p>
             <p>{modalite_livraison[0].telephone_contact_enlevement}</p>
             <p>{modalite_livraison[0].mail_contact_enlevement}</p>
@@ -68,7 +81,6 @@ export default function Modalites_livraisonPage({ params }: { params: { modalite
             <p>{modalite_livraison[0].nombre_palettes_consignees_prevu}</p>
             <p>{modalite_livraison[0].nombre_palette_prevu}</p>
             <p>{modalite_livraison[0].nombre_cartons_prevu}</p>
-
         </div>
     )
 }
