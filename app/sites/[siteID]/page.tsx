@@ -47,61 +47,93 @@ export default function SitePage({ params }: { params: { siteID: string } }) {
             </div>
 
             <div className={style.info_id}>
-                <div className={style.info}>
-                    <p className={style.titre}>Code du site :</p>
-                    <p>{site[0].code_site}</p>
-                </div>
+                <div className={style.col_1}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Code du site :</p>
+                        <p>
+                            {site[0].code_site == null
+                                ? '/'
+                                : site[0].code_site}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Designation longue :</p>
-                    <p>{site[0].designation_longue}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>Designation longue :</p>
+                        <p>
+                            {site[0].designation_longue == null
+                                ? '/'
+                                : site[0].designation_longue}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Designation courte :</p>
-                    <p>{site[0].designation_courte}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>Designation courte :</p>
+                        <p>
+                            {site[0].designation_courte == null
+                                ? '/'
+                                : site[0].designation_courte}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Adresse :</p>
-                    <p>{site[0].adresse}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>Adresse :</p>
+                        <p>{site[0].adresse == null ? '/' : site[0].adresse}</p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Libelle :</p>
-                    <p>{site[0].libelle}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>Libelle :</p>
+                        <p>{site[0].libelle == null ? '/' : site[0].libelle}</p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Date ouverture :</p>
-                    <p>
-                        {site[0].date_ouverture == null
-                            ? ''
-                            : site[0].date_ouverture.toString().split('T')[0]}
-                    </p>
+                    <div className={style.info}>
+                        <p className={style.titre}>Date ouverture :</p>
+                        <p>
+                            {site[0].date_ouverture == null
+                                ? '/'
+                                : site[0].date_ouverture
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
                 </div>
-                <div className={style.info}>
-                    <p className={style.titre}>Date fermeture :</p>
-                    <p>
-                        {site[0].date_fermeture == null
-                            ? ''
-                            : site[0].date_fermeture.toString().split('T')[0]}
-                    </p>
-                </div>
+                <div className={style.col_2}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Date fermeture :</p>
+                        <p>
+                            {site[0].date_fermeture == null
+                                ? '/'
+                                : site[0].date_fermeture
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Numero de telephone :</p>
-                    <p>{site[0].numero_telephone}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>Numero de telephone :</p>
+                        <p>
+                            {site[0].numero_telephone == null
+                                ? '/'
+                                : site[0].numero_telephone}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Adresse mail :</p>
-                    <p>{site[0].adresse_mail}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>Adresse mail :</p>
+                        <p>
+                            {site[0].adresse_mail == null
+                                ? '/'
+                                : site[0].adresse_mail}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Commentaires :</p>
-                    <p>{site[0].commentaires}</p>
+                    <div className={style.info}>
+                        <p className={style.titre}>Commentaires :</p>
+                        <p>
+                            {site[0].commentaires == null
+                                ? '/'
+                                : site[0].commentaires}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

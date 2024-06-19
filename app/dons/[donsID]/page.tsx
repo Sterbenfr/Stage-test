@@ -57,135 +57,201 @@ export default function DonPage({ params }: { params: { donsID: string } }) {
             </div>
 
             <div className={style.info_id}>
-                <div className={style.info}>
-                    <p className={style.titre}>Code du don :</p>
-                    <p>{don[0].code_Don}</p>
+                <div className={style.col_1}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Code du don :</p>
+                        <p>{don[0].code_Don == null ? '/' : don[0].code_Don}</p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Raison sociale :</p>
+                        <p>
+                            {don[0].raison_sociale == null
+                                ? '/'
+                                : don[0].raison_sociale}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Date de proposition du don :
+                        </p>
+                        <p>
+                            {don[0].date_proposition_don == null
+                                ? '/'
+                                : don[0].date_proposition_don
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Contact de l&apos;entité donatrice :
+                        </p>
+                        <p>
+                            {don[0].contact_entite_donatrice == null
+                                ? '/'
+                                : don[0].contact_entite_donatrice}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Type de don :</p>
+                        <p>
+                            {don[0].TD_libelle == null
+                                ? '/'
+                                : don[0].TD_libelle}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Type de compétence :</p>
+                        <p>
+                            {don[0].TC_libelle == null
+                                ? '/'
+                                : don[0].TC_libelle}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Type de produit :</p>
+                        <p>
+                            {don[0].TP_libelle == null
+                                ? '/'
+                                : don[0].TP_libelle}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Mode de consomation :</p>
+                        <p>
+                            {don[0].MCP_libelle == null
+                                ? '/'
+                                : don[0].MCP_libelle}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Date du début de mise a disposition :
+                        </p>
+                        <p>
+                            {don[0].date_debut_mise_disposition == null
+                                ? '/'
+                                : don[0].date_debut_mise_disposition
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Date de la fin de mise a disposition :
+                        </p>
+                        <p>
+                            {don[0].date_fin_mise_disposition == null
+                                ? ''
+                                : don[0].date_fin_mise_disposition
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
                 </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Raison sociale :</p>
-                    <p>{don[0].raison_sociale}</p>
-                </div>
+                <div className={style.col_2}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Commentaires :</p>
+                        <p>
+                            {don[0].commentaires == null
+                                ? '/'
+                                : don[0].commentaires}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Date de proposition du don :</p>
-                    <p>
-                        {don[0].date_proposition_don == null
-                            ? ''
-                            : don[0].date_proposition_don
-                                  .toString()
-                                  .split('T')[0]}
-                    </p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Utilisateur saisie de don :
+                        </p>
+                        <p>
+                            {don[0].Utilisateur_saisie_don == null
+                                ? '/'
+                                : don[0].Utilisateur_saisie_don}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>
-                        Contact de l entite donatrice :
-                    </p>
-                    <p>{don[0].contact_entite_donatrice}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Statut d&apos;acceptation du don :
+                        </p>
+                        <p>
+                            {don[0].statut_acceptation_don == null
+                                ? '/'
+                                : don[0].statut_acceptation_don}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Type de don :</p>
-                    <p>{don[0].TD_libelle}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Date d&apos;acceptation / refus :
+                        </p>
+                        <p>
+                            {don[0].date_acceptation_refus_don == null
+                                ? '/'
+                                : don[0].date_acceptation_refus_don
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Type de competence :</p>
-                    <p>{don[0].TC_libelle}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>Acceptation / refus :</p>
+                        <p>
+                            {don[0].type_date_acceptation_refus == null
+                                ? '/'
+                                : don[0].type_date_acceptation_refus}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Type de produit :</p>
-                    <p>{don[0].TP_libelle}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            L&apos;utilisateur qui accepte ou refuse le don :
+                        </p>
+                        <p>
+                            {don[0].Utilisateur_accepte_refuse_don == null
+                                ? '/'
+                                : don[0].Utilisateur_accepte_refuse_don}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>Mode de consomation :</p>
-                    <p>{don[0].MCP_libelle}</p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>Site :</p>
+                        <p>{don[0].site == null ? '/' : don[0].site}</p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>
-                        Date du debut de mise a disposition :
-                    </p>
-                    <p>
-                        {don[0].date_debut_mise_disposition == null
-                            ? ''
-                            : don[0].date_debut_mise_disposition
-                                  .toString()
-                                  .split('T')[0]}
-                    </p>
-                </div>
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Indicateur de remerciement :
+                        </p>
+                        <p>
+                            {don[0].indicateur_remerciement == null
+                                ? '/'
+                                : don[0].indicateur_remerciement}
+                        </p>
+                    </div>
 
-                <div className={style.info}>
-                    <p className={style.titre}>
-                        Date de la fin de mise a disposition :
-                    </p>
-                    <p>
-                        {don[0].date_fin_mise_disposition == null
-                            ? ''
-                            : don[0].date_fin_mise_disposition
-                                  .toString()
-                                  .split('T')[0]}
-                    </p>
-                </div>
-
-                <div className={style.info}>
-                    <p className={style.titre}>Commentaires :</p>
-                    <p>{don[0].commentaires}</p>
-                </div>
-
-                <div className={style.info}>
-                    <p className={style.titre}>Utilisateur saisie de don :</p>
-                    <p>{don[0].Utilisateur_saisie_don}</p>
-                </div>
-
-                <div className={style.info}>
-                    <p className={style.titre}>Statut d acceptation du don :</p>
-                    <p>{don[0].statut_acceptation_don}</p>
-                </div>
-
-                <div className={style.info}>
-                    <p className={style.titre}>Date d acceptation / refus :</p>
-                    <p>
-                        {don[0].date_acceptation_refus_don == null
-                            ? ''
-                            : don[0].date_acceptation_refus_don
-                                  .toString()
-                                  .split('T')[0]}
-                    </p>
-                </div>
-
-                <div className={style.info}>
-                    <p className={style.titre}>Acceptation / refus :</p>
-                    <p>{don[0].type_date_acceptation_refus}</p>
-                </div>
-
-                <div className={style.info}>
-                    <p className={style.titre}>
-                        L utilisateur qui accepte ou refuse le don :
-                    </p>
-                    <p>{don[0].Utilisateur_accepte_refuse_don}</p>
-                </div>
-
-                <div className={style.info}>
-                    <p className={style.titre}>Site :</p>
-                    <p>{don[0].site}</p>
-                </div>
-
-                <div className={style.info}>
-                    <p className={style.titre}>Indicateur de remerciement :n</p>
-                    <p>{don[0].indicateur_remerciement}</p>
-                </div>
-
-                <div>
-                    <p className={style.info}>
-                        <p className={style.titre}>Date du remerciement :</p>
-                        {don[0].date_remerciement == null
-                            ? ''
-                            : don[0].date_remerciement.toString().split('T')[0]}
-                    </p>
+                    <div>
+                        <p className={style.info}>
+                            <p className={style.titre}>
+                                Date du remerciement :
+                            </p>
+                            {don[0].date_remerciement == null
+                                ? '/'
+                                : don[0].date_remerciement
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
