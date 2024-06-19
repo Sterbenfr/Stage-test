@@ -19,24 +19,26 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
                         height={80}
                     />
                 </Link>
-                <Link href='/dons' className={styles.links}>
-                    Dons
-                </Link>
-                <Link href='/interactions' className={styles.links}>
-                    Interactions
-                </Link>
-                <Link href='/societe' className={styles.links}>
-                    Société
-                </Link>
-                <Link href='/sites' className={styles.links}>
-                    Sites
-                </Link>
-                <Link href='/prestataire' className={styles.links}>
-                    Prestataires
-                </Link>
-                <Link href='/cerfa' className={styles.links}>
-                    Cerfa
-                </Link>
+                <div className={styles.btn_nav}>
+                    <Link href='/dons' className={styles.links}>
+                        Dons
+                    </Link>
+                    <Link href='/interactions' className={styles.links}>
+                        Interactions
+                    </Link>
+                    <Link href='/societe' className={styles.links}>
+                        Société
+                    </Link>
+                    <Link href='/sites' className={styles.links}>
+                        Sites
+                    </Link>
+                    <Link href='/prestataire' className={styles.links}>
+                        Prestataires
+                    </Link>
+                    <Link href='/cerfa' className={styles.links}>
+                        Cerfa
+                    </Link>
+                </div>
             </nav>
             {children}
         </main>

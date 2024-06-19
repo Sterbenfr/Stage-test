@@ -4,7 +4,7 @@
     display: flex;
     text-align: center;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     overflow: hidden;
     width: 100%;
     height: 8rem;
@@ -13,7 +13,15 @@
     margin-bottom: 2rem;
     position: fixed;
     z-index: 100;
-    padding-left: 5rem;
+}
+
+.btn_nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
 }
 
 .img_nav {
@@ -23,13 +31,9 @@
 .links {
     color: #f2f2f2; /* Couleur du texte des liens */
     text-decoration: none; /* Supprime le soulignement des liens */
-    transition: background-color 0.3s; /* Animation de la couleur de fond */
-    width: 5rem;
+    width: 8rem;
     font-size: 1.2rem;
-}
-
-.navbar :last-child {
-    margin-right: 12rem;
+    text-align: center;
 }
 
 .links:hover {
@@ -105,6 +109,8 @@
     margin-top: 1rem;
     border-top: 2px solid #e5007d;
     padding-top: 1rem;
+    padding-right: 2rem;
+    padding-left: 2rem;
 }
 
 .checkbox {
@@ -191,4 +197,52 @@
 .select:hover {
     background-color: #f2f2f2;
     transition: 0.2s;
+}
+
+.idPage {
+    margin-bottom: 4rem;
+    padding-top: 9rem;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 2.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+}
+
+.titre {
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+.titre_global {
+    font-size: 1.8rem;
+    font-weight: bold;
+    width: 20rem;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10rem;
+    margin-top: 10rem;
+    text-decoration: underline;
+    text-underline-offset: 0.4rem;
+}
+
+.info_id {
+    padding-left: 2rem;
+    border-left: 3px solid #e5007d;
+}
+
+.Titre_haut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
 }
