@@ -11,6 +11,7 @@ CREATE TABLE Societe (
     date_arret_activite_Societe DATE,
     FOREIGN KEY (code_type_activite_Societe) REFERENCES TypeActiviteSociete(code);
 );
+
 INSERT INTO Societe (
     raison_sociale,
     nom_commercial,
@@ -27,3 +28,7 @@ INSERT INTO Societe (
 ('Société Gamma', NULL, NULL, 'http://www.gamma.com/', '345678901', 'PRE', 'Troisième société', 3, NULL),
 ('Société Delta', NULL, NULL, 'http://www.delta.com/', '456789012', 'ADM', 'Quatrième société', 4, NULL),
 ('Société Epsilon', NULL, NULL, 'http://www.epsilon.com/', '567890123', 'PRE', 'Cinquième société', 5, NULL);
+
+SELECT code_Societe,raison_sociale,nom_commercial,site_Web,Siren,code_type_activite_Societe,commentaires,code_Groupe_appartenance,date_arret_activite_Societe FROM Societe
+LEFT JOIN 
+    TypeActiviteSociete ON Societe.code_type_activite_Societe = TypeActiviteSociete.code;

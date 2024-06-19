@@ -14,3 +14,5 @@ INSERT INTO Utilisateurs (civilite, nom, prenom, tel_perso, mail_restos_du_coeur
 ('Mr.', 'Durand', 'Paul', '0123987654', 'paul.durand@restosducoeur.org', 'Volontaire depuis 2 ans.'),
 ('Mme', 'Petit', 'Sophie', '0765432109', 'sophie.petit@restosducoeur.org', 'Coordination des événements.'),
 ('M.', 'Leroy', 'Julien', '0654321987', 'julien.leroy@restosducoeur.org', 'Gestion des stocks.');
+
+SELECT * FROM Utilisateurs;

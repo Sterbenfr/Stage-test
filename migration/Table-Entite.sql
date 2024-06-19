@@ -28,7 +28,8 @@ CREATE TABLE Entite (
     FOREIGN KEY (code_type_don) REFERENCES TypesDons(code_type_don),
     FOREIGN KEY (code_type_produit) REFERENCES TypesProduits(code_type_produits),
     FOREIGN KEY (code_type_competence) REFERENCES TypesCompetences(code_type_competence),
-    FOREIGN KEY (code_frequence_cerfa) REFERENCES FrequencesCerfa(code_frequence_cerfa)
+    FOREIGN KEY (code_frequence_cerfa) REFERENCES FrequencesCerfa(code_frequence_cerfa),
+    FOREIGN KEY (code_societe_appartenance) REFERENCES Societe(code_Societe)
 );
 INSERT INTO Entite (
     raison_sociale,
@@ -60,3 +61,12 @@ INSERT INTO Entite (
 ('Entreprise Gamma', 'Gamma Inc', NULL, '34567890123456', '34567', 'RNA3456789','', 203, '789 Boulevard de Nice, 06000 Nice', '0345678901', 'contact@gamma.com', 'http://www.gamma.com', 'Commentaire 3', 'MAG', 'RAM', NULL, NULL, 'Logistique Gamma', 'O', NULL, 'O', 'ANN', NULL),
 ('Entreprise Delta', 'Delta SA', NULL, '45678901234567', '45678', 'RNA4567890','', 204, '101 Rue de Marseille, 13000 Marseille', '0456789012', 'contact@delta.com', 'http://www.delta.com', 'Commentaire 4', 'SIE', 'SIE', NULL, 'DEV', 'Logistique Delta', 'N', NULL, 'N', 'LIV', NULL),
 ('Entreprise Epsilon', 'Epsilon GmbH', NULL, '56789012345678', '56789', 'RNA5678901','', 205, '202 Place de Bordeaux, 33000 Bordeaux', '0567890123', 'contact@epsilon.com', 'http://www.epsilon.com', 'Commentaire 5', 'SIP', 'SIP', NULL, 'BRI', 'Logistique Epsilon', 'O', NULL, 'O', 'MEN', NULL);
+
+SELECT code_entite,raison_sociale,nom_commercial,logo,siret,code_ape,code_rna,code_cee,societe.raison_sociale as nom_societe,adresse,telephone,mail,site_internet,Entite.commentaires,TypesEntites.libelle as TE_libelle,TypesDons.libelle as TD_libelle,TypesProduits.libelle as TP_libelle,TypesCompetences.libelle as TC_libelle,commentaires_logistique,presence_quai,pieces_associees,cerfa,FrequencesCerfa.libelle,date_arret_activite FROM Entite
+JOIN TypesEntites ON Entite.code_type_entite = TypesEntites.code_type_entite
+JOIN TypesDons ON Entite.code_type_don = TypesDons.code_type_don
+JOIN TypesProduits ON Entite.code_type_produit = TypesProduits.code_type_produits
+JOIN TypesCompetences ON Entite.code_type_competence = TypesCompetences.code_type_competence
+JOIN FrequencesCerfa ON Entite.code_frequence_cerfa = FrequencesCerfa.code_frequence_cerfa
+JOIN Societe ON Entite.code_societe_appartenance = Societe.code_Societe
+WHERE code_entite = 1;
