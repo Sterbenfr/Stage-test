@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import List from '../../../components/list'
+import List from '../../../../components/list'
 import { Pagination } from '@/components/pagination'
 
 interface Reception {
@@ -27,7 +27,7 @@ export default function ReceptionsPage() {
     useEffect(() => {
         const fetchDons = async () => {
             const res = await fetch(
-                `http://localhost:3000/api/dons?page=${page}&limit=${itemsPerPage}`,
+                `http://localhost:3000/api/dons/reception?page=${page}&limit=${itemsPerPage}`,
             )
 
             if (!res.ok) {
