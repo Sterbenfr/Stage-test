@@ -201,19 +201,19 @@
 
 .idPage {
     margin-bottom: 4rem;
-    padding-top: 9rem;
+    padding-top: 6rem;
     display: flex;
-    align-items: start;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .info {
     display: flex;
     align-items: center;
     justify-content: start;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
     font-size: 1.1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .titre {
@@ -224,25 +224,38 @@
 .titre_global {
     font-size: 1.8rem;
     font-weight: bold;
-    width: 20rem;
-    height: 15rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 10rem;
-    margin-top: 10rem;
     text-decoration: underline;
     text-underline-offset: 0.4rem;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
 }
 
 .info_id {
-    padding-left: 2rem;
-    border-left: 3px solid #e5007d;
+    display: flex;
+    align-items: start;
+    justify-content: space-around;
 }
 
-.Titre_haut {
+.col_1 {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
+    align-items: start;
+    flex-direction: column;
+    border-left: 3px solid #e5007d;
+    width: 30rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.col_2 {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    width: 30rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-left: 3px solid #e5007d;
+    /*border-right: 3px solid #e5007d ;*/
 }
