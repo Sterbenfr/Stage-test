@@ -13,7 +13,7 @@ interface GroupeID {
 export default function GroupePage({
     params,
 }: {
-    params: { societeID : string, groupeID: string }
+    params: { societeID: string; groupeID: string }
 }) {
     const [Groupe, setGroupe] = useState<GroupeID[]>([])
 
@@ -36,7 +36,7 @@ export default function GroupePage({
         }
 
         fetchGroupe()
-    }, [params.groupeID])
+    }, [params.groupeID, params.societeID])
     if (!Groupe || Groupe.length === 0) return <div>Loading...</div>
 
     return (

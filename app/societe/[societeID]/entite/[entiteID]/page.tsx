@@ -28,7 +28,11 @@ interface EntiteID {
     date_arret_activite: Date
 }
 
-export default function EntitePage({ params }: { params: { societeID : string, entiteID: string } }) {
+export default function EntitePage({
+    params,
+}: {
+    params: { societeID: string; entiteID: string }
+}) {
     const [entite, setEntite] = useState<EntiteID[]>([])
 
     useEffect(() => {
@@ -36,7 +40,7 @@ export default function EntitePage({ params }: { params: { societeID : string, e
             if (!params.entiteID) return
 
             const res = await fetch(
-                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}`
+                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}`,
             )
 
             if (!res.ok) {
@@ -45,13 +49,13 @@ export default function EntitePage({ params }: { params: { societeID : string, e
                 throw new Error('Failed to fetch data')
             }
 
-            const entite : EntiteID[] = await res.json()
+            const entite: EntiteID[] = await res.json()
             setEntite(entite)
         }
 
         fetchEntite()
-    }, [params.entiteID])
-    if (!entite || entite.length===0) return <div>Loading...</div>
+    }, [params.entiteID, params.societeID])
+    if (!entite || entite.length === 0) return <div>Loading...</div>
 
     return (
         <div>
@@ -77,7 +81,11 @@ export default function EntitePage({ params }: { params: { societeID : string, e
             <p>{entite[0].presence_quai}</p>
             <p>{entite[0].cerfa}</p>
             <p>{entite[0].FC_libelle}</p>
-            <p>{entite[0].date_arret_activite==null ? "" : entite[0].date_arret_activite.toString().split("T")[0]}</p>
+            <p>
+                {entite[0].date_arret_activite == null
+                    ? ''
+                    : entite[0].date_arret_activite.toString().split('T')[0]}
+            </p>
         </div>
     )
 }
