@@ -18,3 +18,5 @@ INSERT INTO Groupe (
 ('Groupe Gamma', NULL, 'http://www.gamma.com', 'Troisième groupe', NULL),
 ('Groupe Delta', NULL, 'http://www.delta.com', 'Quatrième groupe', NULL),
 ('Groupe Epsilon', NULL, 'http://www.epsilon.com', 'Cinquième groupe', NULL);
+
+SELECT code_Groupe,nom_du_Groupe,site_Web,commentaires,date_arret_activite_du_Groupe FROM Groupe;
