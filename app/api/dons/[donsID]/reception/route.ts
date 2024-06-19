@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import pool from '../../../../utils/db'
+import pool from '../../../../../utils/db'
 
 type CountResult = { count: number }[]
 
@@ -14,12 +14,12 @@ export async function GET(request: Request) {
         const offset = (pageNumber - 1) * limitNumber
 
         const [rows] = await pool.query(
-            'SELECT * FROM `Utilisateurs` LIMIT ?, ?',
+            'SELECT * FROM `Reception` LIMIT ?, ?',
             [offset, limitNumber],
         )
 
         const [totalResult] = await pool.query(
-            'SELECT COUNT(*) as count FROM `Utilisateurs`',
+            'SELECT COUNT(*) as count FROM `Reception`',
         )
 
         const total = totalResult as CountResult

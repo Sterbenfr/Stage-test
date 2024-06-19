@@ -1,8 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
-import List from '../../../components/list'
+import List from '../../../../components/list'
 import { Pagination } from '@/components/pagination'
-
 
 interface ModalitesLivraison {
     numero_livraison: number
@@ -32,8 +31,14 @@ interface ModalitesLivraison {
     pieces_associees: Blob
 }
 
-export default function ModalitesLivraisonPage() {
-    const [ModalitesLivraisons, setModalitesLivraison] = useState<ModalitesLivraison[]>([])
+export default function ModalitesLivraisonPage({
+    params,
+}: {
+    params: { donsID: string }
+}) {
+    const [ModalitesLivraisons, setModalitesLivraison] = useState<
+        ModalitesLivraison[]
+    >([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
@@ -41,7 +46,7 @@ export default function ModalitesLivraisonPage() {
     useEffect(() => {
         const fetchModalitesLivraisons = async () => {
             const res = await fetch(
-                `http://localhost:3000/api/dons/modalites-livraison?page=${page}&limit=${itemsPerPage}`,
+                `http://localhost:3000/api/dons/${params.donsID}/modalites-livraison?page=${page}&limit=${itemsPerPage}`,
             )
 
             if (!res.ok) {
@@ -50,13 +55,16 @@ export default function ModalitesLivraisonPage() {
                 throw new Error('Failed to fetch data')
             }
 
-            const { data, total }: { data: ModalitesLivraison[]; total: number } = await res.json()
+            const {
+                data,
+                total,
+            }: { data: ModalitesLivraison[]; total: number } = await res.json()
             setModalitesLivraison(data)
-            setTotalItems(total) 
+            setTotalItems(total)
         }
 
         fetchModalitesLivraisons()
-    }, [page, itemsPerPage])
+    }, [page, itemsPerPage, params.donsID])
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage)
@@ -73,7 +81,9 @@ export default function ModalitesLivraisonPage() {
                 items={ModalitesLivraisons.map(ModalitesLivraison => ({
                     value1: ModalitesLivraison.numero_livraison.toString(),
                     value2: ModalitesLivraison.code_Don.toString(),
-                    value3: ModalitesLivraison.date_prevue_livraison.toString().split('T')[0],
+                    value3: ModalitesLivraison.date_prevue_livraison
+                        .toString()
+                        .split('T')[0],
                     value4: ModalitesLivraison.telephone_contact_enlevement.toString(),
                     value5: ModalitesLivraison.mail_contact_enlevement.toString(),
                 }))}

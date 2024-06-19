@@ -17,7 +17,11 @@ interface ReceptionID {
     pieces_associees: Blob
 }
 
-export default function ReceptionPage({ params }: { params: { receptionID: string } }) {
+export default function ReceptionPage({
+    params,
+}: {
+    params: { donsID: string; receptionID: string }
+}) {
     const [reception, setReception] = useState<ReceptionID[]>([])
 
     useEffect(() => {
@@ -25,7 +29,7 @@ export default function ReceptionPage({ params }: { params: { receptionID: strin
             if (!params.receptionID) return
 
             const res = await fetch(
-                `http://localhost:3000/api/dons/reception/${params.receptionID}`
+                `http://localhost:3000/api/dons/${params.donsID}/reception/${params.receptionID}`,
             )
 
             if (!res.ok) {
@@ -34,13 +38,13 @@ export default function ReceptionPage({ params }: { params: { receptionID: strin
                 throw new Error('Failed to fetch data')
             }
 
-            const reception : ReceptionID[] = await res.json()
+            const reception: ReceptionID[] = await res.json()
             setReception(reception)
         }
 
         fetchReception()
-    }, [params.receptionID])
-    if (!reception || reception.length===0) return <div>Loading...</div>
+    }, [params.receptionID, params.donsID])
+    if (!reception || reception.length === 0) return <div>Loading...</div>
 
     return (
         <div>
@@ -48,7 +52,11 @@ export default function ReceptionPage({ params }: { params: { receptionID: strin
             <p>{reception[0].numero_reception}</p>
             <p>{reception[0].code_Don}</p>
             <p>{reception[0].numero_BL}</p>
-            <p>{reception[0].date_reception==null ? "" : reception[0].date_reception.toString().split("T")[0]}</p>
+            <p>
+                {reception[0].date_reception == null
+                    ? ''
+                    : reception[0].date_reception.toString().split('T')[0]}
+            </p>
             <p>{reception[0].heure_reception}</p>
             <p>{reception[0].nombre_palettes_recues}</p>
             <p>{reception[0].nombre_palettes_consignees_recues}</p>

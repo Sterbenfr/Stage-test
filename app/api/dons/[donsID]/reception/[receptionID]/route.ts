@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server'
-import pool from '../../../../../utils/db'
+import pool from '../../../../../../utils/db'
 
 export async function GET(
     request: Request,
-    { params }: { params: { utilisateurID: string } },
+    { params }: { params: { receptionID: string } },
 ) {
-    const utilisateurID = params.utilisateurID
+    const receptionID = params.receptionID
     try {
         const [rows] = await pool.query(
-            'SELECT * FROM Utilisateurs WHERE code_utilisateur = ?;',
-            [utilisateurID],
+            'SELECT * FROM Reception WHERE Reception.numero_reception = ?;',
+            [receptionID],
         )
         return NextResponse.json(rows)
     } catch (err) {
