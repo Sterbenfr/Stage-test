@@ -1,6 +1,5 @@
 'use client'
-import { use, useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 interface ReceptionID {
     numero_reception: number
@@ -20,7 +19,6 @@ interface ReceptionID {
 
 export default function ReceptionPage({ params }: { params: { receptionID: string } }) {
     const [reception, setReception] = useState<ReceptionID[]>([])
-    console.log(usePathname())
 
     useEffect(() => {
         const fetchReception = async () => {
