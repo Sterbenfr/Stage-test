@@ -22,7 +22,7 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
                 <Link href='/dons' className={styles.links}>
                     Dons
                 </Link>
-                <Link href='/interactions' className={styles.links}>
+                <Link href='/interaction' className={styles.links}>
                     Interactions
                 </Link>
                 <Link href='/societe' className={styles.links}>
