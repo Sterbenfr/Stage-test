@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
-import List from  '../../../../../../components/list'
+import List from '../../../../../../components/list'
+import { Pagination } from '@/components/pagination'
 
 interface Contact {
     code_entite: number
@@ -18,12 +19,21 @@ interface Contact {
     date_arret_contact: Date
 }
 
-export default function ContactsPage({ params }: { params: { societeID : string, entiteID : string } }) {
+export default function ContactsPage({
+    params,
+}: {
+    params: { societeID: string; entiteID: string }
+}) {
     const [contacts, setContacts] = useState<Contact[]>([])
+    const [page, setPage] = useState(1) // new state for the current page
+    const [totalItems, setTotalItems] = useState(0)
+    const [itemsPerPage, setItemsPerPage] = useState(3)
 
     useEffect(() => {
         const fetchContacts = async () => {
-            const res = await fetch(`http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/contact`)
+            const res = await fetch(
+                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/contact?page=${page}&limit=${itemsPerPage}`,
+            )
 
             if (!res.ok) {
                 console.log('Status:', res.status)
@@ -31,24 +41,53 @@ export default function ContactsPage({ params }: { params: { societeID : string,
                 throw new Error('Failed to fetch data')
             }
 
-            const contacts: Contact[] = await res.json()
-            setContacts(contacts)
+            const { data, total }: { data: Contact[]; total: number } =
+                await res.json()
+            setContacts(data)
+            setTotalItems(total) // set the total items
         }
 
         fetchContacts()
-    }, [])
+    }, [params.societeID, params.entiteID, page, itemsPerPage])
+
+    // add a function to handle page changes
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage)
+    }
+
+    const handleItemsPerPageChange = (newItemsPerPage: number) => {
+        setItemsPerPage(newItemsPerPage)
+        setPage(1) // reset page to 1 when items per page changes
+    }
 
     return (
-        <div>
-            <h1>Contacts</h1>
-            <List items={contacts.map(contact => ({
-                value1: contact.code_contact.toString(),
-                value2: contact.nom,
-                value3: contact.numero_fixe,
-                value4: contact.numero_portable,
-                value5: contact.adresse_mail,
-                value6: contact.date_arret_contact==null ? "" : contact.date_arret_contact.toString().split("T")[0]
-            }))} />
-        </div>
+        <>
+            <div>
+                <h1>Contacts</h1>
+                <List
+                    items={contacts.map(contact => ({
+                        value1: contact.code_contact.toString(),
+                        value2: contact.nom,
+                        value3: contact.numero_fixe,
+                        value4: contact.numero_portable,
+                        value5: contact.adresse_mail,
+                        value6:
+                            contact.date_arret_contact == null
+                                ? ''
+                                : contact.date_arret_contact
+                                      .toString()
+                                      .split('T')[0],
+                    }))}
+                />
+                <Pagination
+                    onPageChange={handlePageChange}
+                    onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
+                    totalItems={totalItems} // use the total items from the state
+                    itemsPerPage={itemsPerPage}
+                    currentPage={page}
+                />
+                {''}
+            </div>
+        </>
     )
 }

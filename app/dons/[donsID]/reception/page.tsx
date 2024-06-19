@@ -19,7 +19,7 @@ interface Reception {
     pieces_associees: Blob
 }
 
-export default function ReceptionsPage() {
+export default function ReceptionsPage(params: { donsID: string }) {
     const [Receptions, setReceptions] = useState<Reception[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
@@ -27,7 +27,7 @@ export default function ReceptionsPage() {
     useEffect(() => {
         const fetchDons = async () => {
             const res = await fetch(
-                `http://localhost:3000/api/dons/reception?page=${page}&limit=${itemsPerPage}`,
+                `http://localhost:3000/api/dons/${params.donsID}/reception?page=${page}&limit=${itemsPerPage}`,
             )
 
             if (!res.ok) {
@@ -43,7 +43,7 @@ export default function ReceptionsPage() {
         }
 
         fetchDons()
-    }, [page, itemsPerPage])
+    }, [page, itemsPerPage, params.donsID])
 
     // add a function to handle page changes
     const handlePageChange = (newPage: number) => {

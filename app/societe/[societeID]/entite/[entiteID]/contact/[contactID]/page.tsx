@@ -17,7 +17,11 @@ interface ContactID {
     date_arret_contact: Date
 }
 
-export default function ContactPage({ params }: { params: { societeID : string, entiteID: string, contactID: string } }) {
+export default function ContactPage({
+    params,
+}: {
+    params: { societeID: string; entiteID: string; contactID: string }
+}) {
     const [contact, setContact] = useState<ContactID[]>([])
 
     useEffect(() => {
@@ -25,7 +29,7 @@ export default function ContactPage({ params }: { params: { societeID : string, 
             if (!params.contactID) return
 
             const res = await fetch(
-                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/contact/${params.contactID}`
+                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/contact/${params.contactID}`,
             )
 
             if (!res.ok) {
@@ -34,13 +38,13 @@ export default function ContactPage({ params }: { params: { societeID : string, 
                 throw new Error('Failed to fetch data')
             }
 
-            const contact : ContactID[] = await res.json()
+            const contact: ContactID[] = await res.json()
             setContact(contact)
         }
 
         fetchContact()
-    }, [params.contactID])
-    if (!contact || contact.length===0) return <div>Loading...</div>
+    }, [params.contactID, params.societeID, params.entiteID])
+    if (!contact || contact.length === 0) return <div>Loading...</div>
 
     return (
         <div>
@@ -56,7 +60,11 @@ export default function ContactPage({ params }: { params: { societeID : string, 
             <p>{contact[0].numero_portable}</p>
             <p>{contact[0].adresse_mail}</p>
             <p>{contact[0].commentaires}</p>
-            <p>{contact[0].date_arret_contact==null ? "" : contact[0].date_arret_contact.toString().split("T")[0]}</p>
+            <p>
+                {contact[0].date_arret_contact == null
+                    ? ''
+                    : contact[0].date_arret_contact.toString().split('T')[0]}
+            </p>
         </div>
     )
 }
