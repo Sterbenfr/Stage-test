@@ -29,7 +29,7 @@ CREATE TABLE ModalitesLivraison (
     FOREIGN KEY (code_type_livraison) REFERENCES TypeLivraison(code_type_livraison),
     FOREIGN KEY (code_Prestataire_transporteur) REFERENCES Prestataires(code_Prestataire)
 );
-INSERT INTO BonLivraison (
+INSERT INTO ModalitesLivraison (
     numero_livraison,
     code_Don,
     code_type_livraison,
@@ -62,3 +62,9 @@ INSERT INTO BonLivraison (
 (3, 3, 'RET', '2024-06-17', '16:00:00', "456 Rue de l'Enlèvement, Nice", 'M.', 'Moreau', 'Luc', '0345678901', 'luc.moreau@example.com', 403, '654 Rue de la Livraison, Bordeaux', 'Mme', 'Lefevre', 'Claire', '0765432109', 'claire.lefevre@example.com', 7, 7, 70, 1400, 'O', 5, 'Livraison avec retour', NULL),
 (4, 4, 'EXP', '2024-06-18', '11:00:00', "123 Rue de l'Enlèvement, Toulouse", 'Mme', 'Fabre', 'Julie', '0456789012', 'julie.fabre@example.com', 404, '987 Rue de la Livraison, Strasbourg', 'M.', 'Roux', 'Paul', '0654321098', 'paul.roux@example.com', 4, 4, 40, 800, 'N', 3, 'Livraison express', NULL),
 (5, 5, 'IMP', '2024-06-19', '13:00:00', "789 Rue de l'Enlèvement, Nantes", 'M.', 'Garnier', 'Antoine', '0567890123', 'antoine.garnier@example.com', 405, '321 Rue de la Livraison, Montpellier', 'Mme', 'Perrin', 'Lucie', '0543210987', 'lucie.perrin@example.com', 2, 2, 20, 400, 'O', 1, 'Livraison internationale', NULL);
+
+select ModalitesLivraison.numero_livraison, Dons.code_Don, TypeLivraison.code_type_livraison, date_prevue_livraison, heure_prevue_livraison, adresse_enlevement, civilite_contact_enlevement, nom_contact_enlevement, prenom_contact_livraison, telephone_contact_livraison, mail_contact_livraison, nombre_palettes_prevu, nombre_palettes_consignees_prevu, nombre_cartons_prevu, poids_prevu_kg, produits_sur_palettes, temperature_conserv_produits, ModalitesLivraison.commentaires, ModalitesLivraison.pieces_associees, TypeLivraison.libelle, Prestataires.code_Prestataire from ModalitesLivraison;
+left join Dons on ModalitesLivraison.code_Don = Dons.code_Don;
+left join TypeLivraison on ModalitesLivraison.code_type_livraison = TypeLivraison.code_type_livraison;
+left join Prestataires on ModalitesLivraison.code_Prestataire_transporteur = Prestataires.code_Prestataire;
+where ModalitesLivraison.numero_livraison = '1';
