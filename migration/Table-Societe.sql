@@ -30,5 +30,4 @@ INSERT INTO Societe (
 ('Société Epsilon', NULL, NULL, 'http://www.epsilon.com/', '567890123', 'PRE', 'Cinquième société', 5, NULL);
 
 SELECT code_Societe,raison_sociale,nom_commercial,site_Web,Siren,code_type_activite_Societe,commentaires,code_Groupe_appartenance,date_arret_activite_Societe FROM Societe
-LEFT JOIN 
-    TypeActiviteSociete ON Societe.code_type_activite_Societe = TypeActiviteSociete.code;
+LEFT JOIN TypeActiviteSociete ON Societe.code_type_activite_Societe = TypeActiviteSociete.code;

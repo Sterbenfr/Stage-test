@@ -63,10 +63,10 @@ INSERT INTO Entite (
 ('Entreprise Epsilon', 'Epsilon GmbH', NULL, '56789012345678', '56789', 'RNA5678901','', 205, '202 Place de Bordeaux, 33000 Bordeaux', '0567890123', 'contact@epsilon.com', 'http://www.epsilon.com', 'Commentaire 5', 'SIP', 'SIP', NULL, 'BRI', 'Logistique Epsilon', 'O', NULL, 'O', 'MEN', NULL);
 
 SELECT code_entite,raison_sociale,nom_commercial,logo,siret,code_ape,code_rna,code_cee,societe.raison_sociale as nom_societe,adresse,telephone,mail,site_internet,Entite.commentaires,TypesEntites.libelle as TE_libelle,TypesDons.libelle as TD_libelle,TypesProduits.libelle as TP_libelle,TypesCompetences.libelle as TC_libelle,commentaires_logistique,presence_quai,pieces_associees,cerfa,FrequencesCerfa.libelle,date_arret_activite FROM Entite
-JOIN TypesEntites ON Entite.code_type_entite = TypesEntites.code_type_entite
-JOIN TypesDons ON Entite.code_type_don = TypesDons.code_type_don
-JOIN TypesProduits ON Entite.code_type_produit = TypesProduits.code_type_produits
-JOIN TypesCompetences ON Entite.code_type_competence = TypesCompetences.code_type_competence
-JOIN FrequencesCerfa ON Entite.code_frequence_cerfa = FrequencesCerfa.code_frequence_cerfa
-JOIN Societe ON Entite.code_societe_appartenance = Societe.code_Societe
-WHERE code_entite = 1;
+LEFT JOIN TypesEntites ON Entite.code_type_entite = TypesEntites.code_type_entite
+LEFT JOIN TypesDons ON Entite.code_type_don = TypesDons.code_type_don
+LEFT JOIN TypesProduits ON Entite.code_type_produit = TypesProduits.code_type_produits
+LEFT JOIN TypesCompetences ON Entite.code_type_competence = TypesCompetences.code_type_competence
+LEFT JOIN FrequencesCerfa ON Entite.code_frequence_cerfa = FrequencesCerfa.code_frequence_cerfa
+LEFT JOIN Societe ON Entite.code_societe_appartenance = Societe.code_Societe
+WHERE code_entite = ?;
