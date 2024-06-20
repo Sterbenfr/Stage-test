@@ -1,5 +1,5 @@
 CREATE TABLE Dons (
-    code_Don INT PRIMARY KEY,
+    code_Don INT PRIMARY KEY AUTO_INCREMENT,
     code_Entite_donatrice INT,
     date_proposition_don DATE NOT NULL,
     code_contact_Entite_donatrice INT,
@@ -30,7 +30,6 @@ CREATE TABLE Dons (
     FOREIGN KEY (code_site_beneficiaire_don) REFERENCES Sites(code_site)
 );
 INSERT INTO Dons (
-    code_Don,
     code_Entite_donatrice,
     date_proposition_don,
     code_contact_Entite_donatrice,
@@ -51,11 +50,11 @@ INSERT INTO Dons (
     indicateur_remerciement,
     date_remerciement
 ) VALUES 
-(1, 1, '2023-01-01', 1, 'MAR', NULL, 'ALI', 'AMB', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 1, 'Valide', '2023-01-15', 'A', 1, 1,'N',NULL),
-(2, 2, '2023-02-01', 2, 'FIN', NULL, 'VET', NULL, '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 2, 'Valide', '2023-02-15', 'A', 2, 2,'O','2023-06-25'),
-(3, 3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'Refuse', '2023-03-15', 'R', 3, 3,'N',NULL),
-(4, 4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'Valide', '2023-04-15', 'A', 4, 4,'O','2023-07-08'),
-(5, 5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'Refuse', '2023-05-15', 'R', 5, 5,'N',NULL);
+(1, '2023-01-01', 1, 'MAR', NULL, 'ALI', 'AMB', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 1, 'Valide', '2023-01-15', 'A', 1, 1,'N',NULL),
+(2, '2023-02-01', 2, 'FIN', NULL, 'VET', NULL, '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 2, 'Valide', '2023-02-15', 'A', 2, 2,'O','2023-06-25'),
+(3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'Refuse', '2023-03-15', 'R', 3, 3,'N',NULL),
+(4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'Valide', '2023-04-15', 'A', 4, 4,'O','2023-07-08'),
+(5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'Refuse', '2023-05-15', 'R', 5, 5,'N',NULL);
 
 SELECT Dons.code_Don, Entite.raison_sociale, date_proposition_don,code_contact_Entite_donatrice, TypesDons.libelle as TD_libelle, TypesCompetences.libelle as TC_libelle,TypesProduits.libelle as TP_libelle, ModeConservationProduits.libelle as MCP_libelle, date_debut_mise_disposition, date_fin_mise_disposition, Dons.commentaires, Dons.pieces_associees, Utilisateur_saisie_don.nom as Utilisateur_saisie_don, statut_acceptation_don, date_acceptation_refus_don, type_date_acceptation_refus, Utilisateur_accepte_refuse_don.nom as Utilisateur_accepte_refuse_don, Sites.designation_longue,indicateur_remerciement,date_remerciement FROM Dons
 LEFT JOIN Entite ON Dons.code_Entite_donatrice = Entite.code_Entite
