@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import style from '../../../../../styles/components.module.css'
 
 interface EntiteID {
     code_entite: number
@@ -58,34 +59,205 @@ export default function EntitePage({
     if (!entite || entite.length === 0) return <div>Loading...</div>
 
     return (
-        <div>
-            <h1>entite</h1>
-            <p>{entite[0].code_entite}</p>
-            <p>{entite[0].raison_sociale}</p>
-            <p>{entite[0].nom_commercial}</p>
-            <p>{entite[0].siret}</p>
-            <p>{entite[0].code_ape}</p>
-            <p>{entite[0].code_rna}</p>
-            <p>{entite[0].code_cee}</p>
-            <p>{entite[0].nom_societe}</p>
-            <p>{entite[0].adresse}</p>
-            <p>{entite[0].telephone}</p>
-            <p>{entite[0].mail}</p>
-            <p>{entite[0].site_internet}</p>
-            <p>{entite[0].commentaires}</p>
-            <p>{entite[0].TE_libelle}</p>
-            <p>{entite[0].TD_libelle}</p>
-            <p>{entite[0].TP_libelle}</p>
-            <p>{entite[0].TC_libelle}</p>
-            <p>{entite[0].commentaires_logistique}</p>
-            <p>{entite[0].presence_quai}</p>
-            <p>{entite[0].cerfa}</p>
-            <p>{entite[0].FC_libelle}</p>
-            <p>
-                {entite[0].date_arret_activite == null
-                    ? ''
-                    : entite[0].date_arret_activite.toString().split('T')[0]}
-            </p>
+        <div className={style.idPage}>
+            <div>
+                <h1 className={style.titre_global}>Details des entites</h1>
+            </div>
+
+            <div className={style.info_id}>
+                <div className={style.col_1}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Code de l&apos;entite :</p>
+                        <p>
+                            {entite[0].code_entite == null
+                                ? '/'
+                                : entite[0].code_entite}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Raison sociale :</p>
+                        <p>
+                            {entite[0].raison_sociale == null
+                                ? '/'
+                                : entite[0].raison_sociale}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Nom du commercial :</p>
+                        <p>
+                            {entite[0].nom_commercial == null
+                                ? '/'
+                                : entite[0].nom_commercial}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Siret :</p>
+                        <p>{entite[0].siret == null ? '/' : entite[0].siret}</p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Code APE :</p>
+                        <p>
+                            {entite[0].code_ape == null
+                                ? '/'
+                                : entite[0].code_ape}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Code RNA :</p>
+                        <p>
+                            {entite[0].code_rna == null
+                                ? '/'
+                                : entite[0].code_rna}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Code CEE :</p>
+                        <p>
+                            {entite[0].code_cee == null
+                                ? '/'
+                                : entite[0].code_cee}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Nom de la societe :</p>
+                        <p>
+                            {entite[0].nom_societe == null
+                                ? '/'
+                                : entite[0].nom_societe}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Adresse :</p>
+                        <p>
+                            {entite[0].adresse == null
+                                ? '/'
+                                : entite[0].adresse}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Téléphone :</p>
+                        <p>
+                            {entite[0].telephone == null
+                                ? '/'
+                                : entite[0].telephone}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Mail :</p>
+                        <p>{entite[0].mail == null ? '/' : entite[0].mail}</p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Site internet :</p>
+                        <p>
+                            {entite[0].site_internet == null
+                                ? '/'
+                                : entite[0].site_internet}
+                        </p>
+                    </div>
+                </div>
+                <div className={style.col_2}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Commentaires :</p>
+                        <p>
+                            {entite[0].commentaires == null
+                                ? '/'
+                                : entite[0].commentaires}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>TE libelle :</p>
+                        <p>
+                            {entite[0].TE_libelle == null
+                                ? '/'
+                                : entite[0].TE_libelle}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>TD libelle :</p>
+                        <p>
+                            {entite[0].TD_libelle == null
+                                ? '/'
+                                : entite[0].TD_libelle}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>TP libelle :</p>
+                        <p>
+                            {entite[0].TP_libelle == null
+                                ? '/'
+                                : entite[0].TP_libelle}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>TC libelle :</p>
+                        <p>
+                            {entite[0].TC_libelle == null
+                                ? '/'
+                                : entite[0].TC_libelle}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Commentaires logistique :</p>
+                        <p>
+                            {entite[0].commentaires_logistique == null
+                                ? '/'
+                                : entite[0].commentaires_logistique}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Presence quai :</p>
+                        <p>
+                            {entite[0].presence_quai == null
+                                ? '/'
+                                : entite[0].presence_quai}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Cerfa :</p>
+                        <p>{entite[0].cerfa == null ? '/' : entite[0].cerfa}</p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>FC libelle :</p>
+                        <p>
+                            {entite[0].FC_libelle == null
+                                ? '/'
+                                : entite[0].FC_libelle}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Date de l&apos;arret de l&apos;activite :
+                        </p>
+                        <p>
+                            {entite[0].date_arret_activite == null
+                                ? '/'
+                                : entite[0].date_arret_activite
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

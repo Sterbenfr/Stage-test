@@ -210,7 +210,6 @@
 .info {
     display: flex;
     align-items: center;
-    justify-content: start;
     margin-top: 1.5rem;
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
@@ -235,25 +234,22 @@
 
 .info_id {
     display: flex;
-    align-items: start;
     justify-content: space-around;
 }
 
 .col_1 {
     display: flex;
-    align-items: start;
     flex-direction: column;
     border-left: 3px solid #e5007d;
-    width: 30rem;
+    width: 35rem;
     padding-left: 2rem;
     padding-right: 2rem;
 }
 
 .col_2 {
     display: flex;
-    align-items: start;
     flex-direction: column;
-    width: 30rem;
+    width: 35rem;
     padding-left: 2rem;
     padding-right: 2rem;
     border-left: 3px solid #e5007d;

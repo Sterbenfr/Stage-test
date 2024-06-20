@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import style from '../../../../../styles/components.module.css'
 
 interface GroupeID {
     code_Groupe: number
@@ -40,19 +41,65 @@ export default function GroupePage({
     if (!Groupe || Groupe.length === 0) return <div>Loading...</div>
 
     return (
-        <div>
-            <h1>Groupes</h1>
-            <p>{Groupe[0].code_Groupe}</p>
-            <p>{Groupe[0].nom_du_Groupe}</p>
-            <p>{Groupe[0].site_Web}</p>
-            <p>{Groupe[0].commentaires}</p>
-            <p>
-                {Groupe[0].date_arret_activite_du_Groupe == null
-                    ? ''
-                    : Groupe[0].date_arret_activite_du_Groupe
-                          .toString()
-                          .split('T')[0]}
-            </p>
+        <div className={style.idPage}>
+            <div>
+                <h1 className={style.titre_global}>Groupes</h1>
+            </div>
+
+            <div className={style.info_id}>
+                <div className={style.col_1}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Code du groupe :</p>
+                        <p>
+                            {Groupe[0].code_Groupe == null
+                                ? '/'
+                                : Groupe[0].code_Groupe}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Nom du groupe :</p>
+                        <p>
+                            {Groupe[0].nom_du_Groupe == null
+                                ? '/'
+                                : Groupe[0].nom_du_Groupe}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Site web :</p>
+                        <p>
+                            {Groupe[0].site_Web == null
+                                ? '/'
+                                : Groupe[0].site_Web}
+                        </p>
+                    </div>
+                </div>
+
+                <div className={style.col_2}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Commentaires :</p>
+                        <p>
+                            {Groupe[0].commentaires == null
+                                ? '/'
+                                : Groupe[0].commentaires}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Date_arret_activite_du_Groupe :
+                        </p>
+                        <p>
+                            {Groupe[0].date_arret_activite_du_Groupe == null
+                                ? '/'
+                                : Groupe[0].date_arret_activite_du_Groupe
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

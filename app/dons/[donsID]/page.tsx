@@ -53,7 +53,7 @@ export default function DonPage({ params }: { params: { donsID: string } }) {
     return (
         <div className={style.idPage}>
             <div>
-                <h1 className={style.titre_global}>Details du don :</h1>
+                <h1 className={style.titre_global}>Détails du don :</h1>
             </div>
 
             <div className={style.info_id}>
