@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import style from '../../../../../styles/components.module.css'
 
 interface UtilisateurID {
     code_utilisateur: number
@@ -42,15 +43,81 @@ export default function UtilisateurPage({
     if (!Utilisateur || Utilisateur.length === 0) return <div>Loading...</div>
 
     return (
-        <div>
-            <h1>Utilisateurs</h1>
-            <p>{Utilisateur[0].code_utilisateur}</p>
-            <p>{Utilisateur[0].civilite}</p>
-            <p>{Utilisateur[0].nom}</p>
-            <p>{Utilisateur[0].prenom}</p>
-            <p>{Utilisateur[0].tel_perso}</p>
-            <p>{Utilisateur[0].mail_restos_du_coeur}</p>
-            <p>{Utilisateur[0].commentaires}</p>
+        <div className={style.idPage}>
+            <div>
+                <h1 className={style.titre_global}>Utilisateurs</h1>
+            </div>
+
+            <div className={style.info_id}>
+                <div className={style.col_1}>
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Code de l&apos;utilisateur :
+                        </p>
+                        <p>
+                            {Utilisateur[0].code_utilisateur == null
+                                ? '/'
+                                : Utilisateur[0].code_utilisateur}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Civilite :</p>
+                        <p>
+                            {Utilisateur[0].civilite == null
+                                ? '/'
+                                : Utilisateur[0].civilite}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Nom :</p>
+                        <p>
+                            {Utilisateur[0].nom == null
+                                ? '/'
+                                : Utilisateur[0].nom}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Prenom :</p>
+                        <p>
+                            {Utilisateur[0].prenom == null
+                                ? '/'
+                                : Utilisateur[0].prenom}
+                        </p>
+                    </div>
+                </div>
+
+                <div className={style.col_2}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Téléphone personel :</p>
+                        <p>
+                            {Utilisateur[0].tel_perso == null
+                                ? '/'
+                                : Utilisateur[0].tel_perso}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Mail du restos du coeur :</p>
+                        <p>
+                            {Utilisateur[0].mail_restos_du_coeur == null
+                                ? '/'
+                                : Utilisateur[0].mail_restos_du_coeur}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Commentaires :</p>
+                        <p>
+                            {Utilisateur[0].commentaires == null
+                                ? '/'
+                                : Utilisateur[0].commentaires}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

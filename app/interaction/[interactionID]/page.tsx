@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import style from '../../../styles/components.module.css'
 
 interface interactionID {
     code_Utilisateur_Prospecteur: number
@@ -43,24 +44,102 @@ export default function InteractionPage({
     if (!interaction || interaction.length === 0) return <div>Loading...</div>
 
     return (
-        <div>
-            <h1>Interaction</h1>
-            <p>{interaction[0].code_Utilisateur_Prospecteur}</p>
-            <p>{interaction[0].code_Entite_Prospectee}</p>
-            <p>
-                {interaction[0].date_interaction == null
-                    ? ''
-                    : interaction[0].date_interaction.toString().split('T')[0]}
-            </p>
-            <p>{interaction[0].code_type_interaction}</p>
-            <p>{interaction[0].code_modalite_interaction}</p>
-            <p>{interaction[0].code_contact_entite}</p>
-            <p>{interaction[0].commentaires}</p>
-            <p>
-                {interaction[0].date_relance == null
-                    ? ''
-                    : interaction[0].date_relance.toString().split('T')[0]}
-            </p>
+        <div className={style.idPage}>
+            <div className='Titre_haut'>
+                <h1 className={style.titre_global}>Details des interaction</h1>
+            </div>
+
+            <div className={style.info_id}>
+                <div className={style.col_1}>
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Code utilisateur prospecteur :
+                        </p>
+                        <p>
+                            {interaction[0].code_Utilisateur_Prospecteur == null
+                                ? '/'
+                                : interaction[0].code_Utilisateur_Prospecteur}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Code entite prospectee :</p>
+                        <p>
+                            {interaction[0].code_Entite_Prospectee == null
+                                ? '/'
+                                : interaction[0].code_Entite_Prospectee}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Date de l&apos;interaction :
+                        </p>
+                        <p>
+                            {interaction[0].date_interaction == null
+                                ? ''
+                                : interaction[0].date_interaction
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Code type d&apos;interaction :
+                        </p>
+                        <p>
+                            {interaction[0].code_type_interaction == null
+                                ? '/'
+                                : interaction[0].code_type_interaction}
+                        </p>
+                    </div>
+                </div>
+
+                <div className={style.col_2}>
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Code modalite interaction :
+                        </p>
+                        <p>
+                            {interaction[0].code_modalite_interaction == null
+                                ? '/'
+                                : interaction[0].code_modalite_interaction}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Code contact de l&apos;entite :
+                        </p>
+                        <p>
+                            {interaction[0].code_contact_entite == null
+                                ? '/'
+                                : interaction[0].code_contact_entite}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Commentaires</p>
+                        <p>
+                            {interaction[0].commentaires == null
+                                ? '/'
+                                : interaction[0].commentaires}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Date relance :</p>
+                        <p>
+                            {interaction[0].date_relance == null
+                                ? '/'
+                                : interaction[0].date_relance
+                                      .toString()
+                                      .split('T')[0]}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
