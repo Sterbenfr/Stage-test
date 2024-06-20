@@ -30,5 +30,5 @@ INSERT INTO Sites (
 ('Magasin de Détail', 'Magasin', '202 Place de Bordeaux, 33000 Bordeaux', 'CD', '2020-05-01', NULL, '0567890123', 'magasin@entreprise.com', 'Commentaires sur le magasin de détail');
 
 SELECT code_site,designation_longue,designation_courte,adresse,SiteTypes.libelle as st_libelle,date_ouverture,date_fermeture,numero_telephone,adresse_mail,commentaires FROM Sites
-JOIN SiteTypes ON Sites.code_type_site = SiteTypes.code_type_site
+LEFT JOIN SiteTypes ON Sites.code_type_site = SiteTypes.code_type_site
 WHERE code_site = ?;

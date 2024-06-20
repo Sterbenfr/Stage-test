@@ -3,10 +3,11 @@ import pool from '../../../../../utils/db'
 
 type CountResult = { count: number }[]
 
-export async function GET(request: Request) {
+export async function GET(request: Request, { params }: { params: { donsID: string } }) {
     const { searchParams } = new URL(request.url)
     const page = searchParams.get('page') || '1'
     const limit = searchParams.get('limit') || '10'
+    const donsID = params.donsID;
 
     try {
         const pageNumber = Number(page)
@@ -14,12 +15,13 @@ export async function GET(request: Request) {
         const offset = (pageNumber - 1) * limitNumber
 
         const [rows] = await pool.query(
-            'SELECT * FROM `Reception` LIMIT ?, ?',
-            [offset, limitNumber],
+            'SELECT * FROM `Reception` WHERE code_Don = ? LIMIT ?, ?',
+            [donsID,offset, limitNumber],
         )
 
         const [totalResult] = await pool.query(
-            'SELECT COUNT(*) as count FROM `Reception`',
+            'SELECT COUNT(*) as count FROM `Reception` WHERE code_Don = ?',
+            [donsID],
         )
 
         const total = totalResult as CountResult

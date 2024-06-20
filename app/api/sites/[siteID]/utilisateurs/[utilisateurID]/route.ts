@@ -3,9 +3,10 @@ import pool from '../../../../../../utils/db'
 
 export async function GET(
     request: Request,
-    { params }: { params: { utilisateurID: string } },
+    { params }: { params: { siteID : string, utilisateurID: string } },
 ) {
     const utilisateurID = params.utilisateurID
+    const siteID = params.siteID
     try {
         const [rows] = await pool.query(
             'SELECT * FROM Utilisateurs WHERE code_utilisateur = ?;',
