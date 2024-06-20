@@ -2,8 +2,10 @@
 import { useEffect, useState } from 'react'
 import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
+import PopUp from '@/components/popUp'
 
-interface Don {
+
+export interface Don {
     code_Don: number
     code_Entite_donatrice: number
     date_proposition_don: Date
@@ -31,6 +33,13 @@ export default function DonsPage() {
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+    const handleClose = () => {
+        setIsPopUpOpen(false);
+    };
+
     useEffect(() => {
         const fetchDons = async () => {
             const res = await fetch(
@@ -67,10 +76,10 @@ export default function DonsPage() {
             <List
                 items={Dons.map(Don => ({
                     value1: Don.code_Don.toString(),
-                    value2: Don.code_Entite_donatrice.toString(),
+                    value2: Don.code_Entite_donatrice ? Don.code_Entite_donatrice.toString() : '',
                     value3: Don.date_proposition_don.toString().split('T')[0],
-                    value4: Don.commentaires.toString(),
-                    value5: Don.statut_acceptation_don.toString(),
+                    value4: Don.commentaires ? Don.commentaires : '',
+                    value5: Don.statut_acceptation_don ? Don.statut_acceptation_don : '',
                 }))}
             />
             <Pagination
@@ -81,6 +90,38 @@ export default function DonsPage() {
                 currentPage={page}
             />
             {''}
-        </>
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url='http://localhost:3000/api/dons'
+                        fields={[
+                            {
+                                id: "code_Entite_donatrice", type: 'select',
+                                value: null,
+                                url:'../api/select/societe/entite'
+                            },
+                            { id: "date_proposition_don", type: 'date', value: null},
+                            { id: "code_contact_Entite_donatrice", type: 'number', value: null}, //remplissage auto
+                            { id: "code_type_don", type: 'input', value: null}, // deroulant
+                            { id: "code_type_competences", type: 'input', value: null},//deroulant
+                            { id: "code_type_produits", type: 'input', value: null},//deroulant
+                            { id: "code_mode_conservation_produits", type: 'input', value: null},//deroulant
+                            { id: "date_debut_mise_disposition", type: 'date', value: null},
+                            { id: "date_fin_mise_disposition", type: 'date', value: null},
+                            { id: "commentaires", type: 'input', value: null},
+                            { id: "pieces_associees", type: 'file', value: null}, //type blob ?
+                            { id: "code_Utilisateur_saisie_don", type: 'number', value:  null},
+                            { id: "statut_acceptation_don", type: 'input', value: null}, //enum
+                            { id: "date_acceptation_refus_don", type: 'date', value: null},
+                            { id: "type_date_acceptation_refus", type: 'input', value: null},//enum
+                            { id: "code_Utilisateur_accepte_refuse_don", type: 'input', value: null}, //deroulant
+                            { id: "code_site_beneficiaire_don", type: 'number', value: null},
+                            { id: "indicateur_remerciement", type: 'input', value: null},//enum
+                            { id: "date_remerciement", type: 'date', value: null},//depend de si envoyé
+                        ]}
+                    />
+                )}
+            </>
     )
 }
