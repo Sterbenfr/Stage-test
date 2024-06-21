@@ -36,7 +36,7 @@ export default function SearchComponent({ url }: SelectComponentProps) {
         setInputValue(e.target.value);
         const selectedOptions: Option[] = [];
         options.map(option => { 
-            if (option.label.startsWith(e.target.value)) {
+            if (option.label.toLowerCase().startsWith(e.target.value.toLowerCase())) {
                 selectedOptions.push(option);
             }
         });

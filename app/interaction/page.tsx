@@ -2,8 +2,10 @@
 import { useEffect, useState } from 'react'
 import List from '@/components/list'
 import { Pagination } from '@/components/pagination'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface Interactions {
+export interface Interactions {
     code_Utilisateur_Prospecteur: number
     code_Entite_Prospectee: number
     date_interaction: Date
@@ -15,11 +17,20 @@ interface Interactions {
     date_relance: Date
 }
 
-export default function InteractionsPage() {
+function InteractionsPage() {
     const [Interactions, setInteractions] = useState<Interactions[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [checkboxChecked, setCheckboxChecked] = useState(false);
+
+    const handleClose = () => {
+        setIsPopUpOpen(false);
+        setCheckboxChecked(false);
+    };
+
     useEffect(() => {
         const fetchInteractions = async () => {
             const res = await fetch(
@@ -68,7 +79,44 @@ export default function InteractionsPage() {
                 totalItems={totalItems} // use the total items from the state
                 itemsPerPage={itemsPerPage}
                 currentPage={page}
-            />{' '}
+            />
+            {''}
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url='http://localhost:3000/api/interactions'
+                        fields={[
+                            {
+                                id: "code_Utilisateur_Prospecteur", type: 'search', 
+                                value: null,
+                                url:'../api/select/sites/utilisateurs'
+                            },
+                            {
+                                id: "code_Entite_Prospectee", type: 'search', 
+                                value: null,
+                                url:'../api/select/societe/entite'
+                            },
+                            { id: "date_interaction", type: 'date', value: null},
+                            {
+                                id: "code_type_interaction", type: 'select',
+                                value: null,
+                                url:'../api/dons/type-interactions'
+                            },
+                            {
+                                id: "code_modalite_interaction", type: 'select',
+                                value: null,
+                                url:'../api/dons/type-modalite-interactions'
+                            },
+                            { id: "code_contact_entite", type: 'input', value: null}, //remplissage auto
+                            { id: "commentaires", type: 'input', value: null},
+                            { id: "pieces_associees", type: 'file', value: null},
+                            { id: "date_relance", type: 'date', value: null},
+                        ]}
+                    />
+                )}
         </>
     )
 }
+
+export default withAuthorization(InteractionsPage, ['AD', 'PR'])
