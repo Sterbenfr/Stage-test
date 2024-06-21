@@ -2,8 +2,9 @@
 import { useEffect, useState } from 'react'
 import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
+import PopUp from '@/components/popUp'
 
-interface Societe {
+export interface Societe {
     code_Societe: number
     raison_sociale: string
     nom_commercial: string
@@ -21,6 +22,13 @@ export default function SocietesPage() {
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+
+    const handleClose = () => {
+        setIsPopUpOpen(false)
+    }
+
     useEffect(() => {
         const fetchSocietes = async () => {
             const res = await fetch(
@@ -76,6 +84,62 @@ export default function SocietesPage() {
                 currentPage={page}
             />
             {''}
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url='http://localhost:3000/api/societe'
+                    fields={[
+                        {
+                            id: 'raison_sociale',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'nom_commercial',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'Logo',
+                            type: 'file',
+                            value: null,
+                        },
+                        {
+                            id: 'site_Web',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'Siren',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'code_type_activite_Societe',
+                            type: 'select',
+                            value: null,
+                            url: '../api/societe/type-activite-societe',
+                        },
+                        {
+                            id: 'commentaires',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'code_Groupe_appartenance',
+                            type: 'search',
+                            value: null,
+                            url: '../api/select/societe/groupe',
+                        },
+                        {
+                            id: 'date_arret_activite_Societe',
+                            type: 'date',
+                            value: null,
+                        },
+                    ]}
+                />
+            )}
         </>
     )
 }
