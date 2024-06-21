@@ -3,7 +3,9 @@ import pool from '../../../../utils/db'
 
 export async function GET() {
     try {
-        const [rows] = await pool.query('SELECT * FROM `TypeActiviteSociete` LIMIT 1000')
+        const [rows] = await pool.query(
+            'Select code as id, libelle as label from `typeactivitesociete` LIMIT 1000;',
+        )
         return NextResponse.json(rows)
     } catch (err) {
         console.log(err)
