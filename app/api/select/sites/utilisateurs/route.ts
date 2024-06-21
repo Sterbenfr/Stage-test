@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server'
-import pool from '../../../../utils/db'
+import pool from '../../../../../utils/db'
 
 export async function GET() {
     try {
-        const [rows] = await pool.query('SELECT code_type_interaction as id, libelle as label FROM `TypeInteractions` LIMIT 1000')
+        const [rows] = await pool.query(
+            "Select code_utilisateur as id, CONCAT(prenom,'',nom) as label from Utilisateurs;"
+        )
         return NextResponse.json(rows)
     } catch (err) {
         console.log(err)
