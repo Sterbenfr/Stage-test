@@ -7,7 +7,7 @@ import { streamToString } from '../../../../utils/streamUtils'
 export async function GET() {
     try {
         const [rows] = await pool.query(
-            'SELECT * FROM `TypesProduits` LIMIT 1000',
+            'SELECT code_type_produits as id, libelle as label FROM `TypesProduits` LIMIT 1000',
         )
         return NextResponse.json(rows)
     } catch (err) {
