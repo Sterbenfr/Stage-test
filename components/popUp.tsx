@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import SelectComponent from './select-component'
+import SearchComponent from './searchComponent'
 
 interface Field {
     id: string
-    type: 'input' | 'checkbox' | 'number' | 'date' | 'file' | 'select' | 'enum'
+    type: 'input' | 'checkbox' | 'number' | 'date' | 'file' | 'select' | 'enum' | 'search'
     value: string | boolean | null
     url?: string
 }
@@ -71,7 +72,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
         <div className={'popup-container'}>
             <h2>Add New Entry</h2>
             {inputs.map(input => (
-                input.type !== 'select' && (
+                input.type !== 'select' && input.type !== 'search' && (
                     <input
                         key={input.id}
                         type={input.type}
@@ -80,7 +81,9 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                     />
                 ) || (input.type === 'select'  && (
                     SelectComponent({ url: input.url as string })
-                )
+                ) || (input.type === 'search' && (
+                    SearchComponent({ url: input.url as string })
+                ))
             )))}
             <button onClick={handleSubmit}>Submit</button>
         </div>
