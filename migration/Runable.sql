@@ -590,7 +590,6 @@ CREATE TABLE Dons (
     code_Utilisateur_saisie_don INT NOT NULL,
     statut_acceptation_don ENUM('V', 'R', 'B'),
     date_acceptation_refus_don DATE,
-    type_date_acceptation_refus ENUM('A', 'R'),
     code_Utilisateur_accepte_refuse_don INT,
     code_site_beneficiaire_don INT,
     indicateur_remerciement ENUM('O','N'),
@@ -620,20 +619,19 @@ INSERT INTO Dons (
     code_Utilisateur_saisie_don,
     statut_acceptation_don,
     date_acceptation_refus_don,
-    type_date_acceptation_refus,
     code_Utilisateur_accepte_refuse_don,
     code_site_beneficiaire_don,
     indicateur_remerciement,
     date_remerciement
 ) VALUES 
-(1, '2023-01-01', 1, 'MAR', NULL, 'ALI', 'AMB', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 1, 'V', '2023-01-15', 'A', 1, 1,'N',NULL),
-(2, '2023-02-01', 2, 'FIN', NULL, 'VET', NULL, '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 2, 'V', '2023-02-15', 'A', 2, 2,'O','2023-06-25'),
-(3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'R', '2023-03-15', 'R', 3, 3,'N',NULL),
-(4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'V', '2023-04-15', 'A', 4, 4,'O','2023-07-08'),
-(5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'R', '2023-05-15', 'R', 5, 5,'N',NULL);
+(1, '2023-01-01', 1, 'MAR', NULL, 'ALI', 'AMB', '2023-02-01', '2023-12-31', 'Don de compétences techniques', NULL, 1, 'V', '2023-01-15', 1, 1,'N',NULL),
+(2, '2023-02-01', 2, 'FIN', NULL, 'VET', NULL, '2023-03-01', '2023-11-30', 'Don de produits alimentaires', NULL, 2, 'V', '2023-02-15', 2, 2,'O','2023-06-25'),
+(3, '2023-03-01', 3, 'RAM', NULL, NULL, NULL, '2023-04-01', '2023-10-31', 'Don de services juridiques', NULL, 3, 'R', '2023-03-15', 3, 3,'N',NULL),
+(4, '2023-04-01', 4, 'SIE', NULL, NULL, NULL, '2023-05-01', '2023-09-30', 'Don de matériel informatique', NULL, 4, 'V', '2023-04-15', 4, 4,'O','2023-07-08'),
+(5, '2023-05-01', 5, 'SIP', 'MAK', NULL, NULL, '2023-06-01', '2023-08-31', 'Don de vêtements', NULL, 5, 'R', '2023-05-15', 5, 5,'N',NULL);
 
 CREATE TABLE Cerfa (
-    numero_Cerfa INT PRIMARY KEY,
+    numero_Cerfa INT PRIMARY KEY AUTO_INCREMENT,
     code_Don INT,
     montant_HT_Cerfa DECIMAL(10, 2),
     date_realisation_Cerfa DATE,
@@ -647,7 +645,6 @@ CREATE TABLE Cerfa (
     FOREIGN KEY (code_Don) REFERENCES Dons(code_Don)
 );
 INSERT INTO Cerfa (
-    numero_Cerfa,
     code_Don,
     montant_HT_Cerfa,
     date_realisation_Cerfa,
@@ -659,11 +656,11 @@ INSERT INTO Cerfa (
     telephone_destinataire_Cerfa,
     mail_destinataire_Cerfa
 ) VALUES 
-(1, 1, 1500.00, '2023-01-10', '2023-01-15', '123 Main St', 'Mr.', 'Smith', 'John', '1234567890', 'john.smith@example.com'),
-(2, 2, 2500.50, '2023-02-20', '2023-02-25', '456 Oak Ave', 'Ms.', 'Johnson', 'Jane', '0987654321', 'jane.johnson@example.com'),
-(3, 3, 3200.75, '2023-03-05', '2023-03-10', '789 Pine Ln', 'Dr.', 'Williams', 'Robert', '1122334455', 'robert.williams@example.com'),
-(4, 4, 4500.00, '2023-04-15', '2023-04-20', '321 Elm Dr', 'Mrs.', 'Brown', 'Emily', '2233445566', 'emily.brown@example.com'),
-(5, 5, 1200.20, '2023-05-25', '2023-05-30', '654 Maple Ct', 'Mr.', 'Davis', 'James', '3344556677', 'james.davis@example.com');
+(1, 1500.00, '2023-01-10', '2023-01-15', '123 Main St', 'Mr.', 'Smith', 'John', '1234567890', 'john.smith@example.com'),
+(2, 2500.50, '2023-02-20', '2023-02-25', '456 Oak Ave', 'Ms.', 'Johnson', 'Jane', '0987654321', 'jane.johnson@example.com'),
+(3, 3200.75, '2023-03-05', '2023-03-10', '789 Pine Ln', 'Dr.', 'Williams', 'Robert', '1122334455', 'robert.williams@example.com'),
+(4, 4500.00, '2023-04-15', '2023-04-20', '321 Elm Dr', 'Mrs.', 'Brown', 'Emily', '2233445566', 'emily.brown@example.com'),
+(5, 1200.20, '2023-05-25', '2023-05-30', '654 Maple Ct', 'Mr.', 'Davis', 'James', '3344556677', 'james.davis@example.com');
 
 CREATE TABLE ModalitesLivraison (
     numero_livraison INT PRIMARY KEY,
