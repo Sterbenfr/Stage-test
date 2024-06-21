@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import List from '@/components/list'
 import { Pagination } from '@/components/pagination'
 
-interface Utilisateurs {
+export interface Utilisateurs {
     code_utilisateur: number
     civilite: string
     nom: string
@@ -11,6 +11,8 @@ interface Utilisateurs {
     tel_perso: string
     mail_restos_du_coeur: string
     commentaires: string
+    password: string
+    code_type_utilisateur: number
 }
 
 export default function UtilisateursPage(params: { siteID: string }) {
