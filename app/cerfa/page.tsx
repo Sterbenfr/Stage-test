@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
+import PopUp from '@/components/popUp'
 
 interface Cerfa {
     numero_Cerfa: number
@@ -22,6 +23,12 @@ export default function CerfaPage() {
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+
+    const handleClose = () => {
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchCerfas = async () => {
@@ -72,6 +79,71 @@ export default function CerfaPage() {
                     itemsPerPage={itemsPerPage}
                     currentPage={page}
                 />{' '}
+                <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url='http://localhost:3000/api/cerfa'
+                        fields={[
+                            {
+                                id: 'code_Don',
+                                type: 'select',
+                                value: null,
+                                url: '../api/select/cerfa',
+                            },
+                            {
+                                id: 'montant_HT_Cerfa',
+                                type: 'number',
+                                value: null,
+                            },
+                            {
+                                id: 'date_realisation_Cerfa',
+                                type: 'date',
+                                value: null,
+                            },
+                            {
+                                id: 'date_envoi_Cerfa',
+                                type: 'date',
+                                value: null,
+                            },
+                            {
+                                id: 'addresse_Cerfa',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'civilite_destinataire_Cerfa',
+                                type: 'enum',
+                                value: null, // enum values: 'M.', 'Mme' à voir
+                            },
+                            {
+                                id: 'nom_destinataire_Cerfa',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'prenom_destinataire_Cerfa',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'telephone_destinataire_Cerfa',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'commentaires',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'mail_destinataire_Cerfa',
+                                type: 'input',
+                                value: null,
+                            },
+                        ]}
+                    />
+                )}
             </>
         </div>
     )
