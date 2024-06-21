@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
-
+import withAuthorization from '@/components/withAuthorization'
 interface Prestataire {
     code_Prestataire: number
     code_type_de_Prestataire: string
@@ -22,7 +22,7 @@ interface Prestataire {
     date_arret_activite_du_prestataire: Date
 }
 
-export default function PrestatairesPage() {
+function PrestatairesPage() {
     const [Prestataires, setPrestataires] = useState<Prestataire[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
@@ -81,3 +81,5 @@ export default function PrestatairesPage() {
         </>
     )
 }
+
+export default withAuthorization(PrestatairesPage, ['AD', 'PR'])

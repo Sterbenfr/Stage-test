@@ -9,7 +9,12 @@ VALUES
 ('PR', 'Prospecteur'),
 ('AP', 'Approvisionneur'),
 ('RR', 'Responsable Réception'),
+('RE', 'Responsable Entrepôt'),
 ('RC', 'Responsable de Centre');
+('RS', 'Responsable Site'),
+('RA', 'Responsable Antenne'),
+('RN', 'Responsable National'),
+('AD', 'Administrateur'),
 
 
 
