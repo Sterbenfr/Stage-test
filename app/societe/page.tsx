@@ -92,9 +92,8 @@ export default function SocietesPage() {
                     fields={[
                         {
                             id: 'raison_sociale',
-                            type: 'select',
+                            type: 'input',
                             value: null,
-                            url: '../api/select/societe/entite',
                         },
                         {
                             id: 'nom_commercial',
@@ -129,8 +128,9 @@ export default function SocietesPage() {
                         },
                         {
                             id: 'code_Groupe_appartenance',
-                            type: 'number',
+                            type: 'search',
                             value: null,
+                            url: '../api/societe/[societeID]/groupe',
                         },
                         {
                             id: 'date_arret_activite_Societe',
