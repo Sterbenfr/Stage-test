@@ -1,7 +1,7 @@
 CREATE TABLE Reception (
     numero_reception INT PRIMARY KEY,
     code_Don INT,
-    numero_BL INT,
+    numero_livraion INT,
     date_reception DATE,
     heure_reception TIME,
     nombre_palettes_recues INT,
@@ -18,7 +18,7 @@ CREATE TABLE Reception (
 INSERT INTO Reception (
     numero_reception,
     code_Don,
-    numero_BL,
+    numero_livraion,
     date_reception,
     heure_reception,
     nombre_palettes_recues,
@@ -35,6 +35,3 @@ INSERT INTO Reception (
 (3, 3, 3, '2023-06-03', '10:00:00', 15, 12, 12, 300, 1500, 'O', 'Réception conforme', NULL),
 (4, 4, 4, '2023-06-04', '11:00:00', 20, 18, 18, 400, 2000, 'O', 'Réception conforme', NULL),
 (5, 5, 5, '2023-06-05', '12:00:00', 25, 20, 20, 500, 2500, 'O', 'Réception conforme', NULL);
-
-SELECT * FROM Reception
-WHERE Reception.numero_reception = ?;

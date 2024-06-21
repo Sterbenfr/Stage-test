@@ -39,7 +39,3 @@ INSERT INTO Prestataires (
 ('TRA', 'Société Gamma', 'Société Gamma', '345678901', '34567890123456', '0345678901', 'contact@gamma.com', '789 Boulevard de Nice, 06000 Nice', 'M.', 'Durand', 'Pierre', '0345678901', 'pierre.durand@gamma.com', 'Troisième prestataire', NULL),
 ('TRA', 'Société Delta', 'Société Delta', '456789012', '45678901234567', '0456789012', 'contact@delta.com', '101 Rue de Marseille, 13000 Marseille', 'Mme', 'Leroy', 'Claire', '0456789012', 'claire.leroy@delta.com', 'Quatrième prestataire', NULL),
 ('TRA', 'Société Epsilon', 'Société Epsilon', '567890123', '56789012345678', '0567890123', 'contact@epsilon.com', '202 Place de Bordeaux, 33000 Bordeaux', 'M.', 'Moreau', 'Louis', '0567890123', 'louis.moreau@epsilon.com', 'Cinquième prestataire', NULL);
-
-SELECT code_Prestataire,TypePrestataires.libelle as TP_libelle,raison_sociale,nom_commercial,Siren,Siret,telephone,mail,adresse,civilite_contact_prestataire,nom_contact_prestataire,prenom_contact_prestataire,telephone_contact_prestataire,mail_contact_prestataire,commentaires,date_arret_activite_du_prestataire FROM Prestataires
-LEFT JOIN TypePrestataires ON Prestataires.code_type_de_Prestataire = TypePrestataires.code_type_de_Prestataire
-WHERE code_Prestataire = ?;
