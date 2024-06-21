@@ -4,7 +4,6 @@ import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 
-
 export interface Don {
     code_Don: number
     code_Entite_donatrice: number
@@ -35,9 +34,11 @@ export default function DonsPage() {
     const [itemsPerPage, setItemsPerPage] = useState(3)
 
     const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [checkboxChecked, setCheckboxChecked] = useState(false);
 
     const handleClose = () => {
         setIsPopUpOpen(false);
+        setCheckboxChecked(false);
     };
 
     useEffect(() => {
@@ -97,28 +98,48 @@ export default function DonsPage() {
                         url='http://localhost:3000/api/dons'
                         fields={[
                             {
-                                id: "code_Entite_donatrice", type: 'select',
+                                id: "code_Entite_donatrice", type: 'select', //y'en a trop
                                 value: null,
                                 url:'../api/select/societe/entite'
                             },
                             { id: "date_proposition_don", type: 'date', value: null},
                             { id: "code_contact_Entite_donatrice", type: 'number', value: null}, //remplissage auto
-                            { id: "code_type_don", type: 'input', value: null}, // deroulant
-                            { id: "code_type_competences", type: 'input', value: null},//deroulant
-                            { id: "code_type_produits", type: 'input', value: null},//deroulant
-                            { id: "code_mode_conservation_produits", type: 'input', value: null},//deroulant
+                            {
+                                id: "code_type_don", type: 'select',
+                                value: null,
+                                url:'../api/dons/type-don'
+                            },
+                            {
+                                id: "code_type_competences", type: 'select', //que si code_type_don = competences
+                                value: null,
+                                url:'../api/dons/type-competences'
+                            },
+                            {
+                                id: "code_type_produits", type: 'select', //que si code_type_don = marchandises
+                                value: null,
+                                url:'../api/dons/type-produits'
+                            },
+                            {
+                                id: "code_mode_conservation_produits", type: 'select', //que si code_type_produits = alimentaire
+                                value: null,
+                                url:'../api/dons/type-mode-conservations-produits'
+                            },
                             { id: "date_debut_mise_disposition", type: 'date', value: null},
-                            { id: "date_fin_mise_disposition", type: 'date', value: null},
+                            { id: "date_fin_mise_disposition", type: 'date', value: null}, //depend de si date_debut_mise_disposition (pas avant stp)
                             { id: "commentaires", type: 'input', value: null},
                             { id: "pieces_associees", type: 'file', value: null}, //type blob ?
-                            { id: "code_Utilisateur_saisie_don", type: 'number', value:  null},
-                            { id: "statut_acceptation_don", type: 'input', value: null}, //enum
-                            { id: "date_acceptation_refus_don", type: 'date', value: null},
-                            { id: "type_date_acceptation_refus", type: 'input', value: null},//enum
-                            { id: "code_Utilisateur_accepte_refuse_don", type: 'input', value: null}, //deroulant
-                            { id: "code_site_beneficiaire_don", type: 'number', value: null},
-                            { id: "indicateur_remerciement", type: 'input', value: null},//enum
-                            { id: "date_remerciement", type: 'date', value: null},//depend de si envoyé
+                            { id: "code_Utilisateur_saisie_don", type: 'number', value:  null}, // a voir si select
+                            {
+                                id: "statut_acceptation_don", type: 'select', //enum de 3 valeurs
+                                value: null,
+                                url:'../api/dons/type-mode-conservations-produits'
+                            },
+                            { id: "date_acceptation_refus_don", type: 'date', value: null}, //que si status different de attente
+                            { id: "type_date_acceptation_refus", type: 'input', value: null},//pas compris l'intérêt
+                            { id: "code_Utilisateur_accepte_refuse_don", type: 'number', value: null}, //// a voir si select
+                            { id: "code_site_beneficiaire_don", type: 'number', value: null},  //y'en a trop
+                            { id: "indicateur_remerciement", type: 'checkbox', value: checkboxChecked ? "O" : "N"}, //enum
+                            { id: "date_remerciement", type: 'date', value: null}, //que si indicateur_remerciement = O
                         ]}
                     />
                 )}

@@ -3,7 +3,7 @@ import SelectComponent from './select-component'
 
 interface Field {
     id: string
-    type: 'input' | 'checkbox' | 'number' | 'date' | 'file' | 'select'
+    type: 'input' | 'checkbox' | 'number' | 'date' | 'file' | 'select' | 'enum'
     value: string | boolean | null
     url?: string
 }
@@ -13,6 +13,7 @@ interface PopUpProps {
     fields: Field[]
     url: string
 }
+
 
 const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
     const [inputs, setInputs] = useState<Field[]>(fields)
@@ -77,7 +78,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                         value={input.value as string}
                         onChange={e => handleInputChange(input.id, e.target.value)}
                     />
-                ) || (input.type === 'select' && (
+                ) || (input.type === 'select'  && (
                     SelectComponent({ url: input.url as string })
                 )
             )))}
