@@ -30,6 +30,7 @@ export default function SearchComponent({ url }: SelectComponentProps) {
 
     useEffect(() => {
         fetchOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
