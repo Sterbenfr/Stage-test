@@ -130,7 +130,7 @@ export default function SocietesPage() {
                             id: 'code_Groupe_appartenance',
                             type: 'search',
                             value: null,
-                            url: '../api/societe/[societeID]/groupe',
+                            url: '../api/select/societe/groupe',
                         },
                         {
                             id: 'date_arret_activite_Societe',
