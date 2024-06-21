@@ -98,7 +98,7 @@ export default function DonsPage() {
                         url='http://localhost:3000/api/dons'
                         fields={[
                             {
-                                id: "code_Entite_donatrice", type: 'select', //y'en a trop
+                                id: "code_Entite_donatrice", type: 'search', //y'en a trop
                                 value: null,
                                 url:'../api/select/societe/entite'
                             },
