@@ -18,6 +18,3 @@ INSERT INTO Utilisateurs (civilite, nom, prenom, tel_perso, mail_restos_du_coeur
 ('Mme', 'Petit', 'Sophie', '0765432109', 'sophie.petit@restosducoeur.org', 'Coordination des événements.', '$2b$10$c80G054p1ZlKW42Qf9bDuexFCdDjxc4R/xdaisQi7AvZfiGShpmLe', 'RE'),
 ('Mr.','Admin','Admin','0123456789','admin@admin.com','Administrateur.', '$2b$10$c80G054p1ZlKW42Qf9bDuexFCdDjxc4R/xdaisQi7AvZfiGShpmLe', 'AD'),
 ('M.', 'Leroy', 'Julien', '0654321987', 'julien.leroy@restosducoeur.org', 'Gestion des stocks.', '$2b$10$c80G054p1ZlKW42Qf9bDuexFCdDjxc4R/xdaisQi7AvZfiGShpmLe', 'RC');
-
-
-SELECT * FROM Utilisateurs;

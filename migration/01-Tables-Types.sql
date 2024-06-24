@@ -10,11 +10,11 @@ VALUES
 ('AP', 'Approvisionneur'),
 ('RR', 'Responsable Réception'),
 ('RE', 'Responsable Entrepôt'),
-('RC', 'Responsable de Centre');
+('RC', 'Responsable de Centre'),
 ('RS', 'Responsable Site'),
 ('RA', 'Responsable Antenne'),
 ('RN', 'Responsable National'),
-('AD', 'Administrateur'),
+('AD', 'Administrateur');
 
 
 

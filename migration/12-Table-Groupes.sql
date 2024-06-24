@@ -19,6 +19,3 @@ INSERT INTO Groupe (
 ('Groupe Delta', NULL, 'http://www.delta.com', 'Quatrième groupe', NULL),
 ('Groupe Epsilon', NULL, 'http://www.epsilon.com', 'Cinquième groupe', NULL);
 
-SELECT code_Groupe,nom_du_Groupe,site_Web,commentaires,date_arret_activite_du_Groupe FROM Groupe
-LEFT JOIN ON Groupe.code_Groupe = Societe.code_Groupe_appartenance
-WHERE Societe.code_Societe = ?;

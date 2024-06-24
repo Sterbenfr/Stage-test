@@ -34,7 +34,3 @@ INSERT INTO Contacts (
 (3, 'M.', 'Durand', 'Pierre', NULL, 'Technicien', 'Informatique', '01 23 45 67 91', '06 12 34 56 80', 'pierre.durand@example.com', 'Troisième contact', NULL),
 (4, 'Mme', 'Leroy', 'Claire', NULL, 'Assistante', 'Ressources Humaines', '01 23 45 67 92', '06 12 34 56 81', 'claire.leroy@example.com', 'Quatrième contact', NULL),
 (5, 'M.', 'Moreau', 'Louis', NULL, 'Chef de projet', 'Marketing', '01 23 45 67 93', '06 12 34 56 82', 'louis.moreau@example.com', 'Cinquième contact', NULL);
-
-SELECT code_contact,Entite.raison_sociale,civilite,nom,prenom,photo,fonction,service,numero_fixe,numero_portable,adresse_mail,commentaires,date_arret_contact FROM Contacts
-JOIN Entite ON Contacts.code_entite = Entite.code_entite
-WHERE code_contact = ?;
