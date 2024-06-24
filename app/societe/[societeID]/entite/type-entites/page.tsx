@@ -30,7 +30,7 @@ export default function EntitesPage({
         }
 
         fetchEntites()
-    }, [])
+    }, [params.societeID])
 
     return (
         <div>
