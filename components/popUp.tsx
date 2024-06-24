@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SelectComponent from './select-component'
 import SearchComponent from './searchComponent'
 
-interface Field {
+type Field = {
     id: string
-    type: 'input' | 'checkbox' | 'number' | 'date' | 'file' | 'select' | 'enum' | 'search'
+    type:
+        | 'input'
+        | 'checkbox'
+        | 'number'
+        | 'date'
+        | 'file'
+        | 'select'
+        | 'enum'
+        | 'search'
     value: string | boolean | null
     url?: string
+    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
 interface PopUpProps {
@@ -15,9 +24,12 @@ interface PopUpProps {
     url: string
 }
 
-
 const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
     const [inputs, setInputs] = useState<Field[]>(fields)
+
+    useEffect(() => {
+        setInputs(fields)
+    }, [fields])
 
     const handleInputChange = (id: string, value: string | boolean) => {
         const updatedInputs = inputs.map(input =>
@@ -25,18 +37,17 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
         )
         setInputs(updatedInputs)
     }
-
+    console.log(inputs)
     const handleSubmit = async () => {
         // Define the server endpoint URL
         const endpoint = url
 
-        const inputsData = inputs.reduce<{ [key: string]: string | boolean | null}>(
-            (acc, input) => {
-                acc[input.id] = input.value
-                return acc
-            },
-            {},
-        )
+        const inputsData = inputs.reduce<{
+            [key: string]: string | boolean | null
+        }>((acc, input) => {
+            acc[input.id] = input.value
+            return acc
+        }, {})
 
         // Prepare the data to be sent
 
@@ -71,20 +82,40 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
     return (
         <div className={'popup-container'}>
             <h2>Add New Entry</h2>
-            {inputs.map(input => (
-                input.type !== 'select' && input.type !== 'search' && (
-                    <input
-                        key={input.id}
-                        type={input.type}
-                        value={input.value as string}
-                        onChange={e => handleInputChange(input.id, e.target.value)}
-                    />
-                ) || (input.type === 'select'  && (
-                    SelectComponent({ url: input.url as string })
-                ) || (input.type === 'search' && (
-                    SearchComponent({ url: input.url as string })
-                ))
-            )))}
+            {inputs.map(input => {
+                switch (input.type) {
+                    case 'select':
+                        return (
+                            <SelectComponent
+                                key={input.id}
+                                url={input.url as string}
+                                onChange={input.onChange}
+                            />
+                        )
+                    case 'search':
+                        return (
+                            <SearchComponent
+                                key={input.id}
+                                url={input.url as string}
+                            />
+                        )
+                    default:
+                        return (
+                            <input
+                                key={input.id}
+                                type={input.type}
+                                value={
+                                    input.value === null
+                                        ? ''
+                                        : (input.value as string)
+                                }
+                                onChange={e =>
+                                    handleInputChange(input.id, e.target.value)
+                                }
+                            />
+                        )
+                }
+            })}
             <button onClick={handleSubmit}>Submit</button>
         </div>
     )

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 interface SelectComponentProps {
     url: string
+    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
 interface Option {
@@ -12,7 +13,10 @@ interface Option {
     params3: string
 }
 
-export default function SelectComponent({ url }: SelectComponentProps) {
+export default function SelectComponent({
+    url,
+    onChange,
+}: SelectComponentProps) {
     const [options, setOptions] = useState<Option[]>([])
 
     const fetchOptions = async () => {
@@ -47,7 +51,7 @@ export default function SelectComponent({ url }: SelectComponentProps) {
 
     // Renvoyer le menu déroulant avec les options
     return (
-        <select>
+        <select onChange={onChange}>
             {options.map(option => (
                 <option key={option.value} value={option.value}>
                     {option.label}
