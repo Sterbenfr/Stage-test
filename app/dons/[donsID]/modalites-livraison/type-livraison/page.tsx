@@ -1,7 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
+import PopUp from '@/components/popUp'
+import { useCallback } from 'react'
 
-interface Type_Livraison {
+export interface Type_Livraison {
     code_type_livraison: string
     libelle: string
 }

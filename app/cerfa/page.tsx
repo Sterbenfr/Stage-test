@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
 interface Cerfa {
     numero_Cerfa: number
@@ -18,7 +19,7 @@ interface Cerfa {
     mail_destinataire_Cerfa: string
 }
 
-export default function CerfaPage() {
+function CerfaPage() {
     const [cerfas, setCerfa] = useState<Cerfa[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
@@ -86,10 +87,15 @@ export default function CerfaPage() {
                         url='http://localhost:3000/api/cerfa'
                         fields={[
                             {
-                                id: 'code_Don',
-                                type: 'select',
+                                id: 'numero_Cerfa',
+                                type: 'number',
                                 value: null,
                                 url: '../api/select/cerfa',
+                            },
+                            {
+                                id: 'code_Don',
+                                type: 'number',
+                                value: null,
                             },
                             {
                                 id: 'montant_HT_Cerfa',
@@ -102,7 +108,7 @@ export default function CerfaPage() {
                                 value: null,
                             },
                             {
-                                id: 'date_envoi_Cerfa',
+                                id: 'date_envoie_Cerfa',
                                 type: 'date',
                                 value: null,
                             },
@@ -114,7 +120,7 @@ export default function CerfaPage() {
                             {
                                 id: 'civilite_destinataire_Cerfa',
                                 type: 'enum',
-                                value: null, // enum values: 'M.', 'Mme' à voir
+                                value: null,
                             },
                             {
                                 id: 'nom_destinataire_Cerfa',
@@ -132,11 +138,6 @@ export default function CerfaPage() {
                                 value: null,
                             },
                             {
-                                id: 'commentaires',
-                                type: 'input',
-                                value: null,
-                            },
-                            {
                                 id: 'mail_destinataire_Cerfa',
                                 type: 'input',
                                 value: null,
@@ -148,3 +149,5 @@ export default function CerfaPage() {
         </div>
     )
 }
+
+export default withAuthorization(CerfaPage, ['AD', 'PR'])

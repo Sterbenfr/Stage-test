@@ -1,13 +1,19 @@
 import { NextResponse } from 'next/server'
 import pool from '../../../../../utils/db'
+import { NextApiRequest } from 'next'
+import { streamToString } from '../../../../../utils/streamUtils'
+import type { Reception } from '@/app/dons/[donsID]/reception/page'
 
 type CountResult = { count: number }[]
 
-export async function GET(request: Request, { params }: { params: { donsID: string } }) {
+export async function GET(
+    request: Request,
+    { params }: { params: { donsID: string } },
+) {
     const { searchParams } = new URL(request.url)
     const page = searchParams.get('page') || '1'
     const limit = searchParams.get('limit') || '10'
-    const donsID = params.donsID;
+    const donsID = params.donsID
 
     try {
         const pageNumber = Number(page)
@@ -15,12 +21,12 @@ export async function GET(request: Request, { params }: { params: { donsID: stri
         const offset = (pageNumber - 1) * limitNumber
 
         const [rows] = await pool.query(
-            'SELECT * FROM `Reception` WHERE code_Don = ? LIMIT ?, ?',
-            [donsID,offset, limitNumber],
+            'SELECT * FROM `reception` WHERE code_Don = ? LIMIT ?, ?',
+            [donsID, offset, limitNumber],
         )
 
         const [totalResult] = await pool.query(
-            'SELECT COUNT(*) as count FROM `Reception` WHERE code_Don = ?',
+            'SELECT COUNT(*) as count FROM `reception` WHERE code_Don = ?',
             [donsID],
         )
 
@@ -29,6 +35,45 @@ export async function GET(request: Request, { params }: { params: { donsID: stri
         return NextResponse.json({ data: rows, total: total[0].count })
     } catch (err) {
         console.error(err)
+        return NextResponse.json(
+            { error: 'Internal Server Error' },
+            { status: 500 },
+        )
+    }
+}
+
+export async function POST(req: NextApiRequest) {
+    let reception: Reception
+    try {
+        reception = JSON.parse(await streamToString(req.body))
+        console.log(reception)
+    } catch (error) {
+        return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+    }
+
+    if (
+        !reception.date_reception ||
+        !reception.code_Don ||
+        !reception.numero_livraison
+    ) {
+        console.log(
+            'reception:' +
+                reception.date_reception +
+                reception.code_Don +
+                reception.numero_livraison,
+        )
+        return NextResponse.json(
+            { error: 'Missing reception data' },
+            { status: 400 },
+        )
+    }
+
+    try {
+        const query = 'INSERT INTO `reception` SET ?'
+        const [rows] = await pool.query(query, reception)
+        return NextResponse.json(rows)
+    } catch (error) {
+        console.log(error)
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 },
