@@ -1,9 +1,11 @@
 'use client'
 import { useEffect, useState } from 'react'
-import List from '../../../../components/list'
-import { Pagination } from '@/components/pagination'
+import List from '@/components/list'
+import { Pagination } from '../../../../components/pagination'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface Groupe {
+export interface Groupe {
     code_Groupe: number
     nom_du_Groupe: string
     Logo: Blob
@@ -12,7 +14,7 @@ interface Groupe {
     date_arret_activite_du_Groupe: Date
 }
 
-export default function GroupesPage({
+function GroupesPage({
     params,
 }: {
     params: { societeID: string }
@@ -21,6 +23,11 @@ export default function GroupesPage({
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+    const handleClose = () => {
+        setIsPopUpOpen(false);
+    };
 
     useEffect(() => {
         const fetchGroupes = async () => {
@@ -79,7 +86,24 @@ export default function GroupesPage({
                     currentPage={page}
                 />
                 {''}
+                <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url={`http://localhost:3000/api/societe/${params.societeID}/groupe`}
+                        fields={[
+                            { id: "nom_du_groupe", type: 'input', value: null},
+                            { id: "Logo", type: 'file', value: null},
+                            { id: "site_Web", type: 'input', value: null},
+                            { id: "date_fermeture", type: 'date', value: null},
+                            { id: "commentaires", type: 'input', value: null},
+                            { id: "date_arret_activite_du_Groupe", type: 'date', value: null},
+                        ]}
+                    />
+                )}
             </>
         </div>
     )
 }
+
+export default withAuthorization(GroupesPage, ['AD', 'PR'])

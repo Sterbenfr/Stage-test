@@ -1,18 +1,30 @@
 'use client'
+import List from '../../../../../components/list'
 import { useEffect, useState } from 'react'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface Type_Livraison {
-    code_type_livraison: string
-    libelle: string
+export interface Type_Livraison {
+    id: string
+    label: string
 }
 
-export default function Type_LivraisonsPage() {
+function Type_LivraisonsPage({
+    params,
+}: {
+    params: { donsID: string }
+}) {
     const [Type_Livraisons, setType_Livraisons] = useState<Type_Livraison[]>([])
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+    const handleClose = () => {
+        setIsPopUpOpen(false);
+    };
 
     useEffect(() => {
         const fetchType_Livraisons = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/dons/modalites-livraison/type-livraison',
+                `http://localhost:3000/api/dons/${params.donsID}/modalites-livraison/type-livraison`,
             )
 
             if (!res.ok) {
@@ -29,14 +41,27 @@ export default function Type_LivraisonsPage() {
     }, [])
 
     return (
-        <div>
-            <h1>Type Livraison</h1>
-            {Type_Livraisons.map(TypeLivraison => (
-                <div key={TypeLivraison.code_type_livraison}>
-                    <h2>{TypeLivraison.libelle}</h2>
-                    <h2>{TypeLivraison.code_type_livraison}</h2>
-                </div>
-            ))}
-        </div>
+        <>
+            <List
+                items={Type_Livraisons.map(typeLivraison => ({
+                    value1: typeLivraison.id.toString(),
+                    value2: typeLivraison.id.toString(),
+                    value3: typeLivraison.label
+                }))}
+            />
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url={`http://localhost:3000/api/dons/${params.donsID}/modalites-livraison/type-livraison`}
+                        fields={[
+                            { id: "id", type: 'input', value: null},
+                            { id: "label", type: 'input', value: null},
+                        ]}
+                    />
+                )}
+        </>
     )
 }
+
+export default withAuthorization(Type_LivraisonsPage, ['AD', 'PR']);

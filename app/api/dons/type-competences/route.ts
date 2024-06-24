@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
 import pool from '../../../../utils/db'
+import { NextApiRequest } from 'next'
+import { streamToString } from '../../../../utils/streamUtils'
+import type { Competence } from '@/app/dons/type-competences/page'
 
 export async function GET() {
     try {
@@ -9,6 +12,43 @@ export async function GET() {
         return NextResponse.json(rows)
     } catch (err) {
         console.log(err)
+        return NextResponse.json(
+            { error: 'Internal Server Error' },
+            { status: 500 },
+        )
+    }
+}
+
+export async function POST(req: NextApiRequest) {
+    let typesCompetence: Competence
+    try {
+        typesCompetence = JSON.parse(await streamToString(req.body))
+        console.log(typesCompetence)
+    } catch (error) {
+        return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+    }
+
+    if (
+        !typesCompetence.id ||
+        !typesCompetence.label
+    ) {
+        console.log(
+            'Types Competences:' +
+            typesCompetence.id +
+            typesCompetence.label,
+        )
+        return NextResponse.json(
+            { error: 'Missing product data' },
+            { status: 400 },
+        )
+    }
+
+    try {
+        const query = 'INSERT INTO `TypesCompetences` SET ?'
+        const [rows] = await pool.query(query, typesCompetence)
+        return NextResponse.json(rows)
+    } catch (error) {
+        console.log(error)
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 },

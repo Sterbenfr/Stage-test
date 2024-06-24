@@ -2,8 +2,10 @@
 import { useEffect, useState } from 'react'
 import List from '../../../../components/list'
 import { Pagination } from '@/components/pagination'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface ModalitesLivraison {
+export interface ModalitesLivraison {
     numero_livraison: number
     code_Don: number
     code_type_livraison: string
@@ -31,7 +33,7 @@ interface ModalitesLivraison {
     pieces_associees: Blob
 }
 
-export default function ModalitesLivraisonPage({
+function ModalitesLivraisonPage({
     params,
 }: {
     params: { donsID: string }
@@ -42,6 +44,11 @@ export default function ModalitesLivraisonPage({
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+    const handleClose = () => {
+        setIsPopUpOpen(false);
+    };
 
     useEffect(() => {
         const fetchModalitesLivraisons = async () => {
@@ -96,6 +103,54 @@ export default function ModalitesLivraisonPage({
                 currentPage={page}
             />
             {''}
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url={`http://localhost:3000/api/dons/${params.donsID}/modalites-livraison`}
+                        fields={[
+                            { id: "numero_livraison", type: 'number', value: null},
+                            { id: "code_Don",
+                              type: 'search', 
+                              value: null,
+                              url: '../../api/select/dons/select-dons'},
+                            {
+                                id: "code_type_livraison",
+                                type: 'select',
+                                value: null,
+                                url:`../../api/dons/${params.donsID}/modalites-livraison/type-livraison`
+                            },
+                            { id: "date_prevue_livraison", type: 'date', value: null},
+                            { id: "heure_prevue_livraison", type: 'input', value: null},
+                            { id: "adresse_enlevement", type: 'input', value: null},
+                            { id: "civilite_contact_enlevement", type: 'input', value: null},
+                            { id: "nom_contact_enlevement", type: 'input', value: null},
+                            { id: "prenom_contact_enlevement", type: 'input', value: null},
+                            { id: "telephone_contact_enlevement", type: 'input', value: null},
+                            { id: "mail_contact_enlevement", type: 'input', value: null},
+                            { id: "code_Prestataire_transporteur",
+                              type: 'search',
+                              value: null,
+                              url: '../api/select/prestataire'},
+                            { id: "adresse_livraison", type: 'input', value: null},
+                            { id: "civilite_contact_livraison", type: 'input', value: null},
+                            { id: "nom_contact_livraison", type: 'input', value: null},
+                            { id: "prenom_contact_livraison", type: 'input', value: null},
+                            { id: "telephone_contact_livraison", type: 'input', value: null},
+                            { id: "mail_contact_livraison", type: 'input', value: null},
+                            { id: "nombre_palette_prevu", type: 'number', value: null},
+                            { id: "nombre_palettes_consignees_prevu", type: 'number', value: null},
+                            { id: "nombre_cartons_prevu", type: 'number', value: null},
+                            { id: "poids_prevu_kg", type: 'number', value: null},
+                            { id: "produits_sur_palettes", type: 'input', value: null},
+                            { id: "temperature_conserv_produits", type: 'number', value: null},
+                            { id: "commentaires", type: 'input', value: null},
+                            { id: "pieces_associees", type: 'file', value: null},
+                        ]}
+                    />
+                )}
         </>
     )
 }
+
+export default withAuthorization(ModalitesLivraisonPage, ['AD', 'PR'])

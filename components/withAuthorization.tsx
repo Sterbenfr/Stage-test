@@ -1,8 +1,7 @@
 import { useSession, signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { Session } from 'next-auth'
-import { User } from 'next-auth'
+import { Session,User } from 'next-auth'
 
 interface ExtendedUser extends User {
     role: Role
@@ -13,11 +12,11 @@ type ExtendedSession = Session & {
 }
 
 type Role = 'AD' | 'PR' | 'RR' | 'AP' | 'RE' | 'RC' | 'RS' | 'RA' | 'RN'
-const withAuthorization = (
-    WrappedComponent: React.ComponentType,
+const withAuthorization = <P extends Object> (
+    WrappedComponent: React.ComponentType<P>,
     allowedRoles: Role[],
 ) => {
-    const WithAuthorization = () => {
+    const WithAuthorization = (props: P) => {
         const { data: session, status: loading } = useSession() as {
             data: ExtendedSession | null
             status: string
@@ -37,7 +36,7 @@ const withAuthorization = (
         }, [session, loading, router])
 
         if (session && allowedRoles.includes(session.user.role)) {
-            return <WrappedComponent />
+            return <WrappedComponent {...props} />
         }
 
         return null
@@ -50,7 +49,7 @@ const withAuthorization = (
     return WithAuthorization
 }
 
-function getDisplayName(WrappedComponent: React.ComponentType) {
+function getDisplayName(WrappedComponent: React.ComponentType<any>): string {
     return WrappedComponent.displayName || WrappedComponent.name || 'Component'
 }
 
