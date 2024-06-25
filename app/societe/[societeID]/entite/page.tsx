@@ -5,7 +5,7 @@ import { Pagination } from '@/components/pagination'
 import withAuthorization from '@/components/withAuthorization'
 import PopUp from '@/components/popUp'
 
-interface Entite {
+export interface Entite {
     code_entite: number
     raison_sociale: string
     nom_commercial: string
