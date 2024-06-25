@@ -2,8 +2,10 @@
 import { useEffect, useState } from 'react'
 import List from '../../../../../../components/list'
 import { Pagination } from '@/components/pagination'
+import withAuthorization from '@/components/withAuthorization'
+import PopUp from '@/components/popUp'
 
-interface Contact {
+export interface Contact {
     code_entite: number
     code_contact: number
     civilite: string
@@ -19,7 +21,7 @@ interface Contact {
     date_arret_contact: Date
 }
 
-export default function ContactsPage({
+function ContactsPage({
     params,
 }: {
     params: { societeID: string; entiteID: string }
@@ -28,6 +30,12 @@ export default function ContactsPage({
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+
+    const handleClose = () => {
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchContacts = async () => {
@@ -87,7 +95,79 @@ export default function ContactsPage({
                     currentPage={page}
                 />
                 {''}
+                <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url={`http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/contact`}
+                        fields={[
+                            {
+                                id: 'code_entite',
+                                type: 'number',
+                                value: null,
+                            },
+                            {
+                                id: 'civilite',
+                                type: 'select',
+                                value: null,
+                                url: `http://localhost:3000/api/select/genre`,
+                            },
+                            {
+                                id: 'nom',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'prenom',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'photo',
+                                type: 'file',
+                                value: null,
+                            },
+                            {
+                                id: 'fonction',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'service',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'numero_fixe',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'numero_portable',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'adresse_mail',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'commentaires',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'date_arret_contact',
+                                type: 'date',
+                                value: null,
+                            },
+                        ]}
+                    />
+                )}
             </div>
         </>
     )
 }
+
+export default withAuthorization(ContactsPage, ['AD', 'PR'])
