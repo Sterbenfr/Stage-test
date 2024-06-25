@@ -138,6 +138,7 @@ function PrestatairesPage() {
                             id: 'civilite_contact_prestataire',
                             type: 'select',
                             value: null,
+                            url: '../api/select/genre',
                         },
                         {
                             id: 'nom_contact_prestataire',
