@@ -44,6 +44,14 @@ function TypeCompetencePage() {
                     value2: typeCompetence.id.toString(),
                     value3: typeCompetence.label
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
             <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
                 {isPopUpOpen && (

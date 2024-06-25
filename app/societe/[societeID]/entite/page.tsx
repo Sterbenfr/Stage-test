@@ -78,7 +78,6 @@ function EntitesPage({ params }: { params: { societeID: string } }) {
     return (
         <>
             <div>
-                <h1>Entités</h1>
                 <List
                     items={Entites.map(entite => ({
                         value1: entite.code_entite.toString(),
@@ -93,6 +92,14 @@ function EntitesPage({ params }: { params: { societeID: string } }) {
                                       .toString()
                                       .split('T')[0],
                     }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                        },
+                        fonc2: () => {
+                            console.log('fonc2')
+                        },
+                    }}
                 />
                 <Pagination
                     onPageChange={handlePageChange}
@@ -102,8 +109,6 @@ function EntitesPage({ params }: { params: { societeID: string } }) {
                     currentPage={page}
                 />
                 {''}
-
-                <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
                 {isPopUpOpen && (
                     <PopUp
                         onClose={handleClose}

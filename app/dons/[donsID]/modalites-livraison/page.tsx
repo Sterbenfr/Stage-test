@@ -94,6 +94,14 @@ function ModalitesLivraisonPage({
                     value4: ModalitesLivraison.telephone_contact_enlevement.toString(),
                     value5: ModalitesLivraison.mail_contact_enlevement.toString(),
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
             <Pagination
                 onPageChange={handlePageChange}
@@ -103,7 +111,6 @@ function ModalitesLivraisonPage({
                 currentPage={page}
             />
             {''}
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
                 {isPopUpOpen && (
                     <PopUp
                         onClose={handleClose}

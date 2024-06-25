@@ -45,8 +45,15 @@ function EntitesPage({ params }: { params: { societeID: string } }) {
                         value1: TypesEntites.code_type_entite.toString(),
                         value2: TypesEntites.libelle.toString(),
                     }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                        },
+                        fonc2: () => {
+                            console.log('fonc2')
+                        },
+                    }}
                 />
-                <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
                 {isPopUpOpen && (
                     <PopUp
                         onClose={handleClose}

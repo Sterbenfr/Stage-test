@@ -64,7 +64,6 @@ function GroupesPage({
     return (
         <div>
             <>
-                <h1>Groupes</h1>
                 <List
                     items={groupes.map(groupe => ({
                         value1: groupe.code_Groupe.toString(),
@@ -78,6 +77,14 @@ function GroupesPage({
                                       .toString()
                                       .split('T')[0],
                     }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                        },
+                        fonc2: () => {
+                            console.log('fonc2')
+                        },
+                    }}
                 />
                 <Pagination
                     onPageChange={handlePageChange}
@@ -87,7 +94,6 @@ function GroupesPage({
                     currentPage={page}
                 />
                 {''}
-                <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
                 {isPopUpOpen && (
                     <PopUp
                         onClose={handleClose}
