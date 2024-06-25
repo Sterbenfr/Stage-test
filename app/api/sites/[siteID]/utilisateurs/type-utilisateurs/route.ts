@@ -7,7 +7,7 @@ import type { type_utilisateur } from '@/app/sites/[siteID]/utilisateurs/type-ut
 export async function GET() {
     try {
         const [rows] = await pool.query(
-            'SELECT * FROM `typesutilisateurs` LIMIT 1000',
+            'SELECT code_type_utilisateur as id, libelle as label FROM `typesutilisateurs` LIMIT 1000',
         )
         return NextResponse.json(rows)
     } catch (err) {
@@ -27,8 +27,8 @@ export async function POST(req: NextApiRequest) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (!TypesUtilisateurs.libelle) {
-        console.log('TypesUtilisateurs:' + TypesUtilisateurs.libelle)
+    if (!TypesUtilisateurs.label) {
+        console.log('TypesUtilisateurs:' + TypesUtilisateurs.label)
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },

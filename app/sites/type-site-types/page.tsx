@@ -2,10 +2,12 @@
 import { useEffect, useState } from 'react'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
+import List from '../../../components/list'
+
 
 export interface siteType {
-    code_type_site: string
-    libelle: string
+    id: string
+    label: string
 }
 
 function SiteTypesPage() {
@@ -37,15 +39,13 @@ function SiteTypesPage() {
 
     return (
         <>
-            <div>
-                <h1>Site Types</h1>
-                {SiteTypes.map(SiteTypes => (
-                    <div key={SiteTypes.code_type_site}>
-                        <h2>{SiteTypes.libelle}</h2>
-                        <h2>{SiteTypes.code_type_site}</h2>
-                    </div>
-                ))}
-            </div>
+            <List
+                items={SiteTypes.map(sitetype => ({
+                    value1: sitetype.id.toString(),
+                    value2: sitetype.id.toString(),
+                    value3: sitetype.label
+                }))}
+            />
             <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
             {isPopUpOpen && (
                 <PopUp
@@ -68,5 +68,5 @@ function SiteTypesPage() {
         </>
     )
 }
-SiteTypesPage
+
 export default withAuthorization(SiteTypesPage, ['AD', 'PR'])

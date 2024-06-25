@@ -59,5 +59,4 @@ function TypeCompetencePage() {
         </>
     )
 }
-
 export default withAuthorization(TypeCompetencePage, ['AD', 'PR']);

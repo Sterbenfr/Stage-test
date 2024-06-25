@@ -2,10 +2,11 @@
 import { useEffect, useState } from 'react'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
+import List from '../../../../../components/list'
 
 export interface type_utilisateur {
-    code_type_utilisateur: string
-    libelle: string
+    id: string
+    label: string
 }
 
 function UtilisateursPage({ params }: { params: { siteID: string } }) {
@@ -39,20 +40,18 @@ function UtilisateursPage({ params }: { params: { siteID: string } }) {
 
     return (
         <>
-            <div>
-                <h1>Type Utilisateur</h1>
-                {Utilisateurs.map(TypeUtilisateur => (
-                    <div key={TypeUtilisateur.code_type_utilisateur}>
-                        <h2>{TypeUtilisateur.libelle}</h2>
-                        <h2>{TypeUtilisateur.code_type_utilisateur}</h2>
-                    </div>
-                ))}
-            </div>
+            <List
+                items={Utilisateurs.map(utilisateur => ({
+                    value1: utilisateur.id.toString(),
+                    value2: utilisateur.id.toString(),
+                    value3: utilisateur.label
+                }))}
+            />
             <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}
-                    url={`http://localhost:3000/api/${params.siteID}/utilisateurs/type-utilisateurs`}
+                    url={`http://localhost:3000/api/sites/${params.siteID}/utilisateurs/type-utilisateurs`}
                     fields={[
                         {
                             id: 'code_type_utilisateur',
