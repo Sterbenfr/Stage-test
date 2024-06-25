@@ -2,11 +2,17 @@
 import List from '../../../../../components/list'
 import { useEffect, useState } from 'react'
 import PopUp from '@/components/popUp'
+import { useCallback } from 'react'
 import withAuthorization from '@/components/withAuthorization'
 
 export interface Type_Livraison {
     id: string
     label: string
+
+export interface Type_Livraison {
+    code_type_livraison: string
+    libelle: string
+
 }
 
 function Type_LivraisonsPage({

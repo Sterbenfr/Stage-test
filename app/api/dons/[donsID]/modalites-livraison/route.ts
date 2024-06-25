@@ -6,12 +6,14 @@ import type { ModalitesLivraison } from '@/app/dons/[donsID]/modalites-livraison
 
 type CountResult = { count: number }[]
 
-export async function GET(request: Request,
-    { params }: { params: { donsID: string } }) {
+export async function GET(
+    request: Request,
+    { params }: { params: { donsID: string } },
+) {
     const { searchParams } = new URL(request.url)
     const page = searchParams.get('page') || '1'
     const limit = searchParams.get('limit') || '10'
-    const donsID = params.donsID;
+    const donsID = params.donsID
 
     try {
         const pageNumber = Number(page)
@@ -20,7 +22,7 @@ export async function GET(request: Request,
 
         const [rows] = await pool.query(
             'SELECT * FROM `ModalitesLivraison` WHERE code_Don = ? LIMIT ?, ?',
-            [donsID,offset, limitNumber],
+            [donsID, offset, limitNumber],
         )
 
         const [totalResult] = await pool.query(

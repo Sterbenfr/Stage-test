@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
-import pool from '../../../../utils/db'
+import pool from '../../../../../utils/db'
 
 export async function GET() {
     try {
         const [rows] = await pool.query(
-            'Select code_Don as id, code_Don as label, code_type_don as params1, date_proposition_don as params2 FROM Dons;',
+            'Select numero_livraison as id, numero_livraison as label FROM reception;',
         )
         return NextResponse.json(rows)
     } catch (err) {

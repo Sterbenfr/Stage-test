@@ -13,6 +13,7 @@ type Field = {
         | 'select'
         | 'enum'
         | 'search'
+        | 'password'
     value: string | boolean | null
     url?: string
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void

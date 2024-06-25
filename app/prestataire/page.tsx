@@ -5,7 +5,7 @@ import { Pagination } from '@/components/pagination'
 import withAuthorization from '@/components/withAuthorization'
 import PopUp from '@/components/popUp'
 
-interface Prestataire {
+export interface Prestataire {
     code_Prestataire: number
     code_type_de_Prestataire: string
     raison_sociale: string
