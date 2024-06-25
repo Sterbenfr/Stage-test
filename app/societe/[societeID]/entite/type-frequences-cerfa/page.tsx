@@ -30,7 +30,7 @@ export default function Frequences_cerfaPage({
         }
 
         fetchFrequences_cerfa()
-    }, [])
+    }, [params.societeID])
 
     return (
         <div>
