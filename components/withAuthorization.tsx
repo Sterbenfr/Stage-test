@@ -1,7 +1,7 @@
 import { useSession, signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { Session, User } from 'next-auth'
+import { Session,User } from 'next-auth'
 
 interface ExtendedUser extends User {
     role: Role
@@ -12,7 +12,8 @@ type ExtendedSession = Session & {
 }
 
 type Role = 'AD' | 'PR' | 'RR' | 'AP' | 'RE' | 'RC' | 'RS' | 'RA' | 'RN'
-const withAuthorization = <P extends object>(
+
+const withAuthorization = <P extends Object> (
     WrappedComponent: React.ComponentType<P>,
     allowedRoles: Role[],
 ) => {
@@ -49,7 +50,9 @@ const withAuthorization = <P extends object>(
     return WithAuthorization
 }
 
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 function getDisplayName(WrappedComponent: React.ComponentType<any>): string {
     return WrappedComponent.displayName || WrappedComponent.name || 'Component'
 }

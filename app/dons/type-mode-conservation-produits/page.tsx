@@ -1,13 +1,21 @@
 'use client'
+import List from '../../../components/list'
 import { useEffect, useState } from 'react'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface Mode_Conservation_Produits {
-    code_mode_conservation_produits: string
-    libelle: string
+export interface Mode_Conservation_Produits {
+    id: string
+    label: string
 }
 
-export default function Mode_Conservations_ProduitsPage() {
+function Mode_Conservations_ProduitsPage() {
     const [Mode_Conservations_Produits, setMode_Conservations_Produits] = useState<Mode_Conservation_Produits[]>([])
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+    const handleClose = () => {
+        setIsPopUpOpen(false);
+    };
 
     useEffect(() => {
         const fetchMode_Conservations_Produits = async () => {
@@ -29,14 +37,27 @@ export default function Mode_Conservations_ProduitsPage() {
     }, [])
 
     return (
-        <div>
-            <h1>Mode Conservation Produits</h1>
-            {Mode_Conservations_Produits.map(ModeConservationProduits => (
-                <div key={ModeConservationProduits.code_mode_conservation_produits}>
-                    <h2>{ModeConservationProduits.libelle}</h2>
-                    <h2>{ModeConservationProduits.code_mode_conservation_produits}</h2>
-                </div>
-            ))}
-        </div>
+        <>
+            <List
+                items={Mode_Conservations_Produits.map(modeConservationProduit => ({
+                    value1: modeConservationProduit.id.toString(),
+                    value2: modeConservationProduit.id.toString(),
+                    value3: modeConservationProduit.label
+                }))}
+            />
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url='http://localhost:3000/api/dons/type-mode-conservation-produits'
+                        fields={[
+                            { id: "id", type: 'input', value: null},
+                            { id: "label", type: 'input', value: null},
+                        ]}
+                    />
+                )}
+        </>
     )
 }
+
+export default withAuthorization(Mode_Conservations_ProduitsPage, ['AD', 'PR']);

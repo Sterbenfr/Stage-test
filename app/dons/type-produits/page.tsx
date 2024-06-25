@@ -1,13 +1,21 @@
 'use client'
+import List from '../../../components/list'
 import { useEffect, useState } from 'react'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
 export interface Produit {
-    code_type_produits: string
-    libelle: string
+    id: string
+    label: string
 }
 
-export default function ProduitsPage() {
+function TypeProduitsPage() {
     const [Produits, setProduits] = useState<Produit[]>([])
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+    const handleClose = () => {
+        setIsPopUpOpen(false);
+    };
 
     useEffect(() => {
         const fetchProduits = async () => {
@@ -29,14 +37,27 @@ export default function ProduitsPage() {
     }, [])
 
     return (
-        <div>
-            <h1>Types Produits</h1>
-            {Produits.map(TypesProduits => (
-                <div key={TypesProduits.code_type_produits}>
-                    <h2>{TypesProduits.libelle}</h2>
-                    <h2>{TypesProduits.code_type_produits}</h2>
-                </div>
-            ))}
-        </div>
+        <>
+            <List
+                items={Produits.map(typeProduit => ({
+                    value1: typeProduit.id.toString(),
+                    value2: typeProduit.id.toString(),
+                    value3: typeProduit.label
+                }))}
+            />
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url='http://localhost:3000/api/dons/type-produits'
+                        fields={[
+                            { id: "id", type: 'input', value: null},
+                            { id: "label", type: 'input', value: null},
+                        ]}
+                    />
+                )}
+        </>
     )
 }
+
+export default withAuthorization(TypeProduitsPage, ['AD', 'PR']);

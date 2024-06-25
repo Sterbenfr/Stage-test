@@ -66,7 +66,7 @@ export async function POST(req: NextApiRequest) {
     }
 
     try {
-        const query = 'INSERT INTO `dons` SET ?'
+        const query = 'INSERT INTO `sites` SET ?'
         const [rows] = await pool.query(query, sites)
         return NextResponse.json(rows)
     } catch (error) {

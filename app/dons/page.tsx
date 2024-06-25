@@ -4,6 +4,7 @@ import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import { useCallback } from 'react'
+import withAuthorization from '@/components/withAuthorization'
 
 export interface Don {
     code_Don: number
@@ -28,7 +29,7 @@ export interface Don {
     date_remerciement: Date
 }
 
-export default function DonsPage() {
+function DonsPage() {
     const [Dons, setDons] = useState<Don[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
@@ -272,3 +273,5 @@ export default function DonsPage() {
         </>
     )
 }
+
+export default withAuthorization(DonsPage, ['AD', 'PR'])

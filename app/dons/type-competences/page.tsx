@@ -1,13 +1,21 @@
 'use client'
+import List from '../../../components/list'
 import { useEffect, useState } from 'react'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface Competence {
-    code_type_competence: string
-    libelle: string
+export interface Competence {
+    id: string
+    label: string
 }
 
-export default function CompetencePage() {
+function TypeCompetencePage() {
     const [competences, setCompetence] = useState<Competence[]>([])
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+    const handleClose = () => {
+        setIsPopUpOpen(false);
+    };
 
     useEffect(() => {
         const fetchCompetences = async () => {
@@ -29,15 +37,27 @@ export default function CompetencePage() {
     }, [])
 
     return (
-        <div>
-            <h1>Competences</h1>
-            {competences.map(competence => (
-                <div key={competence.code_type_competence}>
-                    <h2>
-                        {competence.code_type_competence} : {competence.libelle}
-                    </h2>
-                </div>
-            ))}
-        </div>
+        <>
+            <List
+                items={competences.map(typeCompetence => ({
+                    value1: typeCompetence.id.toString(),
+                    value2: typeCompetence.id.toString(),
+                    value3: typeCompetence.label
+                }))}
+            />
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url='http://localhost:3000/api/dons/type-competences'
+                        fields={[
+                            { id: "id", type: 'input', value: null},
+                            { id: "label", type: 'input', value: null},
+                        ]}
+                    />
+                )}
+        </>
     )
 }
+
+export default withAuthorization(TypeCompetencePage, ['AD', 'PR']);

@@ -1,13 +1,21 @@
 'use client'
+import List from '../../../components/list'
 import { useEffect, useState } from 'react'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface Don {
-    code_type_don: string
-    libelle: string
+export interface TypeDon {
+    id: string
+    label: string
 }
 
-export default function DonsPage() {
-    const [Dons, setDons] = useState<Don[]>([])
+function TypeDonsPage() {
+    const [Dons, setDons] = useState<TypeDon[]>([])
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+    const handleClose = () => {
+        setIsPopUpOpen(false);
+    };
 
     useEffect(() => {
         const fetchDons = async () => {
@@ -19,7 +27,7 @@ export default function DonsPage() {
                 throw new Error('Failed to fetch data')
             }
 
-            const Dons: Don[] = await res.json()
+            const Dons: TypeDon[] = await res.json()
             setDons(Dons)
         }
 
@@ -27,14 +35,27 @@ export default function DonsPage() {
     }, [])
 
     return (
-        <div>
-            <h1>Types de Dons</h1>
-            {Dons.map(TypesDons => (
-                <div key={TypesDons.code_type_don}>
-                    <p>Code Type Don: {TypesDons.code_type_don}</p>
-                    <p>Libelle: {TypesDons.libelle}</p>
-                </div>
-            ))}
-        </div>
+        <>
+            <List
+                items={Dons.map(typeDon => ({
+                    value1: typeDon.id.toString(),
+                    value2: typeDon.id.toString(),
+                    value3: typeDon.label
+                }))}
+            />
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url='http://localhost:3000/api/dons/type-don'
+                        fields={[
+                            { id: "id", type: 'input', value: null},
+                            { id: "label", type: 'input', value: null},
+                        ]}
+                    />
+                )}
+        </>
     )
 }
+
+export default withAuthorization(TypeDonsPage, ['AD', 'PR']);

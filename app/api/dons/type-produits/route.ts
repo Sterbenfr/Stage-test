@@ -28,7 +28,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     }
 
     console.log(produit)
-    if (!produit.code_type_produits || !produit.libelle) {
+    if (!produit.id || !produit.label) {
         return res.status(400).json({ error: 'Missing product data' })
     }
 

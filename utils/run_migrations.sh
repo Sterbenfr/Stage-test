@@ -2,8 +2,8 @@
 
 DATABASE_NAME=${DATABASE_NAME:-stage}
 USERNAME=${USERNAME:-root}
-PASSWORD=${PASSWORD:-Azerty1!}
-HOST=${HOST:-172.29.240.1}
+PASSWORD=${PASSWORD:-welcome1}
+HOST=${HOST:-172.22.240.1}
 
 for file in ../migration/*.sql
 do
