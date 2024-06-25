@@ -23,13 +23,11 @@ function InteractionsPage() {
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
 
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
-    const [checkboxChecked, setCheckboxChecked] = useState(false);
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
-        setIsPopUpOpen(false);
-        setCheckboxChecked(false);
-    };
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchInteractions = async () => {
@@ -82,39 +80,47 @@ function InteractionsPage() {
             />
             {''}
             <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
-                {isPopUpOpen && (
-                    <PopUp
-                        onClose={handleClose}
-                        url='http://localhost:3000/api/interactions'
-                        fields={[
-                            {
-                                id: "code_Utilisateur_Prospecteur", type: 'search', 
-                                value: null,
-                                url:'../api/select/sites/utilisateurs'
-                            },
-                            {
-                                id: "code_Entite_Prospectee", type: 'search', 
-                                value: null,
-                                url:'../api/select/societe/entite'
-                            },
-                            { id: "date_interaction", type: 'date', value: null},
-                            {
-                                id: "code_type_interaction", type: 'select',
-                                value: null,
-                                url:'../api/dons/type-interactions'
-                            },
-                            {
-                                id: "code_modalite_interaction", type: 'select',
-                                value: null,
-                                url:'../api/dons/type-modalite-interactions'
-                            },
-                            { id: "code_contact_entite", type: 'input', value: null}, //remplissage auto
-                            { id: "commentaires", type: 'input', value: null},
-                            { id: "pieces_associees", type: 'file', value: null},
-                            { id: "date_relance", type: 'date', value: null},
-                        ]}
-                    />
-                )}
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url='http://localhost:3000/api/interactions'
+                    fields={[
+                        {
+                            id: 'code_Utilisateur_Prospecteur',
+                            type: 'search',
+                            value: null,
+                            url: '../api/select/sites/utilisateurs',
+                        },
+                        {
+                            id: 'code_Entite_Prospectee',
+                            type: 'search',
+                            value: null,
+                            url: '../api/select/societe/entite',
+                        },
+                        { id: 'date_interaction', type: 'date', value: null },
+                        {
+                            id: 'code_type_interaction',
+                            type: 'select',
+                            value: null,
+                            url: '../api/dons/type-interactions',
+                        },
+                        {
+                            id: 'code_modalite_interaction',
+                            type: 'select',
+                            value: null,
+                            url: '../api/dons/type-modalite-interactions',
+                        },
+                        {
+                            id: 'code_contact_entite',
+                            type: 'input',
+                            value: null,
+                        }, //remplissage auto
+                        { id: 'commentaires', type: 'input', value: null },
+                        { id: 'pieces_associees', type: 'file', value: null },
+                        { id: 'date_relance', type: 'date', value: null },
+                    ]}
+                />
+            )}
         </>
     )
 }

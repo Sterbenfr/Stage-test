@@ -1,18 +1,27 @@
 'use client'
 import { useEffect, useState } from 'react'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface type_utilisateur {
+export interface type_utilisateur {
     code_type_utilisateur: string
     libelle: string
 }
 
-export default function UtilisateursPage() {
+function UtilisateursPage({ params }: { params: { siteID: string } }) {
     const [Utilisateurs, setUtilisateurs] = useState<type_utilisateur[]>([])
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+
+    const handleClose = () => {
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchUtilisateurs = async () => {
+            if (!params.siteID) return
             const res = await fetch(
-                'http://localhost:3000/api/sites/utilisateurs/type-utilisateurs',
+                `http://localhost:3000/api/sites/${params.siteID}/utilisateurs/type-utilisateurs`,
             )
 
             if (!res.ok) {
@@ -26,17 +35,40 @@ export default function UtilisateursPage() {
         }
 
         fetchUtilisateurs()
-    }, [])
+    }, [params.siteID])
 
     return (
-        <div>
-            <h1>Type Utilisateur</h1>
-            {Utilisateurs.map(TypeUtilisateur => (
-                <div key={TypeUtilisateur.code_type_utilisateur}>
-                    <h2>{TypeUtilisateur.libelle}</h2>
-                    <h2>{TypeUtilisateur.code_type_utilisateur}</h2>
-                </div>
-            ))}
-        </div>
+        <>
+            <div>
+                <h1>Type Utilisateur</h1>
+                {Utilisateurs.map(TypeUtilisateur => (
+                    <div key={TypeUtilisateur.code_type_utilisateur}>
+                        <h2>{TypeUtilisateur.libelle}</h2>
+                        <h2>{TypeUtilisateur.code_type_utilisateur}</h2>
+                    </div>
+                ))}
+            </div>
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url={`http://localhost:3000/api/${params.siteID}/utilisateurs/type-utilisateurs`}
+                    fields={[
+                        {
+                            id: 'code_type_utilisateur',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'libelle',
+                            type: 'input',
+                            value: null,
+                        },
+                    ]}
+                />
+            )}
+        </>
     )
 }
+
+export default withAuthorization(UtilisateursPage, ['AD', 'PR'])

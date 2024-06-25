@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
 import pool from '../../../utils/db'
+import { NextApiRequest } from 'next'
+import { streamToString } from '../../../utils/streamUtils'
+import type { Prestataire } from '@/app/prestataire/page'
 
 type CountResult = { count: number }[]
 
@@ -27,6 +30,42 @@ export async function GET(request: Request) {
         return NextResponse.json({ data: rows, total: total[0].count })
     } catch (err) {
         console.error(err)
+        return NextResponse.json(
+            { error: 'Internal Server Error' },
+            { status: 500 },
+        )
+    }
+}
+export async function POST(req: NextApiRequest) {
+    let prestataires: Prestataire
+    try {
+        prestataires = JSON.parse(await streamToString(req.body))
+        console.log(prestataires)
+    } catch (error) {
+        return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+    }
+
+    if (
+        !prestataires.code_type_de_Prestataire ||
+        !prestataires.raison_sociale
+    ) {
+        console.log(
+            'prestataires:' +
+                prestataires.code_type_de_Prestataire +
+                prestataires.raison_sociale,
+        )
+        return NextResponse.json(
+            { error: 'Missing product data' },
+            { status: 400 },
+        )
+    }
+
+    try {
+        const query = 'INSERT INTO `prestataires` SET ?'
+        const [rows] = await pool.query(query, prestataires)
+        return NextResponse.json(rows)
+    } catch (error) {
+        console.log(error)
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 },
