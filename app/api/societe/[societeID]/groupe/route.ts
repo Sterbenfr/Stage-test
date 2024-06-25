@@ -21,7 +21,7 @@ export async function GET(request: Request,{
         const limitNumber = Number(limit)
         const offset = (pageNumber - 1) * limitNumber
 
-        const [rows] = await pool.query('SELECT * FROM `groupe` LEFT JOIN Societe ON Groupe.code_Groupe = Societe.code_Groupe_appartenance WHERE Societe.code_Societe = ? LIMIT ?, ?', [
+        const [rows] = await pool.query('SELECT code_Groupe, nom_du_groupe, groupe.logo, groupe.site_web, groupe.commentaires, date_arret_activite_du_Groupe FROM `groupe` LEFT JOIN Societe ON Groupe.code_Groupe = Societe.code_Groupe_appartenance WHERE Societe.code_Societe = ? LIMIT ?, ?', [
             societeID,
             offset,
             limitNumber,
@@ -54,13 +54,13 @@ export async function POST(req: NextApiRequest) {
     }
 
     if (
-        !groupe.nom_du_Groupe ||
-        !groupe.site_Web 
+        !groupe.nom_du_groupe ||
+        !groupe.site_web 
     ) {
         console.log(
             'sites:' +
-            groupe.nom_du_Groupe +
-            groupe.site_Web ,
+            groupe.nom_du_groupe +
+            groupe.site_web ,
         )
         return NextResponse.json(
             { error: 'Missing product data' },

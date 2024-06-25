@@ -7,11 +7,11 @@ import withAuthorization from '@/components/withAuthorization'
 
 export interface Groupe {
     code_Groupe: number
-    nom_du_Groupe: string
+    nom_du_groupe: string
     Logo: Blob
-    site_Web: string
+    site_web: string
     commentaires: string
-    date_arret_activite_du_Groupe: Date
+    date_arret_activite_du_groupe: Date
 }
 
 function GroupesPage({
@@ -59,6 +59,7 @@ function GroupesPage({
         setItemsPerPage(newItemsPerPage)
         setPage(1) // reset page to 1 when items per page changes
     }
+    console.log(groupes[0])
 
     return (
         <div>
@@ -67,13 +68,13 @@ function GroupesPage({
                 <List
                     items={groupes.map(groupe => ({
                         value1: groupe.code_Groupe.toString(),
-                        value2: groupe.nom_du_Groupe,
-                        value3: groupe.site_Web,
+                        value2: groupe.nom_du_groupe,
+                        value3: groupe.site_web,
                         value4: groupe.commentaires,
                         value5:
-                            groupe.date_arret_activite_du_Groupe == null
+                            groupe.date_arret_activite_du_groupe == null
                                 ? ''
-                                : groupe.date_arret_activite_du_Groupe
+                                : groupe.date_arret_activite_du_groupe
                                       .toString()
                                       .split('T')[0],
                     }))}

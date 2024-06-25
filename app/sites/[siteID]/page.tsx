@@ -134,6 +134,9 @@ export default function SitePage({ params }: { params: { siteID: string } }) {
                                 : site[0].commentaires}
                         </p>
                     </div>
+                    <div className={style.info}>
+                        <a href={`/sites/${params.siteID}/utilisateurs`}><p className={style.titre}> Utilisateurs du site </p></a>
+                    </div>
                 </div>
             </div>
         </div>

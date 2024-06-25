@@ -256,6 +256,9 @@ export default function EntitePage({
                                       .split('T')[0]}
                         </p>
                     </div>
+                    <div className={style.info}>
+                        <a href={`/societe/${params.societeID}/entite/${params.entiteID}/contact`}><p className={style.titre}> Contact(s) de l'entité </p></a>
+                    </div>
                 </div>
             </div>
         </div>
