@@ -1,17 +1,26 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '../../../../../components/list'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface Frequence_cerfa {
-    code_frequence_cerfa: string
-    libelle: string
+export interface Frequence_cerfa {
+    id: string
+    label: string
 }
 
-export default function Frequences_cerfaPage({
+function Frequences_cerfaPage({
     params,
 }: {
     params: { societeID: string }
 }) {
     const [Frequences_cerfa, setFrequences_cerfa] = useState<Frequence_cerfa[]>([])
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+
+    const handleClose = () => {
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchFrequences_cerfa = async () => {
@@ -34,13 +43,34 @@ export default function Frequences_cerfaPage({
 
     return (
         <div>
-            <h1>Types Frequences Cerfa</h1>
-            {Frequences_cerfa.map(TypesFrequences_cerfa => (
-                <div key={TypesFrequences_cerfa.code_frequence_cerfa}>
-                    <h2>{TypesFrequences_cerfa.libelle}</h2>
-                    <h2>{TypesFrequences_cerfa.code_frequence_cerfa}</h2>
-                </div>
-            ))}
+            <List
+                items={Frequences_cerfa.map(TypesFrequences_cerfa => ({
+                    value1: TypesFrequences_cerfa.id.toString(),
+                    value2: TypesFrequences_cerfa.id.toString(),
+                    value3: TypesFrequences_cerfa.label
+                }))}
+            />
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url={`http://localhost:3000/api/societe/${params.societeID}/entite/type-frequences-cerfa`}
+                    fields={[
+                        {
+                            id: 'code_type_frequences_cerfa',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'libelle',
+                            type: 'input',
+                            value: null,
+                        },
+                    ]}
+                />
+            )}
         </div>
     )
 }
+
+export default withAuthorization(Frequences_cerfaPage, ['AD', 'PR']);
