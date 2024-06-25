@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
 export interface Societe {
     code_Societe: number
@@ -17,7 +18,7 @@ export interface Societe {
     date_arret_activite_Societe: Date
 }
 
-export default function SocietesPage() {
+function SocietesPage() {
     const [Societes, setSocietes] = useState<Societe[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
@@ -143,3 +144,4 @@ export default function SocietesPage() {
         </>
     )
 }
+export default withAuthorization(SocietesPage, ['AD', 'PR'])

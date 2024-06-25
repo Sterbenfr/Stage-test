@@ -87,8 +87,9 @@ function UtilisateursPage({ params }: { params: { siteID: string } }) {
                     fields={[
                         {
                             id: 'civilite',
-                            type: 'enum',
+                            type: 'select',
                             value: null,
+                            url: `../../../../../api/select/genre`,
                         },
                         {
                             id: 'nom',

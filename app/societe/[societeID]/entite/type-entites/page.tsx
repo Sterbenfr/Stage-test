@@ -1,17 +1,22 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '@/components/list'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface Entite {
+export interface Entite {
     code_type_entite: string
     libelle: string
 }
 
-export default function EntitesPage({
-    params,
-}: {
-    params: { societeID: string }
-}) {
+function EntitesPage({ params }: { params: { societeID: string } }) {
     const [Entites, setEntites] = useState<Entite[]>([])
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+
+    const handleClose = () => {
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchEntites = async () => {
@@ -34,13 +39,34 @@ export default function EntitesPage({
 
     return (
         <div>
-            <h1>Types Entites</h1>
-            {Entites.map(TypesEntites => (
-                <div key={TypesEntites.code_type_entite}>
-                    <h2>{TypesEntites.libelle}</h2>
-                    <h2>{TypesEntites.code_type_entite}</h2>
-                </div>
-            ))}
+            <>
+                <List
+                    items={Entites.map(TypesEntites => ({
+                        value1: TypesEntites.code_type_entite.toString(),
+                        value2: TypesEntites.libelle.toString(),
+                    }))}
+                />
+                <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+                {isPopUpOpen && (
+                    <PopUp
+                        onClose={handleClose}
+                        url={`http://localhost:3000/api/societe/${params.societeID}/entite/type-entites`}
+                        fields={[
+                            {
+                                id: 'code_type_entite',
+                                type: 'input',
+                                value: null,
+                            },
+                            {
+                                id: 'libelle',
+                                type: 'input',
+                                value: null,
+                            },
+                        ]}
+                    />
+                )}
+            </>
         </div>
     )
 }
+export default withAuthorization(EntitesPage, ['AD', 'PR'])

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import pool from '../../../utils/db'
 import { NextApiRequest } from 'next'
 import { streamToString } from '../../../utils/streamUtils'
-import type { CerfaPage } from '@/app/cerfa/page'
+import type { Cerfa } from '@/app/cerfa/page'
 
 type CountResult = { count: number }[]
 
@@ -37,25 +37,16 @@ export async function GET(request: Request) {
     }
 }
 export async function POST(req: NextApiRequest) {
-    let Cerfa: CerfaPage
+    let Cerfas: Cerfa
     try {
-        Cerfa = JSON.parse(await streamToString(req.body))
-        console.log(Cerfa)
+        Cerfas = JSON.parse(await streamToString(req.body))
+        console.log(Cerfas)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (
-        !Cerfa.date_proposition_don ||
-        !Cerfa.code_type_don ||
-        !Cerfa.code_Utilisateur_saisie_don
-    ) {
-        console.log(
-            'Cerfa:' +
-                Cerfa.date_proposition_don +
-                Cerfa.code_type_don +
-                Cerfa.code_Utilisateur_saisie_don,
-        )
+    if (!Cerfas.code_Don || !Cerfas.date_realisation_Cerfa) {
+        console.log('Cerfa:' + Cerfas.code_Don + Cerfas.date_realisation_Cerfa)
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -64,7 +55,7 @@ export async function POST(req: NextApiRequest) {
 
     try {
         const query = 'INSERT INTO `cerfa` SET ?'
-        const [rows] = await pool.query(query, Cerfa)
+        const [rows] = await pool.query(query, Cerfas)
         return NextResponse.json(rows)
     } catch (error) {
         console.log(error)

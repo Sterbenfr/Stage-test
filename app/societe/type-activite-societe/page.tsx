@@ -1,14 +1,24 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '../../../components/list'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
-interface TypeActiviteSociete {
+export interface TypeActiviteSociete {
     code: string
     libelle: string
 }
 
-export default function TypesActiviteSocietesPage() {
-    const [TypesActiviteSociete, setTypesActiviteSociete] = useState<TypeActiviteSociete[]>([])
+function TypesActiviteSocietesPage() {
+    const [TypesActiviteSociete, setTypesActiviteSociete] = useState<
+        TypeActiviteSociete[]
+    >([])
 
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+
+    const handleClose = () => {
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchTypesActiviteSociete = async () => {
@@ -30,14 +40,33 @@ export default function TypesActiviteSocietesPage() {
     }, [])
 
     return (
-        <div>
-            <h1>Type activite societe</h1>
-            {TypesActiviteSociete.map(TypeActiviteSociete => (
-                <div key={TypeActiviteSociete.code}>
-                    <h2>{TypeActiviteSociete.code}</h2>
-                    <p>Libelle: {TypeActiviteSociete.libelle}</p>
-                </div>
-            ))}
-        </div>
+        <>
+            <List
+                items={TypesActiviteSociete.map(TypeActiviteSociete => ({
+                    value1: TypeActiviteSociete.code.toString(),
+                    value2: TypeActiviteSociete.libelle,
+                }))}
+            />
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url='http://localhost:3000/api/societe'
+                    fields={[
+                        {
+                            id: 'code',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'libelle',
+                            type: 'input',
+                            value: null,
+                        },
+                    ]}
+                />
+            )}
+        </>
     )
 }
+export default withAuthorization(TypesActiviteSocietesPage, ['AD', 'PR'])
