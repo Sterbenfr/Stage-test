@@ -3,7 +3,7 @@ CREATE TABLE Entite (
     raison_sociale VARCHAR(30) NOT NULL,
     nom_commercial VARCHAR(30) DEFAULT '',
     logo BLOB,
-    siret INT(14),
+    siret BIGINT(14),
     code_ape CHAR(5),
     code_rna CHAR(10),
     code_cee CHAR(13),
