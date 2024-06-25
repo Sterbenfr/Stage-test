@@ -24,13 +24,11 @@ function SitesPage() {
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
 
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
-    const [checkboxChecked, setCheckboxChecked] = useState(false);
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
-        setIsPopUpOpen(false);
-        setCheckboxChecked(false);
-    };
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchSites = async () => {
@@ -81,27 +79,36 @@ function SitesPage() {
                 currentPage={page}
             />{' '}
             <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
-                {isPopUpOpen && (
-                    <PopUp
-                        onClose={handleClose}
-                        url='http://localhost:3000/api/sites'
-                        fields={[
-                            { id: "designation_longue", type: 'input', value: null},
-                            { id: "designation_courte", type: 'input', value: null},
-                            { id: "adresse", type: 'input', value: null},
-                            {
-                                id: "code_type_site", type: 'select',
-                                value: null,
-                                url:'../api/sites/type-site-types'
-                            },
-                            { id: "date_ouverture", type: 'date', value: null},
-                            { id: "date_fermeture", type: 'date', value: null},
-                            { id: "numero_telephone", type: 'input', value: null},
-                            { id: "adresse_mail", type: 'input', value: null},
-                            { id: "commentaires", type: 'input', value: null},
-                        ]}
-                    />
-                )}
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url='http://localhost:3000/api/sites'
+                    fields={[
+                        {
+                            id: 'designation_longue',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'designation_courte',
+                            type: 'input',
+                            value: null,
+                        },
+                        { id: 'adresse', type: 'input', value: null },
+                        {
+                            id: 'code_type_site',
+                            type: 'select',
+                            value: null,
+                            url: '../api/sites/type-site-types',
+                        },
+                        { id: 'date_ouverture', type: 'date', value: null },
+                        { id: 'date_fermeture', type: 'date', value: null },
+                        { id: 'numero_telephone', type: 'input', value: null },
+                        { id: 'adresse_mail', type: 'input', value: null },
+                        { id: 'commentaires', type: 'input', value: null },
+                    ]}
+                />
+            )}
         </>
     )
 }

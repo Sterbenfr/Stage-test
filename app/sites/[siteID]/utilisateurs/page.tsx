@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react'
 import List from '@/components/list'
 import { Pagination } from '@/components/pagination'
+import PopUp from '@/components/popUp'
+import withAuthorization from '@/components/withAuthorization'
 
 export interface Utilisateurs {
     code_utilisateur: number
@@ -15,11 +17,18 @@ export interface Utilisateurs {
     code_type_utilisateur: number
 }
 
-export default function UtilisateursPage(params: { siteID: string }) {
+function UtilisateursPage({ params }: { params: { siteID: string } }) {
     const [Utilisateurs, setUtilisateurs] = useState<Utilisateurs[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
+
+    const handleClose = () => {
+        setIsPopUpOpen(false)
+    }
+
     useEffect(() => {
         const fetchUtilisateurs = async () => {
             const res = await fetch(
@@ -70,6 +79,57 @@ export default function UtilisateursPage(params: { siteID: string }) {
                 itemsPerPage={itemsPerPage}
                 currentPage={page}
             />{' '}
+            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url={`http://localhost:3000/api/sites/${params.siteID}/utilisateurs`}
+                    fields={[
+                        {
+                            id: 'civilite',
+                            type: 'enum',
+                            value: null,
+                        },
+                        {
+                            id: 'nom',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'prenom',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'tel_perso',
+                            type: 'number',
+                            value: null,
+                        },
+                        {
+                            id: 'mail_restos_du_coeur',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'commentaires',
+                            type: 'input',
+                            value: null,
+                        },
+                        {
+                            id: 'password',
+                            type: 'password',
+                            value: null,
+                        },
+                        {
+                            id: 'code_type_utilisateur',
+                            type: 'select',
+                            value: null,
+                            url: `../../../../../api/select/utilisateurs`,
+                        },
+                    ]}
+                />
+            )}
         </>
     )
 }
+export default withAuthorization(UtilisateursPage, ['AD', 'PR'])
