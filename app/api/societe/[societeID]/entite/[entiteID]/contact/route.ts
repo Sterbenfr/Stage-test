@@ -26,6 +26,7 @@ export async function GET(request: Request,{
 
         const [totalResult] = await pool.query(
             'SELECT COUNT(*) as count FROM `contacts` WHERE code_entite = ?',
+            [entiteID],
         )
 
         const total = totalResult as CountResult

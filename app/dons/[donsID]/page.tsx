@@ -252,6 +252,12 @@ export default function DonPage({ params }: { params: { donsID: string } }) {
                                       .split('T')[0]}
                         </p>
                     </div>
+                    <div className={style.info}>
+                        <a href={`/dons/${params.donsID}/modalites-livraison`}><p className={style.titre}> Modalités de la livraison </p></a>
+                    </div>
+                    <div className={style.info}>
+                        <a href={`/dons/${params.donsID}/reception`}><p className={style.titre}> Réception de la livraison </p></a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -64,11 +64,12 @@ function SitesPage() {
         <>
             <List
                 items={Sites.map(Sites => ({
-                    value1: Sites.designation_longue.toString(),
-                    value2: Sites.adresse.toString(),
-                    value3: Sites.date_ouverture.toString().split('T')[0],
-                    value4: Sites.numero_telephone.toString(),
-                    value5: Sites.adresse_mail.toString(),
+                    value1: Sites.code_site.toString(),
+                    value2: Sites.designation_longue.toString(),
+                    value3: Sites.adresse.toString(),
+                    value4: Sites.date_ouverture.toString().split('T')[0],
+                    value5: Sites.numero_telephone.toString(),
+                    value6: Sites.adresse_mail.toString(),
                 }))}
             />
             <Pagination
