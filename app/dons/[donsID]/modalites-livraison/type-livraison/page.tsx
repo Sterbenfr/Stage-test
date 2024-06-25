@@ -2,30 +2,20 @@
 import List from '../../../../../components/list'
 import { useEffect, useState } from 'react'
 import PopUp from '@/components/popUp'
-import { useCallback } from 'react'
 import withAuthorization from '@/components/withAuthorization'
 
 export interface Type_Livraison {
     id: string
     label: string
-
-export interface Type_Livraison {
-    code_type_livraison: string
-    libelle: string
-
 }
 
-function Type_LivraisonsPage({
-    params,
-}: {
-    params: { donsID: string }
-}) {
+function Type_LivraisonsPage({ params }: { params: { donsID: string } }) {
     const [Type_Livraisons, setType_Livraisons] = useState<Type_Livraison[]>([])
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
-        setIsPopUpOpen(false);
-    };
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchType_Livraisons = async () => {
@@ -44,7 +34,7 @@ function Type_LivraisonsPage({
         }
 
         fetchType_Livraisons()
-    }, [])
+    }, [params.donsID])
 
     return (
         <>
@@ -52,22 +42,22 @@ function Type_LivraisonsPage({
                 items={Type_Livraisons.map(typeLivraison => ({
                     value1: typeLivraison.id.toString(),
                     value2: typeLivraison.id.toString(),
-                    value3: typeLivraison.label
+                    value3: typeLivraison.label,
                 }))}
             />
             <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
-                {isPopUpOpen && (
-                    <PopUp
-                        onClose={handleClose}
-                        url={`http://localhost:3000/api/dons/${params.donsID}/modalites-livraison/type-livraison`}
-                        fields={[
-                            { id: "id", type: 'input', value: null},
-                            { id: "label", type: 'input', value: null},
-                        ]}
-                    />
-                )}
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url={`http://localhost:3000/api/dons/${params.donsID}/modalites-livraison/type-livraison`}
+                    fields={[
+                        { id: 'id', type: 'input', value: null },
+                        { id: 'label', type: 'input', value: null },
+                    ]}
+                />
+            )}
         </>
     )
 }
 
-export default withAuthorization(Type_LivraisonsPage, ['AD', 'PR']);
+export default withAuthorization(Type_LivraisonsPage, ['AD', 'PR'])

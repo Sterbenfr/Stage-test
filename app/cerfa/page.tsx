@@ -5,7 +5,7 @@ import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
 
-interface Cerfa {
+export interface Cerfa {
     numero_Cerfa: number
     code_Don: number
     montant_HT_Cerfa: number
