@@ -1,5 +1,6 @@
 'use client'
 import { signIn } from 'next-auth/react'
+import style from '../../styles/components.module.css'
 
 const LoginPage = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,10 +28,31 @@ const LoginPage = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input name='email' type='text' required />
-            <input name='password' type='password' required />
-            <button type='submit'>Sign in</button>
+        <form className={style.formu} onSubmit={handleSubmit}>
+            <h1 className={style.lg}>Login :</h1>
+            <div className={style.log}>
+                <div className={style.login}>
+                    <input
+                        className={style.email}
+                        name='email'
+                        type='text'
+                        placeholder='Email'
+                        required
+                    />
+                </div>
+                <div className={style.login}>
+                    <input
+                        className={style.password}
+                        name='password'
+                        type='password'
+                        placeholder='Password'
+                        required
+                    />
+                </div>
+            </div>
+            <button className={style.submit} type='submit'>
+                Sign in
+            </button>
         </form>
     )
 }
