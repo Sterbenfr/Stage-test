@@ -4,6 +4,7 @@ import List from '@/components/list'
 import { Pagination } from '../../components/pagination'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
+import style from '../../styles/components.module.css'
 
 export interface Sites {
     code_site: number
@@ -62,61 +63,87 @@ function SitesPage() {
 
     return (
         <>
-            <List
-                items={Sites.map(Sites => ({
-                    value1: Sites.code_site.toString(),
-                    value2: Sites.designation_longue.toString(),
-                    value3: Sites.adresse.toString(),
-                    value4: Sites.date_ouverture.toString().split('T')[0],
-                    value5: Sites.numero_telephone.toString(),
-                    value6: Sites.adresse_mail.toString(),
-                }))}
-                functions={{
-                    fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
-                    },
-                }}
-            />
-            <Pagination
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
-                totalItems={totalItems} // use the total items from the state
-                itemsPerPage={itemsPerPage}
-                currentPage={page}
-            />{' '}
-            {isPopUpOpen && (
-                <PopUp
-                    onClose={handleClose}
-                    url='http://localhost:3000/api/sites'
-                    fields={[
-                        {
-                            id: 'designation_longue',
-                            type: 'input',
-                            value: null,
+            <div className={style.page}>
+                <List
+                    items={Sites.map(Sites => ({
+                        value1: Sites.code_site.toString(),
+                        value2: Sites.designation_longue.toString(),
+                        value3: Sites.adresse.toString(),
+                        value4: Sites.date_ouverture.toString().split('T')[0],
+                        value5: Sites.numero_telephone.toString(),
+                        value6: Sites.adresse_mail.toString(),
+                    }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen
+                                ? setIsPopUpOpen(false)
+                                : setIsPopUpOpen(true)
                         },
-                        {
-                            id: 'designation_courte',
-                            type: 'input',
-                            value: null,
+                        fonc2: () => {
+                            console.log('fonc2')
                         },
-                        { id: 'adresse', type: 'input', value: null },
-                        {
-                            id: 'code_type_site',
-                            type: 'select',
-                            value: null,
-                            url: '../api/sites/type-site-types',
-                        },
-                        { id: 'date_ouverture', type: 'date', value: null },
-                        { id: 'date_fermeture', type: 'date', value: null },
-                        { id: 'numero_telephone', type: 'input', value: null },
-                        { id: 'adresse_mail', type: 'input', value: null },
-                        { id: 'commentaires', type: 'input', value: null },
-                    ]}
+                    }}
                 />
-            )}
+                <Pagination
+                    onPageChange={handlePageChange}
+                    onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
+                    totalItems={totalItems} // use the total items from the state
+                    itemsPerPage={itemsPerPage}
+                    currentPage={page}
+                />{' '}
+                {isPopUpOpen && (
+                    <div className={style.PopUp}>
+                        <PopUp
+                            onClose={handleClose}
+                            url='http://localhost:3000/api/sites'
+                            fields={[
+                                {
+                                    id: 'designation_longue',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'designation_courte',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                { id: 'adresse', type: 'input', value: null },
+                                {
+                                    id: 'code_type_site',
+                                    type: 'select',
+                                    value: null,
+                                    url: '../api/sites/type-site-types',
+                                },
+                                {
+                                    id: 'date_ouverture',
+                                    type: 'date',
+                                    value: null,
+                                },
+                                {
+                                    id: 'date_fermeture',
+                                    type: 'date',
+                                    value: null,
+                                },
+                                {
+                                    id: 'numero_telephone',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'adresse_mail',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'commentaires',
+                                    type: 'input',
+                                    value: null,
+                                },
+                            ]}
+                        />
+                    </div>
+                )}
+            </div>
         </>
     )
 }

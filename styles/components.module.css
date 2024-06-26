@@ -12,7 +12,7 @@
     padding-right: 10rem;
     margin-bottom: 2rem;
     position: fixed;
-    z-index: 100;
+    z-index: 10000;
 }
 
 .btn_nav {
@@ -274,6 +274,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
     font-weight: bold;
 }
 
@@ -309,4 +310,108 @@
 
 .submit:hover {
     background-color: #f2f2f2;
+}
+
+/* PopUp */
+
+.page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.PopUp {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    position: absolute;
+    width: 100%;
+    top: 9rem;
+    height: auto;
+    background-color: white;
+    padding: 3rem;
+    border-radius: 2%;
+}
+
+.BTNpop {
+    background-color: white;
+    padding: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.BTNpop:hover {
+    background-color: #f2f2f2;
+    padding: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.col_1_add {
+    display: flex;
+    flex-direction: column;
+    border-left: 3px solid #e5007d;
+    width: 35rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.col_2_add {
+    display: flex;
+    flex-direction: column;
+    width: 35rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-left: 3px solid #e5007d;
+}
+
+.selectF {
+    width: 25rem;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 1rem;
+    margin-top: 2rem;
+    border: 2px solid black;
+    border-radius: 0%;
+}
+
+.selectF:focus {
+    width: 25rem;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 1rem;
+    border: 2px solid black;
+    border-radius: 0%;
+}
+
+.BTNsub {
+    width: 10rem;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 1rem;
+    border: 3px solid black;
+    border-radius: 0%;
+    background-color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 7%;
+}
+
+.BTNsub:hover {
+    border: 3px solid #e5007d;
+    background-color: #f2f2f2;
+}
+
+.BTNdiv {
+    display: flex;
+    justify-content: end;
+    width: 25rem;
+    margin: 1rem;
+    border-radius: 0%;
 }

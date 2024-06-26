@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SelectComponent from './select-component'
 import SearchComponent from './searchComponent'
+import style from '../styles/components.module.css'
 
 type Field = {
     id: string
@@ -15,6 +16,7 @@ type Field = {
         | 'search'
         | 'password'
     value: string | boolean | null
+    placeholder?: string
     url?: string
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
 }
@@ -82,43 +84,59 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
 
     return (
         <div className={'popup-container'}>
-            <h2>Add New Entry</h2>
-            {inputs.map(input => {
-                switch (input.type) {
-                    case 'select':
-                        return (
-                            <SelectComponent
-                                key={input.id}
-                                url={input.url as string}
-                                onChange={input.onChange}
-                            />
-                        )
-                    case 'search':
-                        return (
-                            <SearchComponent
-                                key={input.id}
-                                url={input.url as string}
-                                onChange={e => handleInputChange(input.id, e.target.value)}
-                            />
-                        )
-                    default:
-                        return (
-                            <input
-                                key={input.id}
-                                type={input.type}
-                                value={
-                                    input.value === null
-                                        ? ''
-                                        : (input.value as string)
-                                }
-                                onChange={e =>
-                                    handleInputChange(input.id, e.target.value)
-                                }
-                            />
-                        )
-                }
-            })}
-            <button onClick={handleSubmit}>Submit</button>
+            <div className={style.page}>
+                <h2 className={style.lg}>Add New Entry</h2>
+                {inputs.map(input => {
+                    switch (input.type) {
+                        case 'select':
+                            return (
+                                <SelectComponent
+                                    key={input.id}
+                                    url={input.url as string}
+                                    onChange={input.onChange}
+                                />
+                            )
+                        case 'search':
+                            return (
+                                <SearchComponent
+                                    key={input.id}
+                                    url={input.url as string}
+                                    onChange={e =>
+                                        handleInputChange(
+                                            input.id,
+                                            e.target.value,
+                                        )
+                                    }
+                                />
+                            )
+                        default:
+                            return (
+                                <input
+                                    key={input.id}
+                                    type={input.type}
+                                    placeholder={input.type}
+                                    className={style.selectF}
+                                    value={
+                                        input.value === null
+                                            ? ''
+                                            : (input.value as string)
+                                    }
+                                    onChange={e =>
+                                        handleInputChange(
+                                            input.id,
+                                            e.target.value,
+                                        )
+                                    }
+                                />
+                            )
+                    }
+                })}
+                <div className={style.BTNdiv}>
+                    <button className={style.BTNsub} onClick={handleSubmit}>
+                        Submit
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import style from '../styles/components.module.css'
 
 interface SelectComponentProps {
     url: string
@@ -51,7 +52,7 @@ export default function SelectComponent({
 
     // Renvoyer le menu déroulant avec les options
     return (
-        <select onChange={onChange}>
+        <select className={style.selectF} onChange={onChange}>
             {options.map(option => (
                 <option key={option.value} value={option.value}>
                     {option.label}
