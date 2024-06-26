@@ -110,7 +110,7 @@ function ContactsPage({
                                 id: 'civilite',
                                 type: 'select',
                                 value: null,
-                                url: `http://localhost:3000/api/select/genre`,
+                                url: `../.././../../../../api/select/genre`,
                             },
                             {
                                 id: 'nom',

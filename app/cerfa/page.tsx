@@ -119,8 +119,9 @@ function CerfaPage() {
                             },
                             {
                                 id: 'civilite_destinataire_Cerfa',
-                                type: 'enum',
+                                type: 'select',
                                 value: null,
+                                url: '../api/select/genre',
                             },
                             {
                                 id: 'nom_destinataire_Cerfa',
