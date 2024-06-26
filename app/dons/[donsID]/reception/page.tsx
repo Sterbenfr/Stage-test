@@ -72,6 +72,14 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
                     value4: Reception.nombre_palettes_recues.toString(),
                     value5: Reception.poids_recu_kg.toString(),
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
             <Pagination
                 onPageChange={handlePageChange}
@@ -81,7 +89,6 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
                 currentPage={page}
             />
             {''}
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}

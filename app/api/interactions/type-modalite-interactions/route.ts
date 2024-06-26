@@ -19,17 +19,17 @@ export async function GET() {
     }
 }
 export async function POST(req: NextApiRequest) {
-    let code_modalite_interaction: Modalite_Interactions
+    let type_modalite_interaction: Modalite_Interactions
     try {
-        code_modalite_interaction = JSON.parse(await streamToString(req.body))
-        console.log(code_modalite_interaction)
+        type_modalite_interaction = JSON.parse(await streamToString(req.body))
+        console.log(type_modalite_interaction)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (!code_modalite_interaction.libelle) {
+    if (!type_modalite_interaction.id || !type_modalite_interaction.label) {
         console.log(
-            'code_modalite_interaction:' + code_modalite_interaction.libelle,
+            'code_modalite_interaction:' + type_modalite_interaction.id + type_modalite_interaction.label,
         )
         return NextResponse.json(
             { error: 'Missing product data' },
@@ -39,7 +39,7 @@ export async function POST(req: NextApiRequest) {
 
     try {
         const query = 'INSERT INTO `ModaliteInteractions` SET ?'
-        const [rows] = await pool.query(query, code_modalite_interaction)
+        const [rows] = await pool.query(query, type_modalite_interaction)
         return NextResponse.json(rows)
     } catch (error) {
         console.log(error)

@@ -46,6 +46,14 @@ function TypesActiviteSocietesPage() {
                     value1: TypeActiviteSociete.code.toString(),
                     value2: TypeActiviteSociete.libelle,
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
             <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
             {isPopUpOpen && (

@@ -86,6 +86,14 @@ function ContactsPage({
                                       .toString()
                                       .split('T')[0],
                     }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                        },
+                        fonc2: () => {
+                            console.log('fonc2')
+                        },
+                    }}
                 />
                 <Pagination
                     onPageChange={handlePageChange}

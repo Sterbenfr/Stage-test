@@ -72,6 +72,14 @@ function CerfaPage() {
                         value4: cerfa.nom_destinataire_Cerfa.toString(),
                         value5: cerfa.prenom_destinataire_Cerfa.toString(),
                     }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                        },
+                        fonc2: () => {
+                            console.log('fonc2')
+                        },
+                    }}
                 />
                 <Pagination
                     onPageChange={handlePageChange}
@@ -80,7 +88,6 @@ function CerfaPage() {
                     itemsPerPage={itemsPerPage}
                     currentPage={page}
                 />{' '}
-                <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
                 {isPopUpOpen && (
                     <PopUp
                         onClose={handleClose}

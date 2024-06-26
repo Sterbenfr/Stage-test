@@ -70,6 +70,14 @@ function InteractionsPage() {
                     value4: Interactions.date_relance.toString().split('T')[0],
                     value5: Interactions.commentaires,
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
             <Pagination
                 onPageChange={handlePageChange}
@@ -79,7 +87,6 @@ function InteractionsPage() {
                 currentPage={page}
             />
             {''}
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}

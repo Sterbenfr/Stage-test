@@ -1,11 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '@/components/list'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
 
 export interface Modalite_Interactions {
-    code_modalite_interaction: string
-    libelle: string
+    id: string
+    label: string
 }
 
 function Modalites_InteractionsPage() {
@@ -40,18 +41,21 @@ function Modalites_InteractionsPage() {
     }, [])
     return (
         <>
-            <div>
-                <h1>Modalite Interactions</h1>
-                {Modalites_Interactions.map(ModaliteInteractions => (
-                    <div key={ModaliteInteractions.code_modalite_interaction}>
-                        <h2>{ModaliteInteractions.libelle}</h2>
-                        <h2>
-                            {ModaliteInteractions.code_modalite_interaction}
-                        </h2>
-                    </div>
-                ))}
-            </div>
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+            <List
+                items={Modalites_Interactions.map(ModalitesInteraction => ({
+                    value1: ModalitesInteraction.id.toString(),
+                    value2: ModalitesInteraction.id.toString(),
+                    value3: ModalitesInteraction.label
+                }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
+            />
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}

@@ -49,6 +49,14 @@ function Frequences_cerfaPage({
                     value2: TypesFrequences_cerfa.id.toString(),
                     value3: TypesFrequences_cerfa.label
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
             <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
             {isPopUpOpen && (

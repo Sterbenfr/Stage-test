@@ -71,6 +71,14 @@ function SitesPage() {
                     value5: Sites.numero_telephone.toString(),
                     value6: Sites.adresse_mail.toString(),
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
             <Pagination
                 onPageChange={handlePageChange}
@@ -79,7 +87,6 @@ function SitesPage() {
                 itemsPerPage={itemsPerPage}
                 currentPage={page}
             />{' '}
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}

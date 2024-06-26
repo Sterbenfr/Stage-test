@@ -12,7 +12,13 @@ interface ListProps {
     value6?: string
 }
 
-const List: React.FC<{ items: ListProps[] }> = ({ items }) => {
+interface FunctionProps {
+    fonc1?: React.MouseEventHandler<HTMLButtonElement>
+    fonc2?: React.MouseEventHandler<HTMLButtonElement>
+
+}
+
+const List: React.FC<{ items: ListProps[] , functions: FunctionProps}> = ({ items , functions }) => {
     // Click handler function
     const handleClick = (key: string) => {
         if (window.location.href.endsWith('/cerfa')) {
@@ -25,7 +31,7 @@ const List: React.FC<{ items: ListProps[] }> = ({ items }) => {
 
     return (
         <>
-            <FunctionBlock fonc1='Add' fonc2='Delete' />
+            <FunctionBlock fonc1={functions.fonc1} fonc2={functions.fonc2} />
             <div className={style.list_line}>
                 {items.map(item => (
                     // Wrap Line component with a div and add onClick event

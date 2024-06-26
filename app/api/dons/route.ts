@@ -75,3 +75,26 @@ export async function POST(req: NextApiRequest) {
         )
     }
 }
+
+/*export async function DELETE(req: NextApiRequest) {
+    let dons : Don
+    try {
+        dons = JSON.parse(await streamToString(req.body))
+        console.log(dons)
+    } catch (error) {
+        return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+    }
+
+    if(!dons.code_Don){
+        return NextResponse.json({ error: 'Missing product data' }, { status: 400 })
+    }
+
+    try {
+        const query = 'DELETE FROM `dons` WHERE `code_Don` = ?'
+        const [rows] = await pool.query(query, dons.code_Don)
+        return NextResponse.json(rows)
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+    }
+}*/

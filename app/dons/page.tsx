@@ -253,8 +253,16 @@ function DonsPage() {
                         ? Don.statut_acceptation_don
                         : '',
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
-            <Pagination
+            <Pagination 
                 onPageChange={handlePageChange}
                 onItemsPerPageChange={handleItemsPerPageChange}
                 totalItems={totalItems}
@@ -262,7 +270,6 @@ function DonsPage() {
                 currentPage={page}
             />
             {''}
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}
