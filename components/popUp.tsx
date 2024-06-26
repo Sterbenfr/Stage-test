@@ -98,6 +98,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                             <SearchComponent
                                 key={input.id}
                                 url={input.url as string}
+                                onChange={e => handleInputChange(input.id, e.target.value)}
                             />
                         )
                     default:

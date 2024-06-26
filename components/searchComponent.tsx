@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 interface SelectComponentProps {
     url: string;
+    onChange ?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 interface Option {
@@ -9,7 +10,7 @@ interface Option {
     label: string;
 }
 
-export default function SearchComponent({ url }: SelectComponentProps) {
+export default function SearchComponent({ url,onChange }: SelectComponentProps) {
     const [options, setOptions] = useState<Option[]>([]);
     const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
     const [inputValue, setInputValue] = useState(''); 
@@ -35,6 +36,15 @@ export default function SearchComponent({ url }: SelectComponentProps) {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
+        const matchingOption = options.find(option => option.label.toLowerCase() === e.target.value.toLowerCase());
+        if (matchingOption) {
+            e.target.value = matchingOption.value;
+            if (onChange) {
+                onChange(e);
+                e.target.value = matchingOption.label; // Call the onChange prop with the id
+            }
+            
+        }
         const selectedOptions: Option[] = [];
         options.map(option => { 
             if (option.label.toLowerCase().startsWith(e.target.value.toLowerCase())) {
@@ -42,11 +52,10 @@ export default function SearchComponent({ url }: SelectComponentProps) {
             }
         });
         setSelectedOptions(selectedOptions);
-        console.log(selectedOptions);
     };
 
     return (
-        <div>
+        <>
             <input
                 key="search"
                 type="input"
@@ -61,7 +70,7 @@ export default function SearchComponent({ url }: SelectComponentProps) {
                     </option>
                 ))}
             </datalist>
-        </div>
+        </>
     )
 }
 
