@@ -1,11 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
+import List from '@/components/list'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
 
 export interface Prestataire {
-    code_type_de_Prestataire: string
-    libelle: string
+    id: string
+    label: string
 }
 
 function PrestatairesPage() {
@@ -38,16 +39,21 @@ function PrestatairesPage() {
 
     return (
         <>
-            <div>
-                <h1>Type Prestataires</h1>
-                {Prestataires.map(TypePrestataires => (
-                    <div key={TypePrestataires.code_type_de_Prestataire}>
-                        <h2>{TypePrestataires.libelle}</h2>
-                        <h2>{TypePrestataires.code_type_de_Prestataire}</h2>
-                    </div>
-                ))}
-            </div>
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+            <List
+            items={Prestataires.map(typePrestataire => ({
+                value1: typePrestataire.id.toString(),
+                value2: typePrestataire.id.toString(),
+                value3: typePrestataire.label
+            }))}
+            functions={{
+                fonc1: () => {
+                    isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                },
+                fonc2: () => {
+                    console.log('fonc2')
+                },
+            }}
+            />
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}

@@ -42,8 +42,15 @@ function TypeDonsPage() {
                     value2: typeDon.id.toString(),
                     value3: typeDon.label
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
                 {isPopUpOpen && (
                     <PopUp
                         onClose={handleClose}

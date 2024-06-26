@@ -71,6 +71,14 @@ function UtilisateursPage({ params }: { params: { siteID: string } }) {
                     value5: user.tel_perso,
                     value6: user.mail_restos_du_coeur,
                 }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
             />
             <Pagination
                 onPageChange={handlePageChange}
@@ -79,7 +87,6 @@ function UtilisateursPage({ params }: { params: { siteID: string } }) {
                 itemsPerPage={itemsPerPage}
                 currentPage={page}
             />{' '}
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}

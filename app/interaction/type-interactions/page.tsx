@@ -1,11 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
 import PopUp from '@/components/popUp'
+import List from '@/components/list'
 import withAuthorization from '@/components/withAuthorization'
 
 export interface Interaction {
-    code_type_interaction: string
-    libelle: string
+    id: string
+    label: string
 }
 
 function InteractionsPage() {
@@ -38,23 +39,28 @@ function InteractionsPage() {
 
     return (
         <>
-            <div>
-                <h1>Type Interactions</h1>
-                {Interactions.map(TypeInteractions => (
-                    <div key={TypeInteractions.code_type_interaction}>
-                        <h2>{TypeInteractions.libelle}</h2>
-                        <h2>{TypeInteractions.code_type_interaction}</h2>
-                    </div>
-                ))}
-            </div>
-            <button onClick={() => setIsPopUpOpen(true)}>Open PopUp</button>
+            <List
+                items={Interactions.map(typeInteraction => ({
+                    value1: typeInteraction.id.toString(),
+                    value2: typeInteraction.id.toString(),
+                    value3: typeInteraction.label
+                }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                    },
+                    fonc2: () => {
+                        console.log('fonc2')
+                    },
+                }}
+            />
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}
-                    url='http://localhost:3000/api/interactions/type-modalite-interactions'
+                    url='http://localhost:3000/api/interactions/type-interactions'
                     fields={[
                         {
-                            id: 'code_modalite_interaction',
+                            id: 'code_type_interaction',
                             type: 'input',
                             value: null,
                         },

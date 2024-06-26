@@ -7,7 +7,7 @@ import type { Prestataire } from '@/app/prestataire/type-prestataires/page'
 export async function GET() {
     try {
         const [rows] = await pool.query(
-            'SELECT * FROM `TypePrestataires` LIMIT 1000',
+            'SELECT code_type_de_Prestataire as id, libelle as label FROM `TypePrestataires` LIMIT 1000',
         )
         return NextResponse.json(rows)
     } catch (err) {
@@ -27,8 +27,8 @@ export async function POST(req: NextApiRequest) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (!TypePrestataires.libelle) {
-        console.log('TypePrestataires:' + TypePrestataires.libelle)
+    if (!TypePrestataires.id || !TypePrestataires.label) {
+        console.log('TypePrestataires:' + !TypePrestataires.label + TypePrestataires.label)
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
