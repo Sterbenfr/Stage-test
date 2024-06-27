@@ -78,8 +78,8 @@ export default function Modalites_livraisonPage({
             <p>{modalite_livraison[0].mail_contact_enlevement}</p>
             <p>{modalite_livraison[0].adresse_enlevement}</p>
             <p>{modalite_livraison[0].adresse_livraison}</p>
-            <p>{modalite_livraison[0].nombre_palettes_consignees_prevu}</p>
             <p>{modalite_livraison[0].nombre_palette_prevu}</p>
+            <p>{modalite_livraison[0].nombre_palettes_consignees_prevu}</p>
             <p>{modalite_livraison[0].nombre_cartons_prevu}</p>
         </div>
     )
