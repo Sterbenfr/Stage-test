@@ -132,9 +132,15 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                     }
                 })}
                 <div className={style.BTNdiv}>
-                    <button className={style.BTNsub} onClick={handleSubmit}>
-                        Submit
-                    </button>
+                    <div className={style.BTNdiv}>
+                        <button className={style.BTNsub} onClick={onClose}>
+                            Exit
+                        </button>
+
+                        <button className={style.BTNsub} onClick={handleSubmit}>
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

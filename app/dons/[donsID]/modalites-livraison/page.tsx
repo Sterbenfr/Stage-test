@@ -4,6 +4,7 @@ import List from '../../../../components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
+import style from '../../styles/components.module.css'
 
 export interface ModalitesLivraison {
     numero_livraison: number
@@ -80,156 +81,182 @@ function ModalitesLivraisonPage({ params }: { params: { donsID: string } }) {
 
     return (
         <>
-            <List
-                items={ModalitesLivraisons.map(ModalitesLivraison => ({
-                    value1: ModalitesLivraison.numero_livraison.toString(),
-                    value2: ModalitesLivraison.code_Don.toString(),
-                    value3: ModalitesLivraison.date_prevue_livraison
-                        .toString()
-                        .split('T')[0],
-                    value4: ModalitesLivraison.telephone_contact_enlevement.toString(),
-                    value5: ModalitesLivraison.mail_contact_enlevement.toString(),
-                }))}
-                functions={{
-                    fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
-                    },
-                }}
-            />
-            <Pagination
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
-                totalItems={totalItems} // use the total items from the state
-                itemsPerPage={itemsPerPage}
-                currentPage={page}
-            />
-            {''}
-            {isPopUpOpen && (
-                <PopUp
-                    onClose={handleClose}
-                    url={`http://localhost:3000/api/dons/${params.donsID}/modalites-livraison`}
-                    fields={[
-                        { id: 'numero_livraison', type: 'number', value: null },
-                        {
-                            id: 'code_Don',
-                            type: 'search',
-                            value: null,
-                            url: '../../api/select/dons/select-dons',
+            <div className={style.page}>
+                <List
+                    items={ModalitesLivraisons.map(ModalitesLivraison => ({
+                        value1: ModalitesLivraison.numero_livraison.toString(),
+                        value2: ModalitesLivraison.code_Don.toString(),
+                        value3: ModalitesLivraison.date_prevue_livraison
+                            .toString()
+                            .split('T')[0],
+                        value4: ModalitesLivraison.telephone_contact_enlevement.toString(),
+                        value5: ModalitesLivraison.mail_contact_enlevement.toString(),
+                    }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen
+                                ? setIsPopUpOpen(false)
+                                : setIsPopUpOpen(true)
                         },
-                        {
-                            id: 'code_type_livraison',
-                            type: 'select',
-                            value: null,
-                            url: `../../api/dons/${params.donsID}/modalites-livraison/type-livraison`,
+                        fonc2: () => {
+                            console.log('fonc2')
                         },
-                        {
-                            id: 'date_prevue_livraison',
-                            type: 'date',
-                            value: null,
-                        },
-                        {
-                            id: 'heure_prevue_livraison',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'adresse_enlevement',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'civilite_contact_enlevement',
-                            type: 'select',
-                            value: null,
-                            url: '../../api/select/genre',
-                        },
-                        {
-                            id: 'nom_contact_enlevement',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'prenom_contact_enlevement',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'telephone_contact_enlevement',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'mail_contact_enlevement',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'code_Prestataire_transporteur',
-                            type: 'search',
-                            value: null,
-                            url: '../api/select/prestataire',
-                        },
-                        { id: 'adresse_livraison', type: 'input', value: null },
-                        {
-                            id: 'civilite_contact_livraison',
-                            type: 'select',
-                            value: null,
-                            url: '../../api/select/genre',
-                        },
-                        {
-                            id: 'nom_contact_livraison',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'prenom_contact_livraison',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'telephone_contact_livraison',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'mail_contact_livraison',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'nombre_palette_prevu',
-                            type: 'number',
-                            value: null,
-                        },
-                        {
-                            id: 'nombre_palettes_consignees_prevu',
-                            type: 'number',
-                            value: null,
-                        },
-                        {
-                            id: 'nombre_cartons_prevu',
-                            type: 'number',
-                            value: null,
-                        },
-                        { id: 'poids_prevu_kg', type: 'number', value: null },
-                        {
-                            id: 'produits_sur_palettes',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'temperature_conserv_produits',
-                            type: 'number',
-                            value: null,
-                        },
-                        { id: 'commentaires', type: 'input', value: null },
-                        { id: 'pieces_associees', type: 'file', value: null },
-                    ]}
+                    }}
                 />
-            )}
+                <Pagination
+                    onPageChange={handlePageChange}
+                    onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
+                    totalItems={totalItems} // use the total items from the state
+                    itemsPerPage={itemsPerPage}
+                    currentPage={page}
+                />
+                {''}
+                {isPopUpOpen && (
+                    <div className={style.PopUp}>
+                        <PopUp
+                            onClose={handleClose}
+                            url={`http://localhost:3000/api/dons/${params.donsID}/modalites-livraison`}
+                            fields={[
+                                {
+                                    id: 'numero_livraison',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'code_Don',
+                                    type: 'search',
+                                    value: null,
+                                    url: '../../api/select/dons/select-dons',
+                                },
+                                {
+                                    id: 'code_type_livraison',
+                                    type: 'select',
+                                    value: null,
+                                    url: `../../api/dons/${params.donsID}/modalites-livraison/type-livraison`,
+                                },
+                                {
+                                    id: 'date_prevue_livraison',
+                                    type: 'date',
+                                    value: null,
+                                },
+                                {
+                                    id: 'heure_prevue_livraison',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'adresse_enlevement',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'civilite_contact_enlevement',
+                                    type: 'select',
+                                    value: null,
+                                    url: '../../api/select/genre',
+                                },
+                                {
+                                    id: 'nom_contact_enlevement',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'prenom_contact_enlevement',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'telephone_contact_enlevement',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'mail_contact_enlevement',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'code_Prestataire_transporteur',
+                                    type: 'search',
+                                    value: null,
+                                    url: '../api/select/prestataire',
+                                },
+                                {
+                                    id: 'adresse_livraison',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'civilite_contact_livraison',
+                                    type: 'select',
+                                    value: null,
+                                    url: '../../api/select/genre',
+                                },
+                                {
+                                    id: 'nom_contact_livraison',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'prenom_contact_livraison',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'telephone_contact_livraison',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'mail_contact_livraison',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'nombre_palette_prevu',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'nombre_palettes_consignees_prevu',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'nombre_cartons_prevu',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'poids_prevu_kg',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'produits_sur_palettes',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'temperature_conserv_produits',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'commentaires',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'pieces_associees',
+                                    type: 'file',
+                                    value: null,
+                                },
+                            ]}
+                        />
+                    </div>
+                )}
+            </div>
         </>
     )
 }
