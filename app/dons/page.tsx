@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
@@ -41,15 +41,20 @@ function DonsPage() {
         useState('ALI')
     const [lastSelectedTypeDon, setLastSelectedTypeDon] = useState('')
     const [selectedTypeDon, setSelectedTypeDon] = useState(
-        lastSelectedTypeDon !== '' ? lastSelectedTypeDon : '',
+        lastSelectedTypeDon !== '' ? lastSelectedTypeDon : 'FIN',
     )
+
+    const [EntiteDonatrice, setEntiteDonatrice] = useState('2')
+
     const [fields, setFields] = useState<
         {
             id: string
             type: FieldType
             value: string | null
+            placeholder?: string
             url?: string
             onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
+            onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
         }[]
     >([])
 
@@ -62,6 +67,12 @@ function DonsPage() {
         event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         setSelectedTypeDon(event.target.value)
+    }
+
+    const handleEntiteDonatrice = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setEntiteDonatrice(event.target.value)
     }
 
     const handleMarchandiseChange = (
@@ -86,14 +97,17 @@ function DonsPage() {
                 id: string
                 type: FieldType
                 value: string | null
+                placeholder?: string
                 url?: string
                 onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
+                onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
             }[] = [
                 {
                     id: 'code_Entite_donatrice',
                     type: 'search',
-                    value: null,
+                    value: EntiteDonatrice,
                     url: '../api/select/societe/entite',
+                    onInputChange: handleEntiteDonatrice,
                 },
 
                 {
@@ -103,9 +117,10 @@ function DonsPage() {
                 },
                 {
                     id: 'code_contact_Entite_donatrice',
-                    type: 'number',
+                    type: 'select',
                     value: null,
-                }, //remplissage auto
+                    url: '../api/select/societe/entite/contact', 
+                },
                 {
                     id: 'code_type_don',
                     type: 'select',
@@ -123,7 +138,7 @@ function DonsPage() {
                     type: 'date',
                     value: null,
                 }, //depend de si date_debut_mise_disposition (pas avant stp)
-                { id: 'commentaires', type: 'input', value: null },
+                { id: 'commentaires', type: 'input', value: null, placeholder: "Don de "}, //exemple: Dons de chocolat
                 { id: 'pieces_associees', type: 'file', value: null }, //type blob ?
                 {
                     id: 'code_Utilisateur_saisie_don',
@@ -198,10 +213,15 @@ function DonsPage() {
             console.log(fields)
             return fields
         },
-        [checkboxChecked],
+        [checkboxChecked, EntiteDonatrice],
     )
 
     useEffect(() => {
+        console.log(EntiteDonatrice)
+        if (EntiteDonatrice !== undefined && fields[2] !== undefined) {
+            fields[2].url=`../api/select/societe/entite/${parseInt(EntiteDonatrice)}/contact`
+            console.log(fields[2].url)
+        }
         const fetchDons = async () => {
             const res = await fetch(
                 `http://localhost:3000/api/dons?page=${page}&limit=${itemsPerPage}`,
@@ -228,6 +248,8 @@ function DonsPage() {
         selectedTypeDon,
         selectedTypeMarchandise,
         generateFields,
+        fields,
+        EntiteDonatrice,
     ])
 
     const handlePageChange = (newPage: number) => {
