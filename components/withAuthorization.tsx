@@ -32,7 +32,7 @@ const withAuthorization = <P extends object>(
                 session &&
                 !allowedRoles.includes(session.user.role)
             ) {
-                router.push('/')
+                router.push('/login')
             }
         }, [session, loading, router])
 
