@@ -19,6 +19,7 @@ type Field = {
     placeholder?: string
     url?: string
     onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
+    onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 interface PopUpProps {
@@ -85,7 +86,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
     return (
         <div className={'popup-container'}>
             <div className={style.page}>
-                <h2 className={style.lg}>Add New Entry</h2>
+                <h2 className={style.lg}>Ajouter une nouvelle entrée</h2>
                 {inputs.map(input => {
                     switch (input.type) {
                         case 'select':
@@ -107,6 +108,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                                             e.target.value,
                                         )
                                     }
+                                    onInputChange={input.onInputChange}
                                 />
                             )
                         default:
@@ -114,7 +116,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                                 <input
                                     key={input.id}
                                     type={input.type}
-                                    placeholder={input.type}
+                                    placeholder={input.placeholder}
                                     className={style.selectF}
                                     value={
                                         input.value === null
@@ -133,7 +135,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                 })}
                 <div className={style.BTNdiv}>
                     <button className={style.BTNsub} onClick={handleSubmit}>
-                        Submit
+                        Envoyer
                     </button>
                 </div>
             </div>

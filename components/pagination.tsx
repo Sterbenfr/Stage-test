@@ -42,7 +42,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 onClick={handlePrevious}
                 disabled={currentPage === 1}
             >
-                Previous
+                Précédent
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                 <button
@@ -59,7 +59,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 onClick={handleNext}
                 disabled={currentPage === totalPages}
             >
-                Next
+                Suivant
             </button>
             <select
                 className={styles.select}

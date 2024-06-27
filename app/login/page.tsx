@@ -29,7 +29,7 @@ const LoginPage = () => {
 
     return (
         <form className={style.formu} onSubmit={handleSubmit}>
-            <h1 className={style.lg}>Login :</h1>
+            <h1 className={style.lg}>Connexion :</h1>
             <div className={style.log}>
                 <div className={style.login}>
                     <input
@@ -45,13 +45,13 @@ const LoginPage = () => {
                         className={style.password}
                         name='password'
                         type='password'
-                        placeholder='Password'
+                        placeholder='Mot de passe'
                         required
                     />
                 </div>
             </div>
             <button className={style.submit} type='submit'>
-                Sign in
+                Se connecter
             </button>
         </form>
     )

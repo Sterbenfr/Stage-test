@@ -63,7 +63,7 @@
     background-color: white;
     font-size: 1.1rem;
     margin: 0.5rem;
-    width: 7rem;
+    width: 10rem;
 }
 
 .btnFunctionBlockADD {
@@ -76,7 +76,7 @@
     background-color: white;
     font-size: 1.1rem;
     margin: 0.5rem;
-    width: 7rem;
+    width: 8rem;
 }
 
 .btnFunctionBlockDEL:hover {
@@ -410,7 +410,7 @@
 
 .BTNdiv {
     display: flex;
-    justify-content: end;
+    justify-content: center;
     width: 25rem;
     margin: 1rem;
     border-radius: 0%;
