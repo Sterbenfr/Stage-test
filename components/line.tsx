@@ -6,6 +6,7 @@ export interface LineProps {
     param3?: string
     param4?: string
     param5?: string
+    param6?: string
 }
 
 const Line: React.FC<LineProps> = ({
@@ -14,6 +15,7 @@ const Line: React.FC<LineProps> = ({
     param3,
     param4,
     param5,
+    param6,
 }) => {
     // Click handler function
     const handleClick = (key: string) => {
@@ -24,11 +26,17 @@ const Line: React.FC<LineProps> = ({
         // Navigate to the current URL + /key
         window.location.href = `${window.location.href}/${key}`
     }
+
+    const handleButtonClick = (e: React.MouseEvent<EventTarget>) => {
+        const target = e.target as HTMLInputElement;
+        target.value = target.checked ? 'on' : 'off';
+    }
+    
     return (
         <div className={style.body}>
             <div className={style.line}>
                 <div className={style.check_box}>
-                    <input className={style.check} type='checkbox'></input>
+                    <input className={style.check} type='checkbox' onClick={handleButtonClick}></input>
                 </div>
                 <div
                     key={param1}
@@ -37,8 +45,6 @@ const Line: React.FC<LineProps> = ({
                     className={style.lineContainer}
                 >
                     <div className={style.lineContainer}>
-                        <div className={style.Ztext}>{param1}</div>
-
                         <div className={style.Ztext}>{param2}</div>
 
                         <div className={style.Ztext}>{param3}</div>
@@ -46,6 +52,8 @@ const Line: React.FC<LineProps> = ({
                         <div className={style.Ztext}>{param4}</div>
 
                         <div className={style.Ztext}>{param5}</div>
+
+                        <div className={style.Ztext}>{param6}</div>
                     </div>
                 </div>
             </div>
