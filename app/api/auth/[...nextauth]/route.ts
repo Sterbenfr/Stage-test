@@ -4,8 +4,6 @@ import { findUser, verifyPassword } from '../../../../utils/auth'
 import { Session } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import { User } from 'next-auth'
-import { AdapterUser } from 'next-auth/adapters'
-
 interface ExtendedUser extends User {
     role: string
 }
@@ -32,7 +30,12 @@ export const authOptions: AuthOptions = {
                     throw new Error('Invalid password')
                 }
                 // Return the user object with all required properties
-                return { id: user.id, email: user.email, role: user.role }
+                return {
+                    id: user.id,
+                    email: user.email,
+                    role: user.role,
+                    name: user.name,
+                }
             },
             credentials: {
                 email: { label: 'email', type: 'text' },
@@ -41,11 +44,12 @@ export const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
-        async jwt({ token, user }: { token: JWT; user?: User | AdapterUser }) {
+        async jwt({ token, user }: { token: JWT; user?: User }) {
             if (user) {
                 token.id = user.id
                 token.email = user.email
                 token.role = user.role
+                token.name = user.name
             }
             return token
         },
@@ -55,6 +59,7 @@ export const authOptions: AuthOptions = {
                     id: token.id,
                     email: token.email,
                     role: token.role,
+                    name: token.name,
                 } as ExtendedUser
             }
             return session
