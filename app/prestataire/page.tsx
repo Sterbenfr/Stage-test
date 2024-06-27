@@ -4,6 +4,7 @@ import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
 import withAuthorization from '@/components/withAuthorization'
 import PopUp from '@/components/popUp'
+import style from '../../styles/components.module.css'
 
 export interface Prestataire {
     code_Prestataire: number
@@ -69,117 +70,123 @@ function PrestatairesPage() {
 
     return (
         <>
-            <List
-                items={Prestataires.map(Prestataire => ({
-                    value1: Prestataire.code_Prestataire.toString(),
-                    value2: Prestataire.raison_sociale.toString(),
-                    value3: Prestataire.telephone.toString(),
-                    value4: Prestataire.mail.toString(),
-                    value5: Prestataire.telephone_contact_prestataire.toString(),
-                    value6: Prestataire.mail_contact_prestataire.toString(),
-                }))}
-                functions={{
-                    fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
-                    },
-                }}
-            />
-            <Pagination
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
-                totalItems={totalItems} // use the total items from the state
-                itemsPerPage={itemsPerPage}
-                currentPage={page}
-            />
-            {''}
-            {isPopUpOpen && (
-                <PopUp
-                    onClose={handleClose}
-                    url='http://localhost:3000/api/prestataire'
-                    fields={[
-                        {
-                            id: 'code_type_de_Prestataire',
-                            type: 'select',
-                            value: null,
-                            url: '../api/select/prestataire',
+            <div className={style.page}>
+                <List
+                    items={Prestataires.map(Prestataire => ({
+                        value1: Prestataire.code_Prestataire.toString(),
+                        value2: Prestataire.raison_sociale.toString(),
+                        value3: Prestataire.telephone.toString(),
+                        value4: Prestataire.mail.toString(),
+                        value5: Prestataire.telephone_contact_prestataire.toString(),
+                        value6: Prestataire.mail_contact_prestataire.toString(),
+                    }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen
+                                ? setIsPopUpOpen(false)
+                                : setIsPopUpOpen(true)
                         },
-                        {
-                            id: 'raison_sociale',
-                            type: 'input',
-                            value: null,
+                        fonc2: () => {
+                            console.log('fonc2')
                         },
-                        {
-                            id: 'nom_commercial',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'Siren',
-                            type: 'number',
-                            value: null,
-                        },
-                        {
-                            id: 'Siret',
-                            type: 'number',
-                            value: null,
-                        },
-                        {
-                            id: 'telephone',
-                            type: 'number',
-                            value: null,
-                        },
-                        {
-                            id: 'mail',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'adresse',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'civilite_contact_prestataire',
-                            type: 'select',
-                            value: null,
-                            url: '../api/select/genre',
-                        },
-                        {
-                            id: 'nom_contact_prestataire',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'prenom_contact_prestataire',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'telephone_contact_prestataire',
-                            type: 'number',
-                            value: null,
-                        },
-                        {
-                            id: 'mail_contact_prestataire',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'commentaires',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'date_arret_activite_du_prestataire',
-                            type: 'date',
-                            value: null,
-                        },
-                    ]}
+                    }}
                 />
-            )}
+                <Pagination
+                    onPageChange={handlePageChange}
+                    onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
+                    totalItems={totalItems} // use the total items from the state
+                    itemsPerPage={itemsPerPage}
+                    currentPage={page}
+                />
+                {''}
+                {isPopUpOpen && (
+                    <div className={style.PopUp}>
+                        <PopUp
+                            onClose={handleClose}
+                            url='http://localhost:3000/api/prestataire'
+                            fields={[
+                                {
+                                    id: 'code_type_de_Prestataire',
+                                    type: 'select',
+                                    value: null,
+                                    url: '../api/select/prestataire',
+                                },
+                                {
+                                    id: 'raison_sociale',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'nom_commercial',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'Siren',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'Siret',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'telephone',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'mail',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'adresse',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'civilite_contact_prestataire',
+                                    type: 'select',
+                                    value: null,
+                                    url: '../api/select/genre',
+                                },
+                                {
+                                    id: 'nom_contact_prestataire',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'prenom_contact_prestataire',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'telephone_contact_prestataire',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'mail_contact_prestataire',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'commentaires',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'date_arret_activite_du_prestataire',
+                                    type: 'date',
+                                    value: null,
+                                },
+                            ]}
+                        />
+                    </div>
+                )}
+            </div>
         </>
     )
 }
