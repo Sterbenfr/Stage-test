@@ -23,11 +23,18 @@ function InteractionsPage() {
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+    const [EntiteInteraction, setEntiteInteraction] = useState('2')
 
     const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
         setIsPopUpOpen(false)
+    }
+
+    const handleEntiteInteraction = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setEntiteInteraction(event.target.value)
     }
 
     useEffect(() => {
@@ -111,44 +118,30 @@ function InteractionsPage() {
                                     value: null,
                                     url: '../api/select/societe/entite',
                                 },
-                                {
-                                    id: 'date_interaction',
-                                    type: 'date',
-                                    value: null,
-                                },
-                                {
-                                    id: 'code_type_interaction',
-                                    type: 'select',
-                                    value: null,
-                                    url: '../api/dons/type-interactions',
-                                },
-                                {
-                                    id: 'code_modalite_interaction',
-                                    type: 'select',
-                                    value: null,
-                                    url: '../api/dons/type-modalite-interactions',
-                                },
-                                {
-                                    id: 'code_contact_entite',
-                                    type: 'input',
-                                    value: null,
-                                }, //remplissage auto
-                                {
-                                    id: 'commentaires',
-                                    type: 'input',
-                                    value: null,
-                                },
-                                {
-                                    id: 'pieces_associees',
-                                    type: 'file',
-                                    value: null,
-                                },
-                                {
-                                    id: 'date_relance',
-                                    type: 'date',
-                                    value: null,
-                                },
-                            ]}
+                                { id: 'date_interaction', type: 'date', value: null },
+                        {
+                            id: 'code_type_interaction',
+                            type: 'select',
+                            value: null,
+                            url: '../api/interactions/type-interactions',
+                        },
+                        {
+                            id: 'code_modalite_interaction',
+                            type: 'select',
+                            value: null,
+                            url: '../api/interactions/type-modalite-interactions',
+                        },
+                        {
+                            id: 'code_contact_entite',
+                            type: 'search',
+                            value: null,
+                            url:`../api/select/societe/entite/${EntiteInteraction}/contact`,
+                            onInputChange: handleEntiteInteraction,
+                        },
+                        { id: 'commentaires', type: 'input', value: null },
+                        { id: 'pieces_associees', type: 'file', value: null },
+                        { id: 'date_relance', type: 'date', value: null },
+                    ]}
                         />
                     </div>
                 )}

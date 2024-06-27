@@ -29,11 +29,12 @@ const List: React.FC<{ items: ListProps[]; functions: FunctionProps }> = ({
                     // Wrap Line component with a div and add onClick event
                     <div key={item.value1}>
                         <Line
-                            param1={item.value2 == null ? '' : item.value2}
-                            param2={item.value3 == null ? '' : item.value3}
-                            param3={item.value4 == null ? '' : item.value4}
-                            param4={item.value5 == null ? '' : item.value5}
-                            param5={item.value6 == null ? '' : item.value6}
+                            param1={item.value1 == null ? '' : item.value1}
+                            param2={item.value2 == null ? '' : item.value2}
+                            param3={item.value3 == null ? '' : item.value3}
+                            param4={item.value4 == null ? '' : item.value4}
+                            param5={item.value5 == null ? '' : item.value5}
+                            param6={item.value6 == null ? '' : item.value6}
                         />
                     </div>
                 ))}
