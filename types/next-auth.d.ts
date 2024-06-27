@@ -6,6 +6,7 @@ interface ExtendedUser extends User {
     id: string
     email: string
     role: string
+    name: string
 }
 
 declare module 'next-auth' {
@@ -13,6 +14,7 @@ declare module 'next-auth' {
         id: string
         email: string
         role: string
+        name: string
     }
 }
 
@@ -21,5 +23,6 @@ declare module 'next-auth/jwt' {
         id: string
         email: string
         role: string
+        name: string
     }
 }

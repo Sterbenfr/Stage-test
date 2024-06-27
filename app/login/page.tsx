@@ -20,7 +20,7 @@ const LoginPage = () => {
 
         if (result && !result.error) {
             // Redirect to a protected page
-            window.location.href = '/prestataire'
+            window.location.href = '/'
         } else if (result) {
             // Show error to user
             console.error(result.error)
