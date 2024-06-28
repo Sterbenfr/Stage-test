@@ -26,7 +26,6 @@ function SitesPage() {
     const [itemsPerPage, setItemsPerPage] = useState(3)
 
     const [isPopUpOpen, setIsPopUpOpen] = useState(false)
-    const [lineCheckbox, setLineCheckbox] = useState<number[]>([])
 
     const handleClose = () => {
         setIsPopUpOpen(false)
@@ -67,20 +66,6 @@ function SitesPage() {
             <div className={style.page}>
                 <List
                     items={Sites.map(Sites => ({
-                        deleteFunction: () => {
-                            if (!lineCheckbox.includes(Sites.code_site)) {
-                                setLineCheckbox([
-                                    ...lineCheckbox,
-                                    Sites.code_site,
-                                ])
-                            } else {
-                                setLineCheckbox(
-                                    lineCheckbox.filter(
-                                        item => item !== Sites.code_site,
-                                    ),
-                                )
-                            }
-                        },
                         value1: Sites.code_site.toString(),
                         value2: Sites.designation_longue.toString(),
                         value3: Sites.adresse.toString(),
@@ -94,16 +79,7 @@ function SitesPage() {
                                 ? setIsPopUpOpen(false)
                                 : setIsPopUpOpen(true)
                         },
-                        fonc2: () => {
-                            lineCheckbox.map(async item => {
-                                await fetch(
-                                    `http://localhost:3000/api/sites/${item}`,
-                                    {
-                                        method: 'DELETE',
-                                    },
-                                )
-                            })
-                        },
+                        url: 'http://localhost:3000/api/sites',
                     }}
                 />
                 <Pagination
