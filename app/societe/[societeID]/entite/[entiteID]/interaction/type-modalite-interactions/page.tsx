@@ -57,9 +57,6 @@ function Modalites_InteractionsPage({
                             ? setIsPopUpOpen(false)
                             : setIsPopUpOpen(true)
                     },
-                    fonc2: () => {
-                        console.log('fonc2')
-                    },
                 }}
             />
             {isPopUpOpen && (

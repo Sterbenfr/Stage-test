@@ -11,11 +11,11 @@ export interface Produit {
 
 function TypeProduitsPage() {
     const [Produits, setProduits] = useState<Produit[]>([])
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
-        setIsPopUpOpen(false);
-    };
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchProduits = async () => {
@@ -42,29 +42,28 @@ function TypeProduitsPage() {
                 items={Produits.map(typeProduit => ({
                     value1: typeProduit.id.toString(),
                     value2: typeProduit.id.toString(),
-                    value3: typeProduit.label
+                    value3: typeProduit.label,
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                 }}
             />
-                {isPopUpOpen && (
-                    <PopUp
-                        onClose={handleClose}
-                        url='http://localhost:3000/api/dons/type-produits'
-                        fields={[
-                            { id: "id", type: 'input', value: null},
-                            { id: "label", type: 'input', value: null},
-                        ]}
-                    />
-                )}
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url='http://localhost:3000/api/dons/type-produits'
+                    fields={[
+                        { id: 'id', type: 'input', value: null },
+                        { id: 'label', type: 'input', value: null },
+                    ]}
+                />
+            )}
         </>
     )
 }
 
-export default withAuthorization(TypeProduitsPage, ['AD', 'PR']);
+export default withAuthorization(TypeProduitsPage, ['AD', 'PR'])

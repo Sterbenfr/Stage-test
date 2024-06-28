@@ -46,10 +46,9 @@ function Type_LivraisonsPage({ params }: { params: { donsID: string } }) {
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                 }}
             />

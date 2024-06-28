@@ -44,14 +44,13 @@ function UtilisateursPage({ params }: { params: { siteID: string } }) {
                 items={Utilisateurs.map(utilisateur => ({
                     value1: utilisateur.id.toString(),
                     value2: utilisateur.id.toString(),
-                    value3: utilisateur.label
+                    value3: utilisateur.label,
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                 }}
             />

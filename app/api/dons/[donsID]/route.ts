@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import pool from '../../../../utils/db'
+import { NextApiRequest } from 'next'
 
 export async function GET(
     request: Request,
@@ -14,6 +15,28 @@ export async function GET(
         return NextResponse.json(rows)
     } catch (err) {
         console.log(err)
+        return NextResponse.json(
+            { error: 'Internal Server Error' },
+            { status: 500 },
+        )
+    }
+}
+
+export async function DELETE(
+    req: NextApiRequest,
+    { params }: { params: { donsID: string } },
+) {
+    const donsID = params.donsID
+    if (donsID === undefined) {
+        return NextResponse.json({ error: 'Bad ID' }, { status: 400 })
+    }
+
+    try {
+        const query = 'DELETE FROM `dons` WHERE `code_Don` = ?'
+        const [rows] = await pool.query(query, donsID)
+        return NextResponse.json(rows)
+    } catch (error) {
+        console.log(error)
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 },

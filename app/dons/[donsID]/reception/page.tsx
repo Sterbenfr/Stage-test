@@ -82,9 +82,7 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
                                 ? setIsPopUpOpen(false)
                                 : setIsPopUpOpen(true)
                         },
-                        fonc2: () => {
-                            console.log('fonc2')
-                        },
+                        url: `http://localhost:3000/api/dons/${params.donsID}/reception`,
                     }}
                 />
                 <Pagination
