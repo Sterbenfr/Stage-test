@@ -1,7 +1,7 @@
 CREATE TABLE Reception (
     numero_reception INT PRIMARY KEY,
     code_Don INT,
-    numero_livraion INT,
+    numero_livraison INT,
     date_reception DATE,
     heure_reception TIME,
     nombre_palettes_recues INT,

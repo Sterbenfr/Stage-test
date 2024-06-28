@@ -122,7 +122,7 @@ function DonsPage() {
                     id: 'code_contact_Entite_donatrice',
                     type: 'select',
                     value: null,
-                    url: '../api/select/societe/entite/contact',
+                    url: `../api/select/societe/entite/${EntiteDonatrice}/contact`,
                 },
                 {
                     id: 'code_type_don',
@@ -152,7 +152,7 @@ function DonsPage() {
                     id: 'code_Utilisateur_saisie_don',
                     type: 'number',
                     value: null,
-                }, // a voir si select
+                }, // default : login
                 {
                     id: 'statut_acceptation_don',
                     type: 'select',
@@ -217,21 +217,19 @@ function DonsPage() {
                     url: '../api/dons/type-mode-conservations-produits',
                 })
             }
-
-            console.log(fields)
+            if (EntiteDonatrice !== undefined && fields[2] !== undefined) {
+                fields[2].url = `../api/select/societe/entite/${parseInt(
+                    EntiteDonatrice,
+                )}/contact`
+                console.log(fields[2].url)
+            }
+            console.log(EntiteDonatrice)
             return fields
         },
         [checkboxChecked, EntiteDonatrice],
     )
 
     useEffect(() => {
-        console.log(EntiteDonatrice)
-        if (EntiteDonatrice !== undefined && fields[2] !== undefined) {
-            fields[2].url = `../api/select/societe/entite/${parseInt(
-                EntiteDonatrice,
-            )}/contact`
-            console.log(fields[2].url)
-        }
         const fetchDons = async () => {
             const res = await fetch(
                 `http://localhost:3000/api/dons?page=${page}&limit=${itemsPerPage}`,
@@ -258,8 +256,6 @@ function DonsPage() {
         selectedTypeDon,
         selectedTypeMarchandise,
         generateFields,
-        fields,
-        EntiteDonatrice,
     ])
 
     const handlePageChange = (newPage: number) => {

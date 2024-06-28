@@ -4,6 +4,7 @@ import style from '../styles/components.module.css'
 interface SelectComponentProps {
     url: string
     onChange?: React.ChangeEventHandler<HTMLInputElement>
+    onInputChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
 interface Option {
@@ -14,6 +15,7 @@ interface Option {
 export default function SearchComponent({
     url,
     onChange,
+    onInputChange,
 }: SelectComponentProps) {
     const [options, setOptions] = useState<Option[]>([])
     const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
@@ -50,9 +52,13 @@ export default function SearchComponent({
             e.target.value = matchingOption.value
             if (onChange) {
                 onChange(e)
+                if (onInputChange) {
+                    onInputChange(e);
+                }
                 e.target.value = matchingOption.label // Call the onChange prop with the id
             }
         }
+
         const selectedOptions: Option[] = []
         options.map(option => {
             if (

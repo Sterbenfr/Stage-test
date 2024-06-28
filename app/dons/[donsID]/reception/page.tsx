@@ -50,7 +50,6 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
             setReceptions(data)
             setTotalItems(total) // set the total items
         }
-
         fetchDons()
     }, [page, itemsPerPage, params.donsID])
 
