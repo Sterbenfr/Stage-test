@@ -4,6 +4,7 @@ import FunctionBlock from './functionBlock'
 import style from '../styles/components.module.css'
 
 interface ListProps {
+    deleteFunction?: React.MouseEventHandler<HTMLInputElement>
     value1?: string
     value2?: string
     value3?: string
@@ -29,6 +30,7 @@ const List: React.FC<{ items: ListProps[]; functions: FunctionProps }> = ({
                     // Wrap Line component with a div and add onClick event
                     <div key={item.value1}>
                         <Line
+                            deleteFunction={item.deleteFunction}
                             param1={item.value1 == null ? '' : item.value1}
                             param2={item.value2 == null ? '' : item.value2}
                             param3={item.value3 == null ? '' : item.value3}

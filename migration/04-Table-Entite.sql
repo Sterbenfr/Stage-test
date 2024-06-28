@@ -29,7 +29,7 @@ CREATE TABLE Entite (
     FOREIGN KEY (code_type_produit) REFERENCES TypesProduits(code_type_produits),
     FOREIGN KEY (code_type_competence) REFERENCES TypesCompetences(code_type_competence),
     FOREIGN KEY (code_frequence_cerfa) REFERENCES FrequencesCerfa(code_frequence_cerfa),
-    FOREIGN KEY (code_societe_appartenance) REFERENCES Societe(code_Societe)
+    FOREIGN KEY (code_societe_appartenance) REFERENCES Entreprise(code_Societe)
 );
 INSERT INTO Entite (
     raison_sociale,
