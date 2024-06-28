@@ -6,11 +6,14 @@ import type { Groupe } from '@/app/societe/[societeID]/groupe/page'
 
 type CountResult = { count: number }[]
 
-export async function GET(request: Request,{
-    params,
-}: {
-    params: { societeID: string }
-}) {
+export async function GET(
+    request: Request,
+    {
+        params,
+    }: {
+        params: { societeID: string }
+    },
+) {
     const { searchParams } = new URL(request.url)
     const page = searchParams.get('page') || '1'
     const limit = searchParams.get('limit') || '10'
@@ -21,14 +24,13 @@ export async function GET(request: Request,{
         const limitNumber = Number(limit)
         const offset = (pageNumber - 1) * limitNumber
 
-        const [rows] = await pool.query('SELECT code_Groupe, nom_du_groupe, groupe.logo, groupe.site_web, groupe.commentaires, date_arret_activite_du_Groupe FROM `groupe` LEFT JOIN Societe ON Groupe.code_Groupe = Societe.code_Groupe_appartenance WHERE Societe.code_Societe = ? LIMIT ?, ?', [
-            societeID,
-            offset,
-            limitNumber,
-        ])
+        const [rows] = await pool.query(
+            'SELECT code_Groupe, nom_du_groupe, groupe.logo, groupe.site_web, groupe.commentaires, date_arret_activite_du_Groupe FROM `groupe` LEFT JOIN entreprise ON Groupe.code_Groupe = entreprise.code_Groupe_appartenance WHERE entreprise.code_Societe = ? LIMIT ?, ?',
+            [societeID, offset, limitNumber],
+        )
 
         const [totalResult] = await pool.query(
-            'SELECT COUNT(*) as count FROM `groupe` LEFT JOIN Societe ON Groupe.code_Groupe = Societe.code_Groupe_appartenance WHERE Societe.code_Societe = ?',
+            'SELECT COUNT(*) as count FROM `groupe` LEFT JOIN entreprise ON Groupe.code_Groupe = entreprise.code_Groupe_appartenance WHERE entreprise.code_Societe = ?',
             [societeID],
         )
 
@@ -53,15 +55,8 @@ export async function POST(req: NextApiRequest) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (
-        !groupe.nom_du_groupe ||
-        !groupe.site_web 
-    ) {
-        console.log(
-            'sites:' +
-            groupe.nom_du_groupe +
-            groupe.site_web ,
-        )
+    if (!groupe.nom_du_groupe || !groupe.site_web) {
+        console.log('sites:' + groupe.nom_du_groupe + groupe.site_web)
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },

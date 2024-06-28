@@ -4,6 +4,7 @@ import List from '@/components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
+import style from '../../styles/components.module.css'
 
 export interface Interactions {
     code_Utilisateur_Prospecteur: number
@@ -22,11 +23,18 @@ function InteractionsPage() {
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+    const [EntiteInteraction, setEntiteInteraction] = useState('2')
 
     const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
         setIsPopUpOpen(false)
+    }
+
+    const handleEntiteInteraction = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setEntiteInteraction(event.target.value)
     }
 
     useEffect(() => {
@@ -60,74 +68,84 @@ function InteractionsPage() {
     }
     return (
         <>
-            <List
-                items={Interactions.map(Interactions => ({
-                    value1: Interactions.code_Entite_Prospectee.toString(),
-                    value2: Interactions.date_interaction
-                        .toString()
-                        .split('T')[0],
-                    value3: Interactions.code_contact_entite.toString(),
-                    value4: Interactions.date_relance.toString().split('T')[0],
-                    value5: Interactions.commentaires,
-                }))}
-                functions={{
-                    fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
-                    },
-                }}
-            />
-            <Pagination
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
-                totalItems={totalItems} // use the total items from the state
-                itemsPerPage={itemsPerPage}
-                currentPage={page}
-            />
-            {''}
-            {isPopUpOpen && (
-                <PopUp
-                    onClose={handleClose}
-                    url='http://localhost:3000/api/interactions'
-                    fields={[
-                        {
-                            id: 'code_Utilisateur_Prospecteur',
-                            type: 'search',
-                            value: null,
-                            url: '../api/select/sites/utilisateurs',
+            <div className={style.page}>
+                <List
+                    items={Interactions.map(Interactions => ({
+                        value1: Interactions.code_Entite_Prospectee.toString(),
+                        value2: Interactions.date_interaction
+                            .toString()
+                            .split('T')[0],
+                        value3: Interactions.code_contact_entite.toString(),
+                        value4: Interactions.date_relance
+                            .toString()
+                            .split('T')[0],
+                        value5: Interactions.commentaires,
+                    }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen
+                                ? setIsPopUpOpen(false)
+                                : setIsPopUpOpen(true)
                         },
-                        {
-                            id: 'code_Entite_Prospectee',
-                            type: 'search',
-                            value: null,
-                            url: '../api/select/societe/entite',
+                        fonc2: () => {
+                            console.log('fonc2')
                         },
-                        { id: 'date_interaction', type: 'date', value: null },
+                    }}
+                />
+                <Pagination
+                    onPageChange={handlePageChange}
+                    onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
+                    totalItems={totalItems} // use the total items from the state
+                    itemsPerPage={itemsPerPage}
+                    currentPage={page}
+                />
+                {''}
+                {isPopUpOpen && (
+                    <div className={style.PopUp}>
+                        <PopUp
+                            onClose={handleClose}
+                            url='http://localhost:3000/api/interactions'
+                            fields={[
+                                {
+                                    id: 'code_Utilisateur_Prospecteur',
+                                    type: 'search',
+                                    value: null,
+                                    url: '../api/select/sites/utilisateurs',
+                                },
+                                {
+                                    id: 'code_Entite_Prospectee',
+                                    type: 'search',
+                                    value: null,
+                                    url: '../api/select/societe/entite',
+                                },
+                                { id: 'date_interaction', type: 'date', value: null },
                         {
                             id: 'code_type_interaction',
                             type: 'select',
                             value: null,
-                            url: '../api/dons/type-interactions',
+                            url: '../api/interactions/type-interactions',
                         },
                         {
                             id: 'code_modalite_interaction',
                             type: 'select',
                             value: null,
-                            url: '../api/dons/type-modalite-interactions',
+                            url: '../api/interactions/type-modalite-interactions',
                         },
                         {
                             id: 'code_contact_entite',
-                            type: 'input',
+                            type: 'search',
                             value: null,
-                        }, //remplissage auto
+                            url:`../api/select/societe/entite/${EntiteInteraction}/contact`,
+                            onInputChange: handleEntiteInteraction,
+                        },
                         { id: 'commentaires', type: 'input', value: null },
                         { id: 'pieces_associees', type: 'file', value: null },
                         { id: 'date_relance', type: 'date', value: null },
                     ]}
-                />
-            )}
+                        />
+                    </div>
+                )}
+            </div>
         </>
     )
 }

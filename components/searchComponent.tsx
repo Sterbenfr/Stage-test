@@ -79,10 +79,10 @@ export default function SearchComponent({
                 type='input'
                 value={inputValue}
                 onChange={handleInputChange}
-                list='search'
+                list={url}
                 className={style.selectF}
             />
-            <datalist id='search'>
+            <datalist id={url}>
                 {selectedOptions
                     .filter((option, index) => index < 5)
                     .map(option => (

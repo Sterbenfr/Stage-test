@@ -5,6 +5,7 @@ import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import { useCallback } from 'react'
 import withAuthorization from '@/components/withAuthorization'
+import style from '../../styles/components.module.css'
 
 export interface Don {
     code_Don: number
@@ -100,7 +101,9 @@ function DonsPage() {
                 placeholder?: string
                 url?: string
                 onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
-                onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+                onInputChange?: (
+                    event: React.ChangeEvent<HTMLInputElement>,
+                ) => void
             }[] = [
                 {
                     id: 'code_Entite_donatrice',
@@ -119,7 +122,7 @@ function DonsPage() {
                     id: 'code_contact_Entite_donatrice',
                     type: 'select',
                     value: null,
-                    url: `../api/select/societe/entite/${EntiteDonatrice}/contact`, 
+                    url: `../api/select/societe/entite/${EntiteDonatrice}/contact`,
                 },
                 {
                     id: 'code_type_don',
@@ -138,7 +141,12 @@ function DonsPage() {
                     type: 'date',
                     value: null,
                 }, //depend de si date_debut_mise_disposition (pas avant stp)
-                { id: 'commentaires', type: 'input', value: null, placeholder: "Don de "}, //exemple: Dons de chocolat
+                {
+                    id: 'commentaires',
+                    type: 'input',
+                    value: null,
+                    placeholder: 'Don de ',
+                }, //exemple: Dons de chocolat
                 { id: 'pieces_associees', type: 'file', value: null }, //type blob ?
                 {
                     id: 'code_Utilisateur_saisie_don',
@@ -210,7 +218,9 @@ function DonsPage() {
                 })
             }
             if (EntiteDonatrice !== undefined && fields[2] !== undefined) {
-                fields[2].url=`../api/select/societe/entite/${parseInt(EntiteDonatrice)}/contact`
+                fields[2].url = `../api/select/societe/entite/${parseInt(
+                    EntiteDonatrice,
+                )}/contact`
                 console.log(fields[2].url)
             }
             console.log(EntiteDonatrice)
@@ -245,7 +255,7 @@ function DonsPage() {
         itemsPerPage,
         selectedTypeDon,
         selectedTypeMarchandise,
-        generateFields
+        generateFields,
     ])
 
     const handlePageChange = (newPage: number) => {
@@ -259,42 +269,50 @@ function DonsPage() {
 
     return (
         <>
-            <List
-                items={Dons.map(Don => ({
-                    value1: Don.code_Don.toString(),
-                    value2: Don.code_Entite_donatrice
-                        ? Don.code_Entite_donatrice.toString()
-                        : '',
-                    value3: Don.date_proposition_don.toString().split('T')[0],
-                    value4: Don.commentaires ? Don.commentaires : '',
-                    value5: Don.statut_acceptation_don
-                        ? Don.statut_acceptation_don
-                        : '',
-                }))}
-                functions={{
-                    fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
-                    },
-                }}
-            />
-            <Pagination 
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange}
-                totalItems={totalItems}
-                itemsPerPage={itemsPerPage}
-                currentPage={page}
-            />
-            {''}
-            {isPopUpOpen && (
-                <PopUp
-                    onClose={handleClose}
-                    url='http://localhost:3000/api/dons'
-                    fields={fields} // Use the fields state here
+            <div className={style.page}>
+                <List
+                    items={Dons.map(Don => ({
+                        value1: Don.code_Don.toString(),
+                        value2: Don.code_Entite_donatrice
+                            ? Don.code_Entite_donatrice.toString()
+                            : '',
+                        value3: Don.date_proposition_don
+                            .toString()
+                            .split('T')[0],
+                        value4: Don.commentaires ? Don.commentaires : '',
+                        value5: Don.statut_acceptation_don
+                            ? Don.statut_acceptation_don
+                            : '',
+                    }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen
+                                ? setIsPopUpOpen(false)
+                                : setIsPopUpOpen(true)
+                        },
+                        fonc2: () => {
+                            console.log('fonc2')
+                        },
+                    }}
                 />
-            )}
+                <Pagination
+                    onPageChange={handlePageChange}
+                    onItemsPerPageChange={handleItemsPerPageChange}
+                    totalItems={totalItems}
+                    itemsPerPage={itemsPerPage}
+                    currentPage={page}
+                />
+                {''}
+                {isPopUpOpen && (
+                    <div className={style.PopUp}>
+                        <PopUp
+                            onClose={handleClose}
+                            url='http://localhost:3000/api/dons'
+                            fields={fields} // Use the fields state here
+                        />
+                    </div>
+                )}
+            </div>
         </>
     )
 }

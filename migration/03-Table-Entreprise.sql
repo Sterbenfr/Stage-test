@@ -1,4 +1,4 @@
-CREATE TABLE Societe (
+CREATE TABLE Entreprise (
     code_Societe INT PRIMARY KEY AUTO_INCREMENT, -- clé primaire
     raison_sociale VARCHAR(30) NOT NULL,
     nom_commercial VARCHAR(30) DEFAULT 'raison_sociale',
@@ -12,7 +12,7 @@ CREATE TABLE Societe (
     FOREIGN KEY (code_type_activite_Societe) REFERENCES TypeActiviteSociete(code)
 );
 
-INSERT INTO Societe (
+INSERT INTO Entreprise (
     raison_sociale,
     nom_commercial,
     Logo,
@@ -23,8 +23,8 @@ INSERT INTO Societe (
     code_Groupe_appartenance,
     date_arret_activite_Societe
 ) VALUES 
-('Société Alpha', NULL, NULL, 'http://www.alpha.com/', '123456789', 'DIS', 'Première société', 1, NULL),
-('Société Beta', NULL, NULL, 'http://www.beta.com/', '234567890', 'FAB', 'Deuxième société', 2, NULL),
-('Société Gamma', NULL, NULL, 'http://www.gamma.com/', '345678901', 'PRE', 'Troisième société', 3, NULL),
-('Société Delta', NULL, NULL, 'http://www.delta.com/', '456789012', 'ADM', 'Quatrième société', 4, NULL),
-('Société Epsilon', NULL, NULL, 'http://www.epsilon.com/', '567890123', 'PRE', 'Cinquième société', 5, NULL);
+('Entreprise Alpha', NULL, NULL, 'http://www.alpha.com/', '123456789', 'DIS', 'Première société', 1, NULL),
+('Entreprise Beta', NULL, NULL, 'http://www.beta.com/', '234567890', 'FAB', 'Deuxième société', 2, NULL),
+('Entreprise Gamma', NULL, NULL, 'http://www.gamma.com/', '345678901', 'PRE', 'Troisième société', 3, NULL),
+('Entreprise Delta', NULL, NULL, 'http://www.delta.com/', '456789012', 'ADM', 'Quatrième société', 4, NULL),
+('Entreprise Epsilon', NULL, NULL, 'http://www.epsilon.com/', '567890123', 'PRE', 'Cinquième société', 5, NULL);

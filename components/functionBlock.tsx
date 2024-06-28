@@ -5,11 +5,15 @@ interface FunctionBlockProps {
     fonc2?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const FunctionBlock: React.FC<FunctionBlockProps> = ({ fonc1 , fonc2 }) => {
+const FunctionBlock: React.FC<FunctionBlockProps> = ({ fonc1, fonc2 }) => {
     return (
         <div className={style.functionBlock}>
-            <button className={style.btnFunctionBlockADD} onClick={fonc1}>Ajouter</button>
-            <button className={style.btnFunctionBlockDEL} onClick={fonc2}>Supprimer</button>
+            <button className={style.btnFunctionBlockADD} onClick={fonc1}>
+                Ajouter
+            </button>
+            <button className={style.btnFunctionBlockDEL} onClick={fonc2}>
+                Supprimer
+            </button>
         </div>
     )
 }

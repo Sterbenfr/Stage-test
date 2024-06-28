@@ -26,7 +26,7 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
                     Interactions
                 </Link>
                 <Link href='/societe' className={styles.links}>
-                    Société
+                    Entreprise
                 </Link>
                 <Link href='/sites' className={styles.links}>
                     Sites
@@ -34,8 +34,8 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
                 <Link href='/prestataire' className={styles.links}>
                     Prestataires
                 </Link>
-                <Link href='/cerfa' className={styles.links}>
-                    Cerfa
+                <Link href='/login' className={styles.links}>
+                    Connexion
                 </Link>
             </nav>
             {children}
