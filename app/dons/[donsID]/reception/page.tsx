@@ -4,7 +4,7 @@ import List from '../../../../components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
-import style from '../../styles/components.module.css'
+import style from '../../../../styles/components.module.css'
 
 export interface Reception {
     numero_reception: number
@@ -62,6 +62,7 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
         setItemsPerPage(newItemsPerPage)
         setPage(1) // reset page to 1 when items per page changes
     }
+    console.log(Receptions)
     return (
         <>
             <div className={style.page}>
