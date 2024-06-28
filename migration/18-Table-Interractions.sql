@@ -9,7 +9,7 @@ CREATE TABLE Interactions (
     commentaires VARCHAR(200),
     pieces_associees BLOB, -- Assuming pieces_associees is for storing PDF files or similar
     date_relance DATE,
-    PRIMARY KEY (code_Utilisateur_Prospecteur, code_Entite_Prospectee, date_interaction),
+    PRIMARY KEY (code_interaction),
     FOREIGN KEY (code_Utilisateur_Prospecteur) REFERENCES Utilisateurs(code_utilisateur),
     FOREIGN KEY (code_Entite_Prospectee) REFERENCES Entite(code_Entite),
     FOREIGN KEY (code_type_interaction) REFERENCES TypeInteractions(code_type_interaction),
