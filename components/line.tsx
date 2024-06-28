@@ -1,6 +1,7 @@
 import style from '../styles/components.module.css'
 
 export interface LineProps {
+    deleteFunction?: React.MouseEventHandler<HTMLInputElement>
     param1?: string
     param2?: string
     param3?: string
@@ -10,6 +11,7 @@ export interface LineProps {
 }
 
 const Line: React.FC<LineProps> = ({
+    deleteFunction,
     param1,
     param2,
     param3,
@@ -27,16 +29,15 @@ const Line: React.FC<LineProps> = ({
         window.location.href = `${window.location.href}/${key}`
     }
 
-    const handleButtonClick = (e: React.MouseEvent<EventTarget>) => {
-        const target = e.target as HTMLInputElement;
-        target.value = target.checked ? 'on' : 'off';
-    }
-    
     return (
         <div className={style.body}>
             <div className={style.line}>
                 <div className={style.check_box}>
-                    <input className={style.check} type='checkbox' onClick={handleButtonClick}></input>
+                    <input
+                        className={style.check}
+                        type='checkbox'
+                        onClick={deleteFunction}
+                    ></input>
                 </div>
                 <div
                     key={param1}
