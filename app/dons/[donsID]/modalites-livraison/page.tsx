@@ -4,7 +4,7 @@ import List from '../../../../components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
-import style from '../../styles/components.module.css'
+import style from '../../../../styles/components.module.css'
 
 export interface ModalitesLivraison {
     numero_livraison: number
