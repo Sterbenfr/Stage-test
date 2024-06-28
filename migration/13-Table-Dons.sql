@@ -23,7 +23,7 @@ CREATE TABLE Dons (
     adresse_mail_destinataire_cerfa VARCHAR(100),
     telephone_destinataire_cerfa VARCHAR(12),
     valeur_cerfa DECIMAL(10,2),
-    cerfa_fait ENUM('O','N')
+    cerfa_fait ENUM('O','N'),
     date_cerfa DATE,
     cerfa BLOB,
     FOREIGN KEY (code_Entite_donatrice) REFERENCES Entite(code_Entite),
@@ -51,7 +51,6 @@ INSERT INTO Dons (
     code_Utilisateur_saisie_don,
     statut_acceptation_don,
     date_acceptation_refus_don,
-    type_date_acceptation_refus,
     code_Utilisateur_accepte_refuse_don,
     code_site_beneficiaire_don,
     indicateur_remerciement,

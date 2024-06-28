@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import style from '../../../styles/components.module.css'
+import style from '../../../../../../../styles/components.module.css'
 
 interface interactionID {
     code_Utilisateur_Prospecteur: number
@@ -17,7 +17,7 @@ interface interactionID {
 export default function InteractionPage({
     params,
 }: {
-    params: { interactionID: string }
+    params: { societeID: string; entiteID: string; interactionID: string }
 }) {
     const [interaction, setInteraction] = useState<interactionID[]>([])
 
@@ -26,7 +26,7 @@ export default function InteractionPage({
             if (!params.interactionID) return
 
             const res = await fetch(
-                `http://localhost:3000/api/interactions/${params.interactionID}`,
+                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions/${params.interactionID}`,
             )
 
             if (!res.ok) {
@@ -40,7 +40,7 @@ export default function InteractionPage({
         }
 
         fetchInteraction()
-    }, [params.interactionID])
+    }, [params.interactionID, params.societeID, params.entiteID])
     if (!interaction || interaction.length === 0) return <div>Loading...</div>
 
     return (
