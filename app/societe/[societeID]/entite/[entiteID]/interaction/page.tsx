@@ -4,7 +4,7 @@ import List from '@/components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
-import style from '../../styles/components.module.css'
+import style from '../../../../../../styles/components.module.css'
 
 export interface Interactions {
     code_Utilisateur_Prospecteur: number
@@ -18,7 +18,11 @@ export interface Interactions {
     date_relance: Date
 }
 
-function InteractionsPage() {
+function InteractionsPage({
+    params,
+}: {
+    params: { societeID: string; entiteID: string }
+}) {
     const [Interactions, setInteractions] = useState<Interactions[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
@@ -40,7 +44,7 @@ function InteractionsPage() {
     useEffect(() => {
         const fetchInteractions = async () => {
             const res = await fetch(
-                `http://localhost:3000/api/interactions?page=${page}&limit=${itemsPerPage}`,
+                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions?page=${page}&limit=${itemsPerPage}`,
             )
 
             if (!res.ok) {
@@ -56,7 +60,7 @@ function InteractionsPage() {
         }
 
         fetchInteractions()
-    }, [page, itemsPerPage])
+    }, [page, itemsPerPage, params.societeID, params.entiteID])
     // add a function to handle page changes
     const handlePageChange = (newPage: number) => {
         setPage(newPage)
@@ -104,7 +108,7 @@ function InteractionsPage() {
                     <div className={style.PopUp}>
                         <PopUp
                             onClose={handleClose}
-                            url='http://localhost:3000/api/interactions'
+                            url={`http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions`}
                             fields={[
                                 {
                                     id: 'code_Utilisateur_Prospecteur',
@@ -118,30 +122,46 @@ function InteractionsPage() {
                                     value: null,
                                     url: '../api/select/societe/entite',
                                 },
-                                { id: 'date_interaction', type: 'date', value: null },
-                        {
-                            id: 'code_type_interaction',
-                            type: 'select',
-                            value: null,
-                            url: '../api/interactions/type-interactions',
-                        },
-                        {
-                            id: 'code_modalite_interaction',
-                            type: 'select',
-                            value: null,
-                            url: '../api/interactions/type-modalite-interactions',
-                        },
-                        {
-                            id: 'code_contact_entite',
-                            type: 'search',
-                            value: null,
-                            url:`../api/select/societe/entite/${EntiteInteraction}/contact`,
-                            onInputChange: handleEntiteInteraction,
-                        },
-                        { id: 'commentaires', type: 'input', value: null },
-                        { id: 'pieces_associees', type: 'file', value: null },
-                        { id: 'date_relance', type: 'date', value: null },
-                    ]}
+                                {
+                                    id: 'date_interaction',
+                                    type: 'date',
+                                    value: null,
+                                },
+                                {
+                                    id: 'code_type_interaction',
+                                    type: 'select',
+                                    value: null,
+                                    url: '../api/interactions/type-interactions',
+                                },
+                                {
+                                    id: 'code_modalite_interaction',
+                                    type: 'select',
+                                    value: null,
+                                    url: '../api/interactions/type-modalite-interactions',
+                                },
+                                {
+                                    id: 'code_contact_entite',
+                                    type: 'search',
+                                    value: null,
+                                    url: `../api/select/societe/entite/${EntiteInteraction}/contact`,
+                                    onInputChange: handleEntiteInteraction,
+                                },
+                                {
+                                    id: 'commentaires',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'pieces_associees',
+                                    type: 'file',
+                                    value: null,
+                                },
+                                {
+                                    id: 'date_relance',
+                                    type: 'date',
+                                    value: null,
+                                },
+                            ]}
                         />
                     </div>
                 )}

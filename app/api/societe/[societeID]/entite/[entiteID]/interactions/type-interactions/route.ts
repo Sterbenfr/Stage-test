@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
-import pool from '../../../../utils/db'
+import pool from '../../../../../../../../utils/db'
 import { NextApiRequest } from 'next'
-import { streamToString } from '../../../../utils/streamUtils'
-import type { Interaction } from '@/app/interaction/type-interactions/page'
+import { streamToString } from '../../../../../../../../utils/streamUtils'
+import type { Interaction } from '@/app/societe/[societeID]/entite/[entiteID]/interaction/type-interactions/page'
 
 export async function GET() {
     try {
@@ -28,8 +28,8 @@ export async function POST(req: NextApiRequest) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (!code_type_interaction.libelle) {
-        console.log('code_type_interaction:' + code_type_interaction.libelle)
+    if (!code_type_interaction.label) {
+        console.log('code_type_interaction:' + code_type_interaction.label)
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
-import pool from '../../../../utils/db'
+import pool from '../../../../../../../../utils/db'
 import { NextApiRequest } from 'next'
-import { streamToString } from '../../../../utils/streamUtils'
-import type { Modalite_Interactions } from '@/app/interaction/type-modalite-interactions/page'
+import { streamToString } from '../../../../../../../../utils/streamUtils'
+import type { Modalite_Interactions } from '@/app/societe/[societeID]/entite/[entiteID]/interaction/type-modalite-interactions/page'
 
 export async function GET() {
     try {
@@ -29,7 +29,9 @@ export async function POST(req: NextApiRequest) {
 
     if (!type_modalite_interaction.id || !type_modalite_interaction.label) {
         console.log(
-            'code_modalite_interaction:' + type_modalite_interaction.id + type_modalite_interaction.label,
+            'code_modalite_interaction:' +
+                type_modalite_interaction.id +
+                type_modalite_interaction.label,
         )
         return NextResponse.json(
             { error: 'Missing product data' },
