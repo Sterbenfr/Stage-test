@@ -16,13 +16,13 @@ export async function GET(request: Request) {
         const limitNumber = Number(limit)
         const offset = (pageNumber - 1) * limitNumber
 
-        const [rows] = await pool.query('SELECT * FROM `societe` LIMIT ?, ?', [
-            offset,
-            limitNumber,
-        ])
+        const [rows] = await pool.query(
+            'SELECT * FROM `entreprise` LIMIT ?, ?',
+            [offset, limitNumber],
+        )
 
         const [totalResult] = await pool.query(
-            'SELECT COUNT(*) as count FROM `societe`',
+            'SELECT COUNT(*) as count FROM `entreprise`',
         )
 
         const total = totalResult as CountResult

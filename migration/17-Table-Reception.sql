@@ -18,7 +18,7 @@ CREATE TABLE Reception (
 INSERT INTO Reception (
     numero_reception,
     code_Don,
-    numero_livraion,
+    numero_livraison,
     date_reception,
     heure_reception,
     nombre_palettes_recues,
