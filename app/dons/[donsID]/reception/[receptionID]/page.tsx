@@ -50,7 +50,7 @@ export default function ReceptionPage({
     return (
         <div className={style.idPage}>
             <div>
-                <h1>Récéption</h1>
+                <h1 className={style.titre_global}>Récéption</h1>
             </div>
             <div className={style.info_id}>
                 <div className={style.col_1}>
