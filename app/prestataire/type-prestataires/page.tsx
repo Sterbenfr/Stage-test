@@ -40,19 +40,18 @@ function PrestatairesPage() {
     return (
         <>
             <List
-            items={Prestataires.map(typePrestataire => ({
-                value1: typePrestataire.id.toString(),
-                value2: typePrestataire.id.toString(),
-                value3: typePrestataire.label
-            }))}
-            functions={{
-                fonc1: () => {
-                    isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                },
-                fonc2: () => {
-                    console.log('fonc2')
-                },
-            }}
+                items={Prestataires.map(typePrestataire => ({
+                    value1: typePrestataire.id.toString(),
+                    value2: typePrestataire.id.toString(),
+                    value3: typePrestataire.label,
+                }))}
+                functions={{
+                    fonc1: () => {
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
+                    },
+                }}
             />
             {isPopUpOpen && (
                 <PopUp

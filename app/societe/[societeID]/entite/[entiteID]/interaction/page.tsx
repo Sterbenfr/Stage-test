@@ -91,9 +91,7 @@ function InteractionsPage({
                                 ? setIsPopUpOpen(false)
                                 : setIsPopUpOpen(true)
                         },
-                        fonc2: () => {
-                            console.log('fonc2')
-                        },
+                        url: `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions`,
                     }}
                 />
                 <Pagination

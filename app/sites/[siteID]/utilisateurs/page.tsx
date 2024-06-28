@@ -79,9 +79,7 @@ function UtilisateursPage({ params }: { params: { siteID: string } }) {
                                 ? setIsPopUpOpen(false)
                                 : setIsPopUpOpen(true)
                         },
-                        fonc2: () => {
-                            console.log('fonc2')
-                        },
+                        url: `http://localhost:3000/api/sites/${params.siteID}/utilisateurs`,
                     }}
                 />
                 <Pagination
