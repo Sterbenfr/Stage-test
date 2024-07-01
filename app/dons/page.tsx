@@ -32,13 +32,8 @@ export interface Don {
 }
 
 function DonsPage() {
-    const [Dons, setDons] = useState<Don[]>([])
-    const [page, setPage] = useState(1) // new state for the current page
-    const [totalItems, setTotalItems] = useState(0)
-    const [itemsPerPage, setItemsPerPage] = useState(3)
-
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
-    const [checkboxChecked, setCheckboxChecked] = useState(false)
+    const [EntiteDonatrice, setEntiteDonatrice] = useState('2')
+    const [datePropositionDon, setDatePropositionDon] = useState(new Date())
     const [selectedTypeMarchandise, setSelectedTypeMarchandise] =
         useState('ALI')
     const [lastSelectedTypeDon, setLastSelectedTypeDon] = useState('')
@@ -46,9 +41,14 @@ function DonsPage() {
         lastSelectedTypeDon !== '' ? lastSelectedTypeDon : 'FIN',
     )
     const [commentaires, setCommentaires] = useState('')
+    const [checkboxChecked, setCheckboxChecked] = useState(false) //remerciement
+    const [dateRemerciement, setDateRemerciement] = useState(new Date())
 
-    const [EntiteDonatrice, setEntiteDonatrice] = useState('2')
-
+    const [Dons, setDons] = useState<Don[]>([]) // list of dons
+    const [page, setPage] = useState(1) // new state for the current page
+    const [totalItems, setTotalItems] = useState(0)
+    const [itemsPerPage, setItemsPerPage] = useState(3)
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
     const [fields, setFields] = useState<
         {
             id: string
@@ -65,18 +65,31 @@ function DonsPage() {
         setIsPopUpOpen(false)
         setCheckboxChecked(false)
     }
-
-    const handleTypeDonChange = (
-        event: React.ChangeEvent<HTMLSelectElement>,
-    ) => {
-        setSelectedTypeDon(event.target.value)
-    }
-
     const handleEntiteDonatrice = (
         event: React.ChangeEvent<HTMLInputElement>,
     ) => {
         setEntiteDonatrice(event.target.value)
         console.log('italie')
+    }
+
+    const handleDatePropositionDon = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        console.log('date')
+        setDatePropositionDon(new Date(event.target.value))
+    }
+
+    const handleDateRemerciement = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        console.log('date')
+        setDateRemerciement(new Date(event.target.value))
+    }
+
+    const handleTypeDonChange = (
+        event: React.ChangeEvent<HTMLSelectElement>,
+    ) => {
+        setSelectedTypeDon(event.target.value)
     }
 
     const handleMarchandiseChange = (
@@ -126,11 +139,11 @@ function DonsPage() {
                     url: '../api/select/societe/entite',
                     onInputChange: handleEntiteDonatrice,
                 },
-
                 {
                     id: 'date_proposition_don',
                     type: 'date',
-                    value: null,
+                    value: datePropositionDon.toISOString().split('T')[0],
+                    onInputChange: handleDatePropositionDon,
                 },
                 {
                     id: 'code_contact_Entite_donatrice',
@@ -193,8 +206,14 @@ function DonsPage() {
                     id: 'indicateur_remerciement',
                     type: 'checkbox',
                     value: checkboxChecked ? 'O' : 'N',
+                    onChange: () => setCheckboxChecked(!checkboxChecked),
                 },
-                { id: 'date_remerciement', type: 'date', value: null },
+                {
+                    id: 'date_remerciement',
+                    type: 'date',
+                    value: dateRemerciement.toISOString().split('T')[0],
+                    onInputChange: handleDateRemerciement,
+                },
             ]
 
             if (selectedTypeDon === 'SIP') {
@@ -238,7 +257,13 @@ function DonsPage() {
             console.log(EntiteDonatrice)
             return fields
         },
-        [checkboxChecked, EntiteDonatrice, commentaires],
+        [
+            checkboxChecked,
+            EntiteDonatrice,
+            commentaires,
+            selectedTypeDon,
+            selectedTypeMarchandise,
+        ],
     )
 
     useEffect(() => {
