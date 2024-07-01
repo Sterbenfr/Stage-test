@@ -24,7 +24,7 @@ export interface ModalitesLivraison {
     prenom_contact_livraison: string
     telephone_contact_livraison: string
     mail_contact_livraison: string
-    nombre_palette_prevu: number
+    nombre_palettes_prevu: number
     nombre_palettes_consignees_prevu: number
     nombre_cartons_prevu: number
     poids_prevu_kg: number
@@ -209,7 +209,7 @@ function ModalitesLivraisonPage({ params }: { params: { donsID: string } }) {
                                     value: null,
                                 },
                                 {
-                                    id: 'nombre_palette_prevu',
+                                    id: 'nombre_palettes_prevu',
                                     type: 'number',
                                     value: null,
                                 },
