@@ -35,7 +35,14 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
         setInputs(fields)
     }, [fields])
 
-    const handleInputChange = (id: string, value: string | boolean) => {
+    const handleInputChange = (
+        id: string,
+        value: string | boolean,
+        fonct?: React.ChangeEventHandler<HTMLInputElement>,
+    ) => {
+        if (fonct) {
+            fonct
+        }
         const updatedInputs = inputs.map(input =>
             input.id === id ? { ...input, value } : input,
         )
@@ -241,40 +248,58 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
         <div className={'popup-container'}>
             <div className={style.page}>
                 <h2 className={style.lg}>Ajouter une nouvelle entrée</h2>
-                {inputs.map(input => (
-                    <div key={input.id}>
-                        <label className={style.label}>
+                {inputs.map(input => {
+                  <div key={input.id}>
+                    <label className={style.label}>
                             {fieldLabels[input.id]}
                         </label>
-                        {input.type === 'select' ? (
-                            <SelectComponent
-                                url={input.url as string}
-                                onChange={input.onChange}
-                            />
-                        ) : input.type === 'search' ? (
-                            <SearchComponent
-                                url={input.url as string}
-                                onChange={e =>
-                                    handleInputChange(input.id, e.target.value)
-                                }
-                            />
-                        ) : (
-                            <input
-                                type={input.type}
-                                placeholder={input.placeholder}
-                                className={style.selectF}
-                                value={
-                                    input.value === null
-                                        ? ''
-                                        : (input.value as string)
-                                }
-                                onChange={e =>
-                                    handleInputChange(input.id, e.target.value)
-                                }
-                            />
-                        )}
-                    </div>
-                ))}
+                    switch (input.type) {
+                        case 'select':
+                            return (
+                                <SelectComponent
+                                    key={input.id}
+                                    url={input.url as string}
+                                    onChange={input.onChange}
+                                />
+                            )
+                        case 'search':
+                            return (
+                                <SearchComponent
+                                    key={input.id}
+                                    url={input.url as string}
+                                    onChange={e =>
+                                        handleInputChange(
+                                            input.id,
+                                            e.target.value,
+                                        )
+                                    }
+                                    onInputChange={input.onInputChange}
+                                />
+                            )
+                        default:
+                            return (
+                                <input
+                                    key={input.id}
+                                    type={input.type}
+                                    placeholder={input.placeholder}
+                                    className={style.selectF}
+                                    value={
+                                        input.value === null
+                                            ? ''
+                                            : (input.value as string)
+                                    }
+                                    onChange={e =>
+                                        handleInputChange(
+                                            input.id,
+                                            e.target.value,
+                                            input.onInputChange,
+                                        )
+                                    }
+                                />
+                            )
+                      </div>
+                    }
+                })}
                 <div className={style.BTNdiv}>
                     <div className={style.BTNdiv}>
                         <button className={style.BTNsub} onClick={onClose}>
