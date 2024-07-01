@@ -305,9 +305,6 @@ function DonsPage() {
                                 ? setIsPopUpOpen(false)
                                 : setIsPopUpOpen(true)
                         },
-                        fonc2: () => {
-                            console.log('fonc2')
-                        },
                     }}
                 />
                 <Pagination
