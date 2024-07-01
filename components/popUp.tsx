@@ -248,68 +248,68 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
         <div className={'popup-container'}>
             <div className={style.page}>
                 <h2 className={style.lg}>Ajouter une nouvelle entrée</h2>
-                {inputs.map(input => {
-                  <div key={input.id}>
-                    <label className={style.label}>
+                {inputs.map(input => (
+                    <div key={input.id}>
+                        <label className={style.label}>
                             {fieldLabels[input.id]}
                         </label>
-                    switch (input.type) {
-                        case 'select':
-                            return (
-                                <SelectComponent
-                                    key={input.id}
-                                    url={input.url as string}
-                                    onChange={input.onChange}
-                                />
-                            )
-                        case 'search':
-                            return (
-                                <SearchComponent
-                                    key={input.id}
-                                    url={input.url as string}
-                                    onChange={e =>
-                                        handleInputChange(
-                                            input.id,
-                                            e.target.value,
-                                        )
-                                    }
-                                    onInputChange={input.onInputChange}
-                                />
-                            )
-                        default:
-                            return (
-                                <input
-                                    key={input.id}
-                                    type={input.type}
-                                    placeholder={input.placeholder}
-                                    className={style.selectF}
-                                    value={
-                                        input.value === null
-                                            ? ''
-                                            : (input.value as string)
-                                    }
-                                    onChange={e =>
-                                        handleInputChange(
-                                            input.id,
-                                            e.target.value,
-                                            input.onInputChange,
-                                        )
-                                    }
-                                />
-                            )
-                      </div>
-                    }
-                })}
-                <div className={style.BTNdiv}>
-                    <div className={style.BTNdiv}>
-                        <button className={style.BTNsub} onClick={onClose}>
-                            Exit
-                        </button>
-
-                        <button className={style.BTNsub} onClick={handleSubmit}>
-                            Envoyer
-                        </button>
+                        {(() => {
+                            switch (input.type) {
+                                case 'select':
+                                    return (
+                                        <SelectComponent
+                                            key={input.id}
+                                            url={input.url as string}
+                                            onChange={input.onChange}
+                                        />
+                                    )
+                                case 'search':
+                                    return (
+                                        <SearchComponent
+                                            key={input.id}
+                                            url={input.url as string}
+                                            onChange={e =>
+                                                handleInputChange(
+                                                    input.id,
+                                                    e.target.value,
+                                                )
+                                            }
+                                            onInputChange={input.onInputChange}
+                                        />
+                                    )
+                                default:
+                                    return (
+                                        <input
+                                            key={input.id}
+                                            type={input.type}
+                                            placeholder={input.placeholder}
+                                            className={style.selectF}
+                                            value={
+                                                input.value === null
+                                                    ? ''
+                                                    : (input.value as string)
+                                            }
+                                            onChange={e =>
+                                                handleInputChange(
+                                                    input.id,
+                                                    e.target.value,
+                                                    input.onInputChange,
+                                                )
+                                            }
+                                        />
+                                    )
+                            }
+                        })()}
                     </div>
+                ))}
+                <div className={style.BTNdiv}>
+                    <button className={style.BTNsub} onClick={onClose}>
+                        Exit
+                    </button>
+
+                    <button className={style.BTNsub} onClick={handleSubmit}>
+                        Envoyer
+                    </button>
                 </div>
             </div>
         </div>
