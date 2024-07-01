@@ -3,12 +3,13 @@ import pool from '../../../../../utils/db'
 
 export async function GET() {
     try {
-        const [rows] = await pool.query('SELECT * FROM `sitesrattachement` LIMIT 1000')
+        const [rows] = await pool.query(
+            'SELECT * FROM `sitesrattachement` LIMIT 1000',
+        )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }

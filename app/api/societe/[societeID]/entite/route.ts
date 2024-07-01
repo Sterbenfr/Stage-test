@@ -49,17 +49,11 @@ export async function POST(req: NextApiRequest) {
     let EntitesPages: Entite
     try {
         EntitesPages = JSON.parse(await streamToString(req.body))
-        console.log(EntitesPages)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
     if (!EntitesPages.raison_sociale || !EntitesPages.code_type_entite) {
-        console.log(
-            'EntitesPages:' +
-                EntitesPages.raison_sociale +
-                EntitesPages.code_type_entite,
-        )
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -71,9 +65,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, EntitesPages)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

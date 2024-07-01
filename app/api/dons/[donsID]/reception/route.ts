@@ -46,7 +46,6 @@ export async function POST(req: NextApiRequest) {
     let reception: Reception
     try {
         reception = JSON.parse(await streamToString(req.body))
-        console.log(reception)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
@@ -56,12 +55,6 @@ export async function POST(req: NextApiRequest) {
         !reception.code_Don ||
         !reception.numero_livraison
     ) {
-        console.log(
-            'reception:' +
-                reception.date_reception +
-                reception.code_Don +
-                reception.numero_livraison,
-        )
         return NextResponse.json(
             { error: 'Missing reception data' },
             { status: 400 },
@@ -73,9 +66,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, reception)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

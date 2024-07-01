@@ -183,7 +183,6 @@ function DonsPage() {
             ]
 
             if (selectedTypeDon === 'SIP') {
-                console.log('SIP added')
                 setLastSelectedTypeDon(selectedTypeDon)
                 fields.push({
                     id: 'code_type_competences',
@@ -195,7 +194,6 @@ function DonsPage() {
 
             if (selectedTypeDon === 'MAR') {
                 setLastSelectedTypeDon(selectedTypeDon)
-                console.log('MAR added')
                 fields.push({
                     id: 'code_type_produits',
                     type: 'select',
@@ -209,7 +207,6 @@ function DonsPage() {
                 selectedTypeDon === 'MAR' &&
                 selectedTypeMarchandise === 'ALI'
             ) {
-                console.log('ALI added')
                 fields.push({
                     id: 'code_mode_conservation_produits',
                     type: 'select', //que si code_type_produits = alimentaire
@@ -236,8 +233,6 @@ function DonsPage() {
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -249,7 +244,6 @@ function DonsPage() {
         }
 
         fetchDons()
-        console.log(selectedTypeDon)
     }, [
         page,
         itemsPerPage,

@@ -6,12 +6,13 @@ import type { TypeDon } from '@/app/dons/type-don/page'
 
 export async function GET() {
     try {
-        const [rows] = await pool.query('SELECT code_type_don as id, libelle as label FROM `typesdons` LIMIT 1000')
+        const [rows] = await pool.query(
+            'SELECT code_type_don as id, libelle as label FROM `typesdons` LIMIT 1000',
+        )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }
@@ -21,20 +22,11 @@ export async function POST(req: NextApiRequest) {
     let typesDon: TypeDon
     try {
         typesDon = JSON.parse(await streamToString(req.body))
-        console.log(typesDon)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (
-        !typesDon.id ||
-        !typesDon.label
-    ) {
-        console.log(
-            'Types Dons:' +
-            typesDon.id +
-            typesDon.label,
-        )
+    if (!typesDon.id || !typesDon.label) {
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -46,9 +38,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, typesDon)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }
