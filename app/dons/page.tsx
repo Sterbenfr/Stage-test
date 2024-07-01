@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import React, { useEffect, useState } from 'react'
 import List from '../../components/list'
@@ -44,6 +45,7 @@ function DonsPage() {
     const [selectedTypeDon, setSelectedTypeDon] = useState(
         lastSelectedTypeDon !== '' ? lastSelectedTypeDon : 'FIN',
     )
+    const [commentaires, setCommentaires] = useState('')
 
     const [EntiteDonatrice, setEntiteDonatrice] = useState('2')
 
@@ -74,12 +76,20 @@ function DonsPage() {
         event: React.ChangeEvent<HTMLInputElement>,
     ) => {
         setEntiteDonatrice(event.target.value)
+        console.log('italie')
     }
 
     const handleMarchandiseChange = (
         event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         setSelectedTypeMarchandise(event.target.value)
+    }
+
+    const handleCommentairesChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        console.log('mais')
+        setCommentaires(event.target.value)
     }
 
     type FieldType =
@@ -93,7 +103,11 @@ function DonsPage() {
         | 'enum'
 
     const generateFields = useCallback(
-        (selectedTypeDon: string, selectedTypeMarchandise: string) => {
+        (
+            selectedTypeDon: string,
+            selectedTypeMarchandise: string,
+            commentaires: string,
+        ) => {
             const fields: {
                 id: string
                 type: FieldType
@@ -144,8 +158,9 @@ function DonsPage() {
                 {
                     id: 'commentaires',
                     type: 'input',
-                    value: null,
+                    value: commentaires,
                     placeholder: 'Don de ',
+                    onInputChange: handleCommentairesChange,
                 }, //exemple: Dons de chocolat
                 { id: 'pieces_associees', type: 'file', value: null }, //type blob ?
                 {
@@ -223,7 +238,7 @@ function DonsPage() {
             console.log(EntiteDonatrice)
             return fields
         },
-        [checkboxChecked, EntiteDonatrice],
+        [checkboxChecked, EntiteDonatrice, commentaires],
     )
 
     useEffect(() => {
@@ -240,7 +255,13 @@ function DonsPage() {
                 await res.json()
             setDons(data)
             setTotalItems(total) // set the total items
-            setFields(generateFields(selectedTypeDon, selectedTypeMarchandise))
+            setFields(
+                generateFields(
+                    selectedTypeDon,
+                    selectedTypeMarchandise,
+                    commentaires,
+                ),
+            )
         }
 
         fetchDons()
