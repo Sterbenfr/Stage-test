@@ -1,4 +1,5 @@
 'use client'
+
 import { useEffect, useState } from 'react'
 import List from '@/components/list'
 import { Pagination } from '@/components/pagination'
@@ -48,15 +49,13 @@ function InteractionsPage({
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
             const { data, total }: { data: Interactions[]; total: number } =
                 await res.json()
             setInteractions(data)
-            setTotalItems(total) // set the total items
+            setTotalItems(total)
         }
 
         fetchInteractions()
@@ -68,8 +67,9 @@ function InteractionsPage({
 
     const handleItemsPerPageChange = (newItemsPerPage: number) => {
         setItemsPerPage(newItemsPerPage)
-        setPage(1) // reset page to 1 when items per page changes
+        setPage(1)
     }
+
     return (
         <>
             <div className={style.page}>
@@ -96,8 +96,8 @@ function InteractionsPage({
                 />
                 <Pagination
                     onPageChange={handlePageChange}
-                    onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
-                    totalItems={totalItems} // use the total items from the state
+                    onItemsPerPageChange={handleItemsPerPageChange}
+                    totalItems={totalItems}
                     itemsPerPage={itemsPerPage}
                     currentPage={page}
                 />
@@ -167,5 +167,4 @@ function InteractionsPage({
         </>
     )
 }
-
 export default withAuthorization(InteractionsPage, ['AD', 'PR'])

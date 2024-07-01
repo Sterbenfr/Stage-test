@@ -44,7 +44,6 @@ export async function POST(req: NextApiRequest) {
     let Utilisateur: Utilisateurs
     try {
         Utilisateur = JSON.parse(await streamToString(req.body))
-        console.log(Utilisateur)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
@@ -56,14 +55,6 @@ export async function POST(req: NextApiRequest) {
         !Utilisateur.password ||
         !Utilisateur.code_type_utilisateur
     ) {
-        console.log(
-            'Utilisateurs:' +
-                !Utilisateur.civilite +
-                !Utilisateur.nom +
-                !Utilisateur.prenom +
-                !Utilisateur.password +
-                !Utilisateur.code_type_utilisateur,
-        )
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -74,9 +65,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, Utilisateur)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

@@ -11,9 +11,8 @@ export async function GET() {
         )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }
@@ -27,7 +26,6 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
         return res.status(400).json({ error: 'Invalid JSON' })
     }
 
-    console.log(produit)
     if (!produit.id || !produit.label) {
         return res.status(400).json({ error: 'Missing product data' })
     }
@@ -37,9 +35,8 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
         const [rows] = await pool.query(query, produit)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

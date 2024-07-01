@@ -6,12 +6,13 @@ import type { Frequence_cerfa } from '@/app/societe/[societeID]/entite/type-freq
 
 export async function GET() {
     try {
-        const [rows] = await pool.query('SELECT code_frequence_cerfa as id, libelle as label FROM `FrequencesCerfa` LIMIT 1000')
+        const [rows] = await pool.query(
+            'SELECT code_frequence_cerfa as id, libelle as label FROM `FrequencesCerfa` LIMIT 1000',
+        )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }
@@ -21,20 +22,11 @@ export async function POST(req: NextApiRequest) {
     let typesFrequence_cerfa: Frequence_cerfa
     try {
         typesFrequence_cerfa = JSON.parse(await streamToString(req.body))
-        console.log(typesFrequence_cerfa)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (
-        !typesFrequence_cerfa.id ||
-        !typesFrequence_cerfa.label
-    ) {
-        console.log(
-            'Types Frequence_cerfas:' +
-            typesFrequence_cerfa.id +
-            typesFrequence_cerfa.label,
-        )
+    if (!typesFrequence_cerfa.id || !typesFrequence_cerfa.label) {
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -46,9 +38,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, typesFrequence_cerfa)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

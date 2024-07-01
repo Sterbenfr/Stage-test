@@ -12,12 +12,10 @@ export const authOptions: AuthOptions = {
     providers: [
         CredentialsProvider({
             async authorize(credentials) {
-                console.log('Authorizing:', credentials)
                 if (!credentials) {
                     throw new Error('No credentials provided')
                 }
                 const user = await findUser(credentials.email)
-                console.log('User:', user)
                 if (!user) {
                     throw new Error('No user found')
                 }
@@ -25,7 +23,6 @@ export const authOptions: AuthOptions = {
                     credentials.password,
                     user.password,
                 )
-                console.log('Password is valid:', isValid)
                 if (!isValid) {
                     throw new Error('Invalid password')
                 }

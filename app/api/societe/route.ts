@@ -41,7 +41,6 @@ export async function POST(req: NextApiRequest) {
     let societes: Societe
     try {
         societes = JSON.parse(await streamToString(req.body))
-        console.log(societes)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
@@ -51,12 +50,6 @@ export async function POST(req: NextApiRequest) {
         !societes.code_type_activite_Societe ||
         !societes.code_Groupe_appartenance
     ) {
-        console.log(
-            'dons:' +
-                societes.nom_commercial +
-                societes.code_type_activite_Societe +
-                societes.code_Groupe_appartenance,
-        )
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -68,9 +61,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, societes)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

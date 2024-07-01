@@ -11,9 +11,8 @@ export async function GET() {
         )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }
@@ -22,17 +21,11 @@ export async function POST(req: NextApiRequest) {
     let type_modalite_interaction: Modalite_Interactions
     try {
         type_modalite_interaction = JSON.parse(await streamToString(req.body))
-        console.log(type_modalite_interaction)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
     if (!type_modalite_interaction.id || !type_modalite_interaction.label) {
-        console.log(
-            'code_modalite_interaction:' +
-                type_modalite_interaction.id +
-                type_modalite_interaction.label,
-        )
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -44,9 +37,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, type_modalite_interaction)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

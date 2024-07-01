@@ -11,9 +11,8 @@ export async function GET() {
         )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }
@@ -23,20 +22,11 @@ export async function POST(req: NextApiRequest) {
     let typesCompetence: Competence
     try {
         typesCompetence = JSON.parse(await streamToString(req.body))
-        console.log(typesCompetence)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (
-        !typesCompetence.id ||
-        !typesCompetence.label
-    ) {
-        console.log(
-            'Types Competences:' +
-            typesCompetence.id +
-            typesCompetence.label,
-        )
+    if (!typesCompetence.id || !typesCompetence.label) {
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -48,9 +38,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, typesCompetence)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

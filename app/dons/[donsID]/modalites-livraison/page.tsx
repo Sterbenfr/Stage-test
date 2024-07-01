@@ -54,8 +54,6 @@ function ModalitesLivraisonPage({ params }: { params: { donsID: string } }) {
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 

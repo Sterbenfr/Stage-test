@@ -11,9 +11,8 @@ export async function GET() {
         )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }
@@ -22,17 +21,11 @@ export async function POST(req: NextApiRequest) {
     let TypeActiviteSocietes: TypeActiviteSociete
     try {
         TypeActiviteSocietes = JSON.parse(await streamToString(req.body))
-        console.log(TypeActiviteSocietes)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
     if (!TypeActiviteSocietes.code || !TypeActiviteSocietes.libelle) {
-        console.log(
-            'TypeActiviteSocietes:' +
-                TypeActiviteSocietes.code +
-                TypeActiviteSocietes.code,
-        )
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -44,9 +37,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, TypeActiviteSocietes)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

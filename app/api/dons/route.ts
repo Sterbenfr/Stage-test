@@ -41,7 +41,6 @@ export async function POST(req: NextApiRequest) {
     let dons: Don
     try {
         dons = JSON.parse(await streamToString(req.body))
-        console.log(dons)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
@@ -51,12 +50,6 @@ export async function POST(req: NextApiRequest) {
         !dons.code_type_don ||
         !dons.code_Utilisateur_saisie_don
     ) {
-        console.log(
-            'dons:' +
-                dons.date_proposition_don +
-                dons.code_type_don +
-                dons.code_Utilisateur_saisie_don,
-        )
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -68,9 +61,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, dons)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }
