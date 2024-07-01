@@ -27,8 +27,6 @@ export default function SitePage({ params }: { params: { siteID: string } }) {
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -135,7 +133,12 @@ export default function SitePage({ params }: { params: { siteID: string } }) {
                         </p>
                     </div>
                     <div className={style.info}>
-                        <a href={`/sites/${params.siteID}/utilisateurs`}><p className={style.titre}> Utilisateurs du site </p></a>
+                        <a href={`/sites/${params.siteID}/utilisateurs`}>
+                            <p className={style.titre}>
+                                {' '}
+                                Utilisateurs du site{' '}
+                            </p>
+                        </a>
                     </div>
                 </div>
             </div>

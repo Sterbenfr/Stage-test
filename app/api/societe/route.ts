@@ -16,13 +16,13 @@ export async function GET(request: Request) {
         const limitNumber = Number(limit)
         const offset = (pageNumber - 1) * limitNumber
 
-        const [rows] = await pool.query('SELECT * FROM `societe` LIMIT ?, ?', [
-            offset,
-            limitNumber,
-        ])
+        const [rows] = await pool.query(
+            'SELECT * FROM `entreprise` LIMIT ?, ?',
+            [offset, limitNumber],
+        )
 
         const [totalResult] = await pool.query(
-            'SELECT COUNT(*) as count FROM `societe`',
+            'SELECT COUNT(*) as count FROM `entreprise`',
         )
 
         const total = totalResult as CountResult
@@ -41,7 +41,6 @@ export async function POST(req: NextApiRequest) {
     let societes: Societe
     try {
         societes = JSON.parse(await streamToString(req.body))
-        console.log(societes)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
@@ -51,12 +50,6 @@ export async function POST(req: NextApiRequest) {
         !societes.code_type_activite_Societe ||
         !societes.code_Groupe_appartenance
     ) {
-        console.log(
-            'dons:' +
-                societes.nom_commercial +
-                societes.code_type_activite_Societe +
-                societes.code_Groupe_appartenance,
-        )
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -64,13 +57,12 @@ export async function POST(req: NextApiRequest) {
     }
 
     try {
-        const query = 'INSERT INTO `societe` SET ?'
+        const query = 'INSERT INTO `entreprise` SET ?'
         const [rows] = await pool.query(query, societes)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

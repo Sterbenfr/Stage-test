@@ -4,6 +4,7 @@ import List from '../../components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
+import style from '../../styles/components.module.css'
 
 export interface Societe {
     code_Societe: number
@@ -37,8 +38,6 @@ function SocietesPage() {
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -63,91 +62,95 @@ function SocietesPage() {
 
     return (
         <>
-            <List
-                items={Societes.map(Societe => ({
-                    value1: Societe.code_Societe.toString(),
-                    value2: Societe.raison_sociale,
-                    value3: Societe.site_Web,
-                    value4: Societe.commentaires,
-                    value5:
-                        Societe.date_arret_activite_Societe == null
-                            ? ''
-                            : Societe.date_arret_activite_Societe
-                                  .toString()
-                                  .split('T')[0],
-                }))}
-                functions={{
-                    fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
-                    },
-                }}
-            />
-            <Pagination
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
-                totalItems={totalItems} // use the total items from the state
-                itemsPerPage={itemsPerPage}
-                currentPage={page}
-            />
-            {''}
-            {isPopUpOpen && (
-                <PopUp
-                    onClose={handleClose}
-                    url='http://localhost:3000/api/societe'
-                    fields={[
-                        {
-                            id: 'raison_sociale',
-                            type: 'input',
-                            value: null,
+            <div className={style.page}>
+                <List
+                    items={Societes.map(Societe => ({
+                        value1: Societe.code_Societe.toString(),
+                        value2: Societe.raison_sociale,
+                        value3: Societe.site_Web,
+                        value4: Societe.commentaires,
+                        value5:
+                            Societe.date_arret_activite_Societe == null
+                                ? ''
+                                : Societe.date_arret_activite_Societe
+                                      .toString()
+                                      .split('T')[0],
+                    }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen
+                                ? setIsPopUpOpen(false)
+                                : setIsPopUpOpen(true)
                         },
-                        {
-                            id: 'nom_commercial',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'Logo',
-                            type: 'file',
-                            value: null,
-                        },
-                        {
-                            id: 'site_Web',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'Siren',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'code_type_activite_Societe',
-                            type: 'select',
-                            value: null,
-                            url: '../api/societe/type-activite-societe',
-                        },
-                        {
-                            id: 'commentaires',
-                            type: 'input',
-                            value: null,
-                        },
-                        {
-                            id: 'code_Groupe_appartenance',
-                            type: 'search',
-                            value: null,
-                            url: '../api/select/societe/groupe',
-                        },
-                        {
-                            id: 'date_arret_activite_Societe',
-                            type: 'date',
-                            value: null,
-                        },
-                    ]}
+                        url: 'http://localhost:3000/api/societe',
+                    }}
                 />
-            )}
+                <Pagination
+                    onPageChange={handlePageChange}
+                    onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
+                    totalItems={totalItems} // use the total items from the state
+                    itemsPerPage={itemsPerPage}
+                    currentPage={page}
+                />
+                {''}
+                {isPopUpOpen && (
+                    <div className={style.PopUp}>
+                        <PopUp
+                            onClose={handleClose}
+                            url='http://localhost:3000/api/societe'
+                            fields={[
+                                {
+                                    id: 'raison_sociale',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'nom_commercial',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'Logo',
+                                    type: 'file',
+                                    value: null,
+                                },
+                                {
+                                    id: 'site_Web',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'Siren',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'code_type_activite_Societe',
+                                    type: 'select',
+                                    value: null,
+                                    url: '../api/societe/type-activite-societe',
+                                },
+                                {
+                                    id: 'commentaires',
+                                    type: 'input',
+                                    value: null,
+                                },
+                                {
+                                    id: 'code_Groupe_appartenance',
+                                    type: 'search',
+                                    value: null,
+                                    url: '../api/select/societe/groupe',
+                                },
+                                {
+                                    id: 'date_arret_activite_Societe',
+                                    type: 'date',
+                                    value: null,
+                                },
+                            ]}
+                        />
+                    </div>
+                )}
+            </div>
         </>
     )
 }

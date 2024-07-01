@@ -31,8 +31,6 @@ export default function SocietePage({
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -141,10 +139,20 @@ export default function SocietePage({
                         </p>
                     </div>
                     <div className={style.info}>
-                        <a href={`/societe/${params.societeID}/entite`}><p className={style.titre}> Entités appartenant à l'entreprise </p></a>
+                        <a href={`/societe/${params.societeID}/entite`}>
+                            <p className={style.titre}>
+                                {' '}
+                                Entités appartenant à l'entreprise{' '}
+                            </p>
+                        </a>
                     </div>
                     <div className={style.info}>
-                        <a href={`/societe/${params.societeID}/groupe`}><p className={style.titre}> Groupe d'appartenance de la societe </p></a>
+                        <a href={`/societe/${params.societeID}/groupe`}>
+                            <p className={style.titre}>
+                                {' '}
+                                Groupe d'appartenance de la societe{' '}
+                            </p>
+                        </a>
                     </div>
                 </div>
             </div>

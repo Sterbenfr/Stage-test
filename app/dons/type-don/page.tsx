@@ -11,19 +11,17 @@ export interface TypeDon {
 
 function TypeDonsPage() {
     const [Dons, setDons] = useState<TypeDon[]>([])
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
-        setIsPopUpOpen(false);
-    };
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchDons = async () => {
             const res = await fetch('http://localhost:3000/api/dons/type-don')
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -40,29 +38,28 @@ function TypeDonsPage() {
                 items={Dons.map(typeDon => ({
                     value1: typeDon.id.toString(),
                     value2: typeDon.id.toString(),
-                    value3: typeDon.label
+                    value3: typeDon.label,
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                 }}
             />
-                {isPopUpOpen && (
-                    <PopUp
-                        onClose={handleClose}
-                        url='http://localhost:3000/api/dons/type-don'
-                        fields={[
-                            { id: "id", type: 'input', value: null},
-                            { id: "label", type: 'input', value: null},
-                        ]}
-                    />
-                )}
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url='http://localhost:3000/api/dons/type-don'
+                    fields={[
+                        { id: 'id', type: 'input', value: null },
+                        { id: 'label', type: 'input', value: null },
+                    ]}
+                />
+            )}
         </>
     )
 }
 
-export default withAuthorization(TypeDonsPage, ['AD', 'PR']);
+export default withAuthorization(TypeDonsPage, ['AD', 'PR'])

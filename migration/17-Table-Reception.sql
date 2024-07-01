@@ -13,12 +13,12 @@ CREATE TABLE Reception (
     commentaires VARCHAR(200),
     pieces_associees BLOB,
     FOREIGN KEY (code_Don) REFERENCES Dons(code_Don),
-    FOREIGN KEY (numero_livraion) REFERENCES ModalitesLivraison(numero_livraison)
+    FOREIGN KEY (numero_livraison) REFERENCES ModalitesLivraison(numero_livraison)
 );
 INSERT INTO Reception (
     numero_reception,
     code_Don,
-    numero_livraion,
+    numero_livraison,
     date_reception,
     heure_reception,
     nombre_palettes_recues,

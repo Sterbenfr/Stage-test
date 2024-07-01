@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import style from '../../../../../styles/components.module.css'
 
 interface modalite_livraisonID {
     numero_livraison: number
@@ -46,8 +47,6 @@ export default function Modalites_livraisonPage({
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -61,26 +60,143 @@ export default function Modalites_livraisonPage({
         return <div>Loading...</div>
 
     return (
-        <div>
-            <h1>modalites-livraison</h1>
-            <p>{modalite_livraison[0].numero_livraison}</p>
-            <p>{modalite_livraison[0].code_Don}</p>
-            <p>{modalite_livraison[0].code_type_livraison}</p>
-            <p>
-                {
-                    modalite_livraison[0].date_prevue_livraison
-                        .toString()
-                        .split('T')[0]
-                }
-            </p>
-            <p>{modalite_livraison[0].prenom_contact_enlevement}</p>
-            <p>{modalite_livraison[0].telephone_contact_enlevement}</p>
-            <p>{modalite_livraison[0].mail_contact_enlevement}</p>
-            <p>{modalite_livraison[0].adresse_enlevement}</p>
-            <p>{modalite_livraison[0].adresse_livraison}</p>
-            <p>{modalite_livraison[0].nombre_palettes_consignees_prevu}</p>
-            <p>{modalite_livraison[0].nombre_palette_prevu}</p>
-            <p>{modalite_livraison[0].nombre_cartons_prevu}</p>
+        <div className={style.idPage}>
+            <div>
+                <h1 className={style.titre_global}>Modalites livraison</h1>
+            </div>
+            <div className={style.info_id}>
+                <div className={style.col_1}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Numero de la livraison :</p>
+                        <p>
+                            {modalite_livraison[0].numero_livraison == null
+                                ? '/'
+                                : modalite_livraison[0].numero_livraison}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Code du don :</p>
+                        <p>
+                            {modalite_livraison[0].code_Don == null
+                                ? '/'
+                                : modalite_livraison[0].code_Don}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Code du type de livraison :
+                        </p>
+                        <p>
+                            {modalite_livraison[0].code_type_livraison == null
+                                ? '/'
+                                : modalite_livraison[0].code_type_livraison}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Date prevue de la livraison :
+                        </p>
+                        <p>
+                            {
+                                modalite_livraison[0].date_prevue_livraison
+                                    .toString()
+                                    .split('T')[0]
+                            }
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Prenom du contact enlevement :
+                        </p>
+                        <p>
+                            {modalite_livraison[0].prenom_contact_enlevement ==
+                            null
+                                ? '/'
+                                : modalite_livraison[0]
+                                      .prenom_contact_enlevement}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Téléphone du contact enlevement :
+                        </p>
+                        <p>
+                            {modalite_livraison[0]
+                                .telephone_contact_enlevement == null
+                                ? '/'
+                                : modalite_livraison[0]
+                                      .telephone_contact_enlevement}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Mail du contact enlevement :
+                        </p>
+                        <p>
+                            {modalite_livraison[0].mail_contact_enlevement ==
+                            null
+                                ? '/'
+                                : modalite_livraison[0].mail_contact_enlevement}
+                        </p>
+                    </div>
+                </div>
+                <div className={style.col_2}>
+                    <div className={style.info}>
+                        <p className={style.titre}>Adresse enlevement :</p>
+                        <p>
+                            {modalite_livraison[0].adresse_enlevement == null
+                                ? '/'
+                                : modalite_livraison[0].adresse_enlevement}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Adresse de la livraison :</p>
+                        <p>
+                            {modalite_livraison[0].adresse_livraison == null
+                                ? '/'
+                                : modalite_livraison[0].adresse_livraison}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Nombre de palette prevu :</p>
+                        <p>
+                            {modalite_livraison[0].nombre_palette_prevu == null
+                                ? '/'
+                                : modalite_livraison[0].nombre_palette_prevu}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>
+                            Nombre de palettes consignées prevu :
+                        </p>
+                        <p>
+                            {modalite_livraison[0]
+                                .nombre_palettes_consignees_prevu == null
+                                ? '/'
+                                : modalite_livraison[0]
+                                      .nombre_palettes_consignees_prevu}
+                        </p>
+                    </div>
+
+                    <div className={style.info}>
+                        <p className={style.titre}>Nombre de cartons prevu :</p>
+                        <p>
+                            {modalite_livraison[0].nombre_cartons_prevu == null
+                                ? '/'
+                                : modalite_livraison[0].nombre_cartons_prevu}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

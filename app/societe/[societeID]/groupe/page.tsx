@@ -14,20 +14,16 @@ export interface Groupe {
     date_arret_activite_du_groupe: Date
 }
 
-function GroupesPage({
-    params,
-}: {
-    params: { societeID: string }
-}) {
+function GroupesPage({ params }: { params: { societeID: string } }) {
     const [groupes, setGroupes] = useState<Groupe[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
-        setIsPopUpOpen(false);
-    };
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchGroupes = async () => {
@@ -36,8 +32,6 @@ function GroupesPage({
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -79,11 +73,11 @@ function GroupesPage({
                     }))}
                     functions={{
                         fonc1: () => {
-                            isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                            isPopUpOpen
+                                ? setIsPopUpOpen(false)
+                                : setIsPopUpOpen(true)
                         },
-                        fonc2: () => {
-                            console.log('fonc2')
-                        },
+                        url: `http://localhost:3000/api/societe/${params.societeID}/groupe`,
                     }}
                 />
                 <Pagination
@@ -99,12 +93,16 @@ function GroupesPage({
                         onClose={handleClose}
                         url={`http://localhost:3000/api/societe/${params.societeID}/groupe`}
                         fields={[
-                            { id: "nom_du_groupe", type: 'input', value: null},
-                            { id: "Logo", type: 'file', value: null},
-                            { id: "site_Web", type: 'input', value: null},
-                            { id: "date_fermeture", type: 'date', value: null},
-                            { id: "commentaires", type: 'input', value: null},
-                            { id: "date_arret_activite_du_Groupe", type: 'date', value: null},
+                            { id: 'nom_du_groupe', type: 'input', value: null },
+                            { id: 'Logo', type: 'file', value: null },
+                            { id: 'site_Web', type: 'input', value: null },
+                            { id: 'date_fermeture', type: 'date', value: null },
+                            { id: 'commentaires', type: 'input', value: null },
+                            {
+                                id: 'date_arret_activite_du_Groupe',
+                                type: 'date',
+                                value: null,
+                            },
                         ]}
                     />
                 )}

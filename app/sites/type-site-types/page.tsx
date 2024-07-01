@@ -4,7 +4,6 @@ import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
 import List from '../../../components/list'
 
-
 export interface siteType {
     id: string
     label: string
@@ -25,8 +24,6 @@ function SiteTypesPage() {
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -43,14 +40,13 @@ function SiteTypesPage() {
                 items={SiteTypes.map(sitetype => ({
                     value1: sitetype.id.toString(),
                     value2: sitetype.id.toString(),
-                    value3: sitetype.label
+                    value3: sitetype.label,
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                 }}
             />

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import pool from '../../../../utils/db'
+import { NextApiRequest } from 'next'
 
 export async function GET(
     request: Request,
@@ -8,14 +9,34 @@ export async function GET(
     const societeID = params.societeID
     try {
         const [rows] = await pool.query(
-            'SELECT Societe.code_Societe, Societe.raison_sociale, Societe.nom_commercial, Societe.site_Web, Societe.Logo, Societe.Siren, Societe.code_type_activite_Societe, Societe.commentaires, Societe.code_Groupe_appartenance, Societe.date_arret_activite_Societe AS type_activite_nom FROM Societe LEFT JOIN TypeActiviteSociete ON Societe.code_type_activite_Societe = TypeActiviteSociete.code WHERE Societe.code_Societe = ?;',
+            'SELECT entreprise.code_Societe, entreprise.raison_sociale, entreprise.nom_commercial, entreprise.site_Web, entreprise.Logo, entreprise.Siren, entreprise.code_type_activite_Societe, entreprise.commentaires, entreprise.code_Groupe_appartenance, entreprise.date_arret_activite_Societe AS type_activite_nom FROM entreprise LEFT JOIN TypeActiviteSociete ON entreprise.code_type_activite_Societe = TypeActiviteSociete.code WHERE entreprise.code_Societe = ?;',
             [societeID],
         )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
+            { status: 500 },
+        )
+    }
+}
+
+export async function DELETE(
+    req: NextApiRequest,
+    { params }: { params: { societeID: string } },
+) {
+    const societeID = params.societeID
+    if (societeID === undefined) {
+        return NextResponse.json({ error: 'Bad ID' }, { status: 400 })
+    }
+
+    try {
+        const query = 'DELETE FROM `Entreprise` WHERE `code_Societe` = ?'
+        const [rows] = await pool.query(query, societeID)
+        return NextResponse.json(rows)
+    } catch (error) {
+        return NextResponse.json(
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

@@ -48,9 +48,8 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
         )
         setInputs(updatedInputs)
     }
-    console.log(inputs)
+
     const handleSubmit = async () => {
-        // Define the server endpoint URL
         const endpoint = url
 
         const inputsData = inputs.reduce<{
@@ -60,10 +59,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
             return acc
         }, {})
 
-        // Prepare the data to be sent
-
         try {
-            // Use fetch to make the POST request
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
@@ -72,19 +68,14 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                 body: JSON.stringify(inputsData),
             })
 
-            // Check if the request was successful
             if (response.ok) {
-                // Handle success - you can parse JSON response if needed
                 const jsonResponse = await response.json()
                 console.log('Submission successful', jsonResponse)
-                // Close the pop-up after submission
                 onClose()
             } else {
-                // Handle server errors or invalid responses
                 console.error('Submission failed', await response.text())
             }
         } catch (error) {
-            // Handle network errors
             console.error('Network error:', error)
         }
         onClose()
@@ -142,9 +133,15 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                     }
                 })}
                 <div className={style.BTNdiv}>
-                    <button className={style.BTNsub} onClick={handleSubmit}>
-                        Envoyer
-                    </button>
+                    <div className={style.BTNdiv}>
+                        <button className={style.BTNsub} onClick={onClose}>
+                            Exit
+                        </button>
+
+                        <button className={style.BTNsub} onClick={handleSubmit}>
+                            Envoyer
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

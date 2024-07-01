@@ -17,11 +17,11 @@ export default function ContactEntitePage({
 
     useEffect(() => {
         const fetchContacts = async () => {
-            const res = await fetch(`http://localhost:3000/api/societe/${params.societeID}/entite/entite-site-link`)
+            const res = await fetch(
+                `http://localhost:3000/api/societe/${params.societeID}/entite/entite-site-link`,
+            )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -41,7 +41,10 @@ export default function ContactEntitePage({
                         {contact.code_entite} : {contact.code_type_site}
                     </h2>
                     <p>code_site_suivi: {contact.code_site_suivi}</p>
-                    <p>code_utilisateur_suivant: {contact.code_utilisateur_suivant}</p>
+                    <p>
+                        code_utilisateur_suivant:{' '}
+                        {contact.code_utilisateur_suivant}
+                    </p>
                 </div>
             ))}
         </div>

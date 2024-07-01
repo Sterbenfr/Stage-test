@@ -13,11 +13,11 @@ export default function ContactSocietePage() {
 
     useEffect(() => {
         const fetchContacts = async () => {
-            const res = await fetch('http://localhost:3000/api/societe/societe-site-link')
+            const res = await fetch(
+                'http://localhost:3000/api/societe/societe-site-link',
+            )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -34,10 +34,14 @@ export default function ContactSocietePage() {
             {contacts.map(ContactSociete => (
                 <div key={ContactSociete.code_Societe}>
                     <h2>
-                        {ContactSociete.code_Societe} : {ContactSociete.code_type_de_Site}
+                        {ContactSociete.code_Societe} :{' '}
+                        {ContactSociete.code_type_de_Site}
                     </h2>
                     <p>code_site_suivi: {ContactSociete.code_site_suivi}</p>
-                    <p>code_utilisateur_suivant: {ContactSociete.code_utilisateur_suivant}</p>
+                    <p>
+                        code_utilisateur_suivant:{' '}
+                        {ContactSociete.code_utilisateur_suivant}
+                    </p>
                 </div>
             ))}
         </div>

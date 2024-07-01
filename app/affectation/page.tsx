@@ -8,9 +8,9 @@ import withAuthorization from '@/components/withAuthorization'
 export interface Affectation {
     code_Utilisateur_Prospecteur: string
     code_Entite: string
-    commentaires : string
-    date_affectation : Date
-    date_arret_affectation : Date
+    commentaires: string
+    date_affectation: Date
+    date_arret_affectation: Date
 }
 
 function AffectationsPage() {
@@ -27,11 +27,11 @@ function AffectationsPage() {
 
     useEffect(() => {
         const fetchAffectation = async () => {
-            const res = await fetch(`http://localhost:3000/api/affectation?page=${page}&limit=${itemsPerPage}`)
+            const res = await fetch(
+                `http://localhost:3000/api/affectation?page=${page}&limit=${itemsPerPage}`,
+            )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -62,25 +62,25 @@ function AffectationsPage() {
                     value3: affectation.code_Entite,
                     value4: affectation.commentaires,
                     value5:
-                    affectation.date_affectation == null
+                        affectation.date_affectation == null
                             ? ''
                             : affectation.date_affectation
                                   .toString()
                                   .split('T')[0],
                     value6:
-                    affectation.date_arret_affectation == null
+                        affectation.date_arret_affectation == null
                             ? ''
                             : affectation.date_arret_affectation
-                                    .toString()
-                                    .split('T')[0],
+                                  .toString()
+                                  .split('T')[0],
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
-                    fonc2: () => {
-                        console.log('fonc2')
-                    },
+                    url: 'http://localhost:3000/api/affectation',
                 }}
             />
             <Pagination
@@ -120,7 +120,7 @@ function AffectationsPage() {
                             id: 'date_arret_affectation',
                             type: 'date',
                             value: null,
-                        }
+                        },
                     ]}
                 />
             )}

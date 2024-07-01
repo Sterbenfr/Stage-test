@@ -46,7 +46,6 @@ export async function POST(req: NextApiRequest) {
     let ModalitesLivraison: ModalitesLivraison
     try {
         ModalitesLivraison = JSON.parse(await streamToString(req.body))
-        console.log(ModalitesLivraison)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
@@ -61,21 +60,8 @@ export async function POST(req: NextApiRequest) {
         !ModalitesLivraison.nombre_cartons_prevu ||
         !ModalitesLivraison.poids_prevu_kg ||
         !ModalitesLivraison.produits_sur_palettes ||
-        !ModalitesLivraison.temperature_conserv_produits 
+        !ModalitesLivraison.temperature_conserv_produits
     ) {
-        console.log(
-            'Modalités livraison:' +
-        !ModalitesLivraison.code_Don +
-        !ModalitesLivraison.date_prevue_livraison +
-        !ModalitesLivraison.adresse_enlevement +
-        !ModalitesLivraison.adresse_livraison +
-        !ModalitesLivraison.nombre_palette_prevu +
-        !ModalitesLivraison.nombre_palettes_consignees_prevu +
-        !ModalitesLivraison.nombre_cartons_prevu +
-        !ModalitesLivraison.poids_prevu_kg +
-        !ModalitesLivraison.produits_sur_palettes +
-        !ModalitesLivraison.temperature_conserv_produits,
-        )
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -87,9 +73,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, ModalitesLivraison)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

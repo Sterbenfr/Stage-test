@@ -10,12 +10,13 @@ export interface Mode_Conservation_Produits {
 }
 
 function Mode_Conservations_ProduitsPage() {
-    const [Mode_Conservations_Produits, setMode_Conservations_Produits] = useState<Mode_Conservation_Produits[]>([])
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [Mode_Conservations_Produits, setMode_Conservations_Produits] =
+        useState<Mode_Conservation_Produits[]>([])
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
-        setIsPopUpOpen(false);
-    };
+        setIsPopUpOpen(false)
+    }
 
     useEffect(() => {
         const fetchMode_Conservations_Produits = async () => {
@@ -24,12 +25,11 @@ function Mode_Conservations_ProduitsPage() {
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
-            const Mode_Conservations_Produits: Mode_Conservation_Produits[] = await res.json()
+            const Mode_Conservations_Produits: Mode_Conservation_Produits[] =
+                await res.json()
             setMode_Conservations_Produits(Mode_Conservations_Produits)
         }
 
@@ -39,32 +39,33 @@ function Mode_Conservations_ProduitsPage() {
     return (
         <>
             <List
-                items={Mode_Conservations_Produits.map(modeConservationProduit => ({
-                    value1: modeConservationProduit.id.toString(),
-                    value2: modeConservationProduit.id.toString(),
-                    value3: modeConservationProduit.label
-                }))}
+                items={Mode_Conservations_Produits.map(
+                    modeConservationProduit => ({
+                        value1: modeConservationProduit.id.toString(),
+                        value2: modeConservationProduit.id.toString(),
+                        value3: modeConservationProduit.label,
+                    }),
+                )}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                 }}
             />
-                {isPopUpOpen && (
-                    <PopUp
-                        onClose={handleClose}
-                        url='http://localhost:3000/api/dons/type-mode-conservation-produits'
-                        fields={[
-                            { id: "id", type: 'input', value: null},
-                            { id: "label", type: 'input', value: null},
-                        ]}
-                    />
-                )}
+            {isPopUpOpen && (
+                <PopUp
+                    onClose={handleClose}
+                    url='http://localhost:3000/api/dons/type-mode-conservation-produits'
+                    fields={[
+                        { id: 'id', type: 'input', value: null },
+                        { id: 'label', type: 'input', value: null },
+                    ]}
+                />
+            )}
         </>
     )
 }
 
-export default withAuthorization(Mode_Conservations_ProduitsPage, ['AD', 'PR']);
+export default withAuthorization(Mode_Conservations_ProduitsPage, ['AD', 'PR'])

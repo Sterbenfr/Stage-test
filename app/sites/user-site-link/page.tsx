@@ -9,7 +9,9 @@ interface Site_Rattachement {
 }
 
 export default function Sites_RattachementPage() {
-    const [Sites_Rattachement, setSites_Rattachement] = useState<Site_Rattachement[]>([])
+    const [Sites_Rattachement, setSites_Rattachement] = useState<
+        Site_Rattachement[]
+    >([])
 
     useEffect(() => {
         const fetchSites_Rattachement = async () => {
@@ -18,8 +20,6 @@ export default function Sites_RattachementPage() {
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -38,7 +38,11 @@ export default function Sites_RattachementPage() {
                     <h2>{SitesRattachement.code_site}</h2>
                     <h2>{SitesRattachement.code_utilisateur}</h2>
                     <h2>{SitesRattachement.code_type_utilisateur}</h2>
-                    <h2>{SitesRattachement.date_fin_activite==null ? "" : SitesRattachement.date_fin_activite.toString()}</h2>
+                    <h2>
+                        {SitesRattachement.date_fin_activite == null
+                            ? ''
+                            : SitesRattachement.date_fin_activite.toString()}
+                    </h2>
                 </div>
             ))}
         </div>

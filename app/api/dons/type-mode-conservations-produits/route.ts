@@ -6,12 +6,13 @@ import type { Mode_Conservation_Produits } from '@/app/dons/type-mode-conservati
 
 export async function GET() {
     try {
-        const [rows] = await pool.query('SELECT code_mode_conservation_produits as id, libelle as label FROM `ModeConservationProduits` LIMIT 1000')
+        const [rows] = await pool.query(
+            'SELECT code_mode_conservation_produits as id, libelle as label FROM `ModeConservationProduits` LIMIT 1000',
+        )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }
@@ -20,8 +21,9 @@ export async function GET() {
 export async function POST(req: NextApiRequest) {
     let typesModeConservationProduits: Mode_Conservation_Produits
     try {
-        typesModeConservationProduits = JSON.parse(await streamToString(req.body))
-        console.log(typesModeConservationProduits)
+        typesModeConservationProduits = JSON.parse(
+            await streamToString(req.body),
+        )
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
@@ -30,11 +32,6 @@ export async function POST(req: NextApiRequest) {
         !typesModeConservationProduits.id ||
         !typesModeConservationProduits.label
     ) {
-        console.log(
-            'Types Mode Conservation Produits:' +
-            typesModeConservationProduits.id +
-            typesModeConservationProduits.label,
-        )
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -46,9 +43,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, typesModeConservationProduits)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

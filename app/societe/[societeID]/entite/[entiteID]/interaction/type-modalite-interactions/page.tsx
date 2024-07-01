@@ -9,7 +9,11 @@ export interface Modalite_Interactions {
     label: string
 }
 
-function Modalites_InteractionsPage() {
+function Modalites_InteractionsPage({
+    params,
+}: {
+    params: { societeID: string; entiteID: string }
+}) {
     const [Modalites_Interactions, setModalites_Interactions] = useState<
         Modalite_Interactions[]
     >([])
@@ -23,12 +27,10 @@ function Modalites_InteractionsPage() {
     useEffect(() => {
         const fetchModalites_Interactions = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/interactions/type-modalite-interactions',
+                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions/type-modalite-interactions`,
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -38,28 +40,27 @@ function Modalites_InteractionsPage() {
         }
 
         fetchModalites_Interactions()
-    }, [])
+    }, [params.societeID, params.entiteID])
     return (
         <>
             <List
                 items={Modalites_Interactions.map(ModalitesInteraction => ({
                     value1: ModalitesInteraction.id.toString(),
                     value2: ModalitesInteraction.id.toString(),
-                    value3: ModalitesInteraction.label
+                    value3: ModalitesInteraction.label,
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                 }}
             />
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}
-                    url='http://localhost:3000/api/interactions/type-modalite-interactions'
+                    url={`http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions/type-modalite-interactions`}
                     fields={[
                         {
                             id: 'code_modalite_interaction',

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
-import pool from '../../../../utils/db'
+import pool from '../../../../../../../../utils/db'
 import { NextApiRequest } from 'next'
-import { streamToString } from '../../../../utils/streamUtils'
-import type { Interaction } from '@/app/interaction/type-interactions/page'
+import { streamToString } from '../../../../../../../../utils/streamUtils'
+import type { Interaction } from '@/app/societe/[societeID]/entite/[entiteID]/interaction/type-interactions/page'
 
 export async function GET() {
     try {
@@ -11,9 +11,8 @@ export async function GET() {
         )
         return NextResponse.json(rows)
     } catch (err) {
-        console.log(err)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }
@@ -23,13 +22,11 @@ export async function POST(req: NextApiRequest) {
     let code_type_interaction: Interaction
     try {
         code_type_interaction = JSON.parse(await streamToString(req.body))
-        console.log(code_type_interaction)
     } catch (error) {
         return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
     }
 
-    if (!code_type_interaction.libelle) {
-        console.log('code_type_interaction:' + code_type_interaction.libelle)
+    if (!code_type_interaction.label) {
         return NextResponse.json(
             { error: 'Missing product data' },
             { status: 400 },
@@ -41,9 +38,8 @@ export async function POST(req: NextApiRequest) {
         const [rows] = await pool.query(query, code_type_interaction)
         return NextResponse.json(rows)
     } catch (error) {
-        console.log(error)
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + error },
             { status: 500 },
         )
     }

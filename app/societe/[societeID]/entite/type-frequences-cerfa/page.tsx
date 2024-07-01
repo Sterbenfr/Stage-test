@@ -9,12 +9,10 @@ export interface Frequence_cerfa {
     label: string
 }
 
-function Frequences_cerfaPage({
-    params,
-}: {
-    params: { societeID: string }
-}) {
-    const [Frequences_cerfa, setFrequences_cerfa] = useState<Frequence_cerfa[]>([])
+function Frequences_cerfaPage({ params }: { params: { societeID: string } }) {
+    const [Frequences_cerfa, setFrequences_cerfa] = useState<Frequence_cerfa[]>(
+        [],
+    )
 
     const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
@@ -29,8 +27,6 @@ function Frequences_cerfaPage({
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -47,14 +43,13 @@ function Frequences_cerfaPage({
                 items={Frequences_cerfa.map(TypesFrequences_cerfa => ({
                     value1: TypesFrequences_cerfa.id.toString(),
                     value2: TypesFrequences_cerfa.id.toString(),
-                    value3: TypesFrequences_cerfa.label
+                    value3: TypesFrequences_cerfa.label,
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                 }}
             />
@@ -81,4 +76,4 @@ function Frequences_cerfaPage({
     )
 }
 
-export default withAuthorization(Frequences_cerfaPage, ['AD', 'PR']);
+export default withAuthorization(Frequences_cerfaPage, ['AD', 'PR'])

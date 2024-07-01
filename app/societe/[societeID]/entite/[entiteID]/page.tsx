@@ -45,8 +45,6 @@ export default function EntitePage({
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -263,6 +261,16 @@ export default function EntitePage({
                             <p className={style.titre}>
                                 {' '}
                                 Contact(s) de l&apos;entité{' '}
+                            </p>
+                        </a>
+                    </div>
+                    <div className={style.info}>
+                        <a
+                            href={`/societe/${params.societeID}/entite/${params.entiteID}/interaction`}
+                        >
+                            <p className={style.titre}>
+                                {' '}
+                                Interaction(s) avec l&apos;entité{' '}
                             </p>
                         </a>
                     </div>

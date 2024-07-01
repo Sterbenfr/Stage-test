@@ -1,56 +1,65 @@
 'use client'
+
 import { useEffect, useState } from 'react'
-import List from '../../../../components/list'
+import List from '@/components/list'
 import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import withAuthorization from '@/components/withAuthorization'
-import style from '../../../../styles/components.module.css'
+import style from '../../../../../../styles/components.module.css'
 
-export interface Reception {
-    numero_reception: number
-    code_Don: number
-    numero_livraison: number
-    date_reception: Date
-    heure_reception: string
-    nombre_palettes_recues: number
-    nombre_palettes_consignees_recues: number
-    nombre_palettes_consignees_rendues: number
-    nombre_cartons_recus: number
-    poids_recu_kg: number
-    produits_sur_palettes: string
+export interface Interactions {
+    code_Utilisateur_Prospecteur: number
+    code_Entite_Prospectee: number
+    date_interaction: Date
+    code_type_interaction: string
+    code_modalite_interaction: string
+    code_contact_entite: number
     commentaires: string
     pieces_associees: Blob
+    date_relance: Date
 }
 
-function ReceptionsPage({ params }: { params: { donsID: string } }) {
-    const [Receptions, setReceptions] = useState<Reception[]>([])
+function InteractionsPage({
+    params,
+}: {
+    params: { societeID: string; entiteID: string }
+}) {
+    const [Interactions, setInteractions] = useState<Interactions[]>([])
     const [page, setPage] = useState(1) // new state for the current page
     const [totalItems, setTotalItems] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(3)
+    const [EntiteInteraction, setEntiteInteraction] = useState('2')
 
     const [isPopUpOpen, setIsPopUpOpen] = useState(false)
 
     const handleClose = () => {
         setIsPopUpOpen(false)
     }
+
+    const handleEntiteInteraction = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setEntiteInteraction(event.target.value)
+    }
+
     useEffect(() => {
-        const fetchDons = async () => {
+        const fetchInteractions = async () => {
             const res = await fetch(
-                `http://localhost:3000/api/dons/${params.donsID}/reception?page=${page}&limit=${itemsPerPage}`,
+                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions?page=${page}&limit=${itemsPerPage}`,
             )
 
             if (!res.ok) {
                 throw new Error('Failed to fetch data')
             }
 
-            const { data, total }: { data: Reception[]; total: number } =
+            const { data, total }: { data: Interactions[]; total: number } =
                 await res.json()
-            setReceptions(data)
-            setTotalItems(total) // set the total items
+            setInteractions(data)
+            setTotalItems(total)
         }
-        fetchDons()
-    }, [page, itemsPerPage, params.donsID])
 
+        fetchInteractions()
+    }, [page, itemsPerPage, params.societeID, params.entiteID])
     // add a function to handle page changes
     const handlePageChange = (newPage: number) => {
         setPage(newPage)
@@ -58,21 +67,23 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
 
     const handleItemsPerPageChange = (newItemsPerPage: number) => {
         setItemsPerPage(newItemsPerPage)
-        setPage(1) // reset page to 1 when items per page changes
+        setPage(1)
     }
-    console.log(Receptions)
+
     return (
         <>
             <div className={style.page}>
                 <List
-                    items={Receptions.map(Reception => ({
-                        value1: Reception.code_Don.toString(),
-                        value2: Reception.numero_livraison.toString(),
-                        value3: Reception.date_reception
+                    items={Interactions.map(Interactions => ({
+                        value1: Interactions.code_Entite_Prospectee.toString(),
+                        value2: Interactions.date_interaction
                             .toString()
                             .split('T')[0],
-                        value4: Reception.nombre_palettes_recues.toString(),
-                        value5: Reception.poids_recu_kg.toString(),
+                        value3: Interactions.code_contact_entite.toString(),
+                        value4: Interactions.date_relance
+                            .toString()
+                            .split('T')[0],
+                        value5: Interactions.commentaires,
                     }))}
                     functions={{
                         fonc1: () => {
@@ -80,13 +91,13 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
                                 ? setIsPopUpOpen(false)
                                 : setIsPopUpOpen(true)
                         },
-                        url: `http://localhost:3000/api/dons/${params.donsID}/reception`,
+                        url: `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions`,
                     }}
                 />
                 <Pagination
                     onPageChange={handlePageChange}
-                    onItemsPerPageChange={handleItemsPerPageChange} // pass the new prop here
-                    totalItems={totalItems} // use the total items from the state
+                    onItemsPerPageChange={handleItemsPerPageChange}
+                    totalItems={totalItems}
                     itemsPerPage={itemsPerPage}
                     currentPage={page}
                 />
@@ -95,7 +106,7 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
                     <div className={style.PopUp}>
                         <PopUp
                             onClose={handleClose}
-                            url={`http://localhost:3000/api/dons/${params.donsID}/reception`}
+                            url={`http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions`}
                             fields={[
                                 {
                                     id: 'code_Utilisateur_Prospecteur',
@@ -118,19 +129,21 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
                                     id: 'code_type_interaction',
                                     type: 'select',
                                     value: null,
-                                    url: '../api/dons/type-interactions',
+                                    url: '../api/interactions/type-interactions',
                                 },
                                 {
                                     id: 'code_modalite_interaction',
                                     type: 'select',
                                     value: null,
-                                    url: '../api/dons/type-modalite-interactions',
+                                    url: '../api/interactions/type-modalite-interactions',
                                 },
                                 {
                                     id: 'code_contact_entite',
-                                    type: 'input',
+                                    type: 'search',
                                     value: null,
-                                }, //remplissage auto
+                                    url: `../api/select/societe/entite/${EntiteInteraction}/contact`,
+                                    onInputChange: handleEntiteInteraction,
+                                },
                                 {
                                     id: 'commentaires',
                                     type: 'input',
@@ -154,5 +167,4 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
         </>
     )
 }
-
-export default withAuthorization(ReceptionsPage, ['AD', 'PR'])
+export default withAuthorization(InteractionsPage, ['AD', 'PR'])

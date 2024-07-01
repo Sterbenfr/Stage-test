@@ -8,7 +8,6 @@ import { streamToString } from '@/utils/streamUtils'
 export async function POST(req: NextApiRequest) {
     const saltRounds = 10
     const user: Utilisateurs = JSON.parse(await streamToString(req.body))
-    console.log(user)
     if (!user.password || typeof user.password !== 'string') {
         return NextResponse.json(
             { message: 'Invalid password.' },
@@ -17,7 +16,6 @@ export async function POST(req: NextApiRequest) {
     }
 
     const hashedPassword = await bcrypt.hash(user.password, saltRounds)
-    console.log(hashedPassword)
 
     try {
         await pool.query(
@@ -49,7 +47,7 @@ export async function POST(req: NextApiRequest) {
         )
     } catch (err) {
         return NextResponse.json(
-            { error: 'Internal Server Error' },
+            { error: 'Internal Server Error : ' + err },
             { status: 500 },
         )
     }

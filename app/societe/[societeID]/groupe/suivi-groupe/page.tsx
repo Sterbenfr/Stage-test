@@ -17,11 +17,11 @@ export default function UsersPage({
 
     useEffect(() => {
         const fetchSuiviGroupe = async () => {
-            const res = await fetch(`http://localhost:3000/api/societe/${params.societeID}/groupe/suivi-groupe`)
+            const res = await fetch(
+                `http://localhost:3000/api/societe/${params.societeID}/groupe/suivi-groupe`,
+            )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 

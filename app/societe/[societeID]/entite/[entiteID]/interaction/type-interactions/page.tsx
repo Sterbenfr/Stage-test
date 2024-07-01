@@ -9,7 +9,11 @@ export interface Interaction {
     label: string
 }
 
-function InteractionsPage() {
+function InteractionsPage({
+    params,
+}: {
+    params: { societeID: string; entiteID: string }
+}) {
     const [Interactions, setInteractions] = useState<Interaction[]>([])
 
     const [isPopUpOpen, setIsPopUpOpen] = useState(false)
@@ -21,12 +25,10 @@ function InteractionsPage() {
     useEffect(() => {
         const fetchInteractions = async () => {
             const res = await fetch(
-                'http://localhost:3000/api/interactions/type-interactions',
+                `http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions/type-interactions`,
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -35,7 +37,7 @@ function InteractionsPage() {
         }
 
         fetchInteractions()
-    }, [])
+    }, [params.societeID, params.entiteID])
 
     return (
         <>
@@ -43,21 +45,20 @@ function InteractionsPage() {
                 items={Interactions.map(typeInteraction => ({
                     value1: typeInteraction.id.toString(),
                     value2: typeInteraction.id.toString(),
-                    value3: typeInteraction.label
+                    value3: typeInteraction.label,
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                 }}
             />
             {isPopUpOpen && (
                 <PopUp
                     onClose={handleClose}
-                    url='http://localhost:3000/api/interactions/type-interactions'
+                    url={`http://localhost:3000/api/societe/${params.societeID}/entite/${params.entiteID}/interactions/type-interactions`}
                     fields={[
                         {
                             id: 'code_type_interaction',

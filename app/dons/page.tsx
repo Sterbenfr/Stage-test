@@ -6,6 +6,7 @@ import { Pagination } from '@/components/pagination'
 import PopUp from '@/components/popUp'
 import { useCallback } from 'react'
 import withAuthorization from '@/components/withAuthorization'
+import style from '../../styles/components.module.css'
 
 export interface Don {
     code_Don: number
@@ -160,7 +161,7 @@ function DonsPage() {
                     value: commentaires,
                     placeholder: 'Don de ',
                     onInputChange: handleCommentairesChange,
-                },
+                }, //exemple: Dons de chocolat
                 { id: 'pieces_associees', type: 'file', value: null }, //type blob ?
                 {
                     id: 'code_Utilisateur_saisie_don',
@@ -197,7 +198,6 @@ function DonsPage() {
             ]
 
             if (selectedTypeDon === 'SIP') {
-                console.log('SIP added')
                 setLastSelectedTypeDon(selectedTypeDon)
                 fields.push({
                     id: 'code_type_competences',
@@ -209,7 +209,6 @@ function DonsPage() {
 
             if (selectedTypeDon === 'MAR') {
                 setLastSelectedTypeDon(selectedTypeDon)
-                console.log('MAR added')
                 fields.push({
                     id: 'code_type_produits',
                     type: 'select',
@@ -223,7 +222,6 @@ function DonsPage() {
                 selectedTypeDon === 'MAR' &&
                 selectedTypeMarchandise === 'ALI'
             ) {
-                console.log('ALI added')
                 fields.push({
                     id: 'code_mode_conservation_produits',
                     type: 'select', //que si code_type_produits = alimentaire
@@ -250,8 +248,6 @@ function DonsPage() {
             )
 
             if (!res.ok) {
-                console.log('Status:', res.status)
-                console.log('Status Text:', res.statusText)
                 throw new Error('Failed to fetch data')
             }
 
@@ -269,7 +265,6 @@ function DonsPage() {
         }
 
         fetchDons()
-        console.log(selectedTypeDon)
     }, [
         page,
         itemsPerPage,
@@ -289,44 +284,50 @@ function DonsPage() {
 
     return (
         <>
-            <List
-                items={Dons.map(Don => ({
-                    value1: Don.code_Don.toString(),
-                    value2: Don.code_Entite_donatrice
-                        ? Don.code_Entite_donatrice.toString()
-                        : '',
-                    value3: Don.date_proposition_don.toString().split('T')[0],
-                    value4: Don.commentaires ? Don.commentaires : '',
-                    value5: Don.statut_acceptation_don
-                        ? Don.statut_acceptation_don
-                        : '',
-                }))}
-                functions={{
-                    fonc1: () => {
-                        isPopUpOpen
-                            ? setIsPopUpOpen(false)
-                            : setIsPopUpOpen(true)
-                    },
-                    fonc2: () => {
-                        console.log('fonc2')
-                    },
-                }}
-            />
-            <Pagination
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange}
-                totalItems={totalItems}
-                itemsPerPage={itemsPerPage}
-                currentPage={page}
-            />
-            {''}
-            {isPopUpOpen && (
-                <PopUp
-                    onClose={handleClose}
-                    url='http://localhost:3000/api/dons'
-                    fields={fields} // Use the fields state here
+            <div className={style.page}>
+                <List
+                    items={Dons.map(Don => ({
+                        value1: Don.code_Don.toString(),
+                        value2: Don.code_Entite_donatrice
+                            ? Don.code_Entite_donatrice.toString()
+                            : '',
+                        value3: Don.date_proposition_don
+                            .toString()
+                            .split('T')[0],
+                        value4: Don.commentaires ? Don.commentaires : '',
+                        value5: Don.statut_acceptation_don
+                            ? Don.statut_acceptation_don
+                            : '',
+                    }))}
+                    functions={{
+                        fonc1: () => {
+                            isPopUpOpen
+                                ? setIsPopUpOpen(false)
+                                : setIsPopUpOpen(true)
+                        },
+                        fonc2: () => {
+                            console.log('fonc2')
+                        },
+                    }}
                 />
-            )}
+                <Pagination
+                    onPageChange={handlePageChange}
+                    onItemsPerPageChange={handleItemsPerPageChange}
+                    totalItems={totalItems}
+                    itemsPerPage={itemsPerPage}
+                    currentPage={page}
+                />
+                {''}
+                {isPopUpOpen && (
+                    <div className={style.PopUp}>
+                        <PopUp
+                            onClose={handleClose}
+                            url='http://localhost:3000/api/dons'
+                            fields={fields} // Use the fields state here
+                        />
+                    </div>
+                )}
+            </div>
         </>
     )
 }
