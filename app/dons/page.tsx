@@ -29,6 +29,14 @@ export interface Don {
     code_site_beneficiaire_don: number
     indicateur_remerciement: string
     date_remerciement: Date
+    nom_destinataire_cerfa: string
+    adresse_destinataire_cerfa: string
+    adresse_mail_destinataire_cerfa: string
+    telephone_destinataire_cerfa: string
+    valeur_cerfa: number
+    cerfa_fait: string
+    date_cerfa: Date
+    cerfa: Blob
 }
 
 function DonsPage() {
@@ -41,7 +49,18 @@ function DonsPage() {
         lastSelectedTypeDon !== '' ? lastSelectedTypeDon : 'FIN',
     )
     const [commentaires, setCommentaires] = useState('')
-    const [checkboxChecked, setCheckboxChecked] = useState(false) //remerciement
+    const [debutMiseDispo, setDebutMiseDispo] = useState(new Date())
+    const [finMiseDispo, setFinMiseDispo] = useState(new Date())
+    const [codeUtilisateurSaisieDon, setCodeUtilisateurSaisieDon] = useState('')
+
+    const [laststatutAcceptationDon, setLastStatutAcceptationDon] = useState('B')
+    const [statutAcceptationDon, setStatutAcceptationDon] = useState(
+        laststatutAcceptationDon !== '' ? laststatutAcceptationDon : 'B')
+
+    const [dateAcceptationRefusDon, setDateAcceptationRefusDon] = useState(new Date())
+    const [codeUtilisateurAccepteRefuseDon, setCodeUtilisateurAccepteRefuseDon] = useState('')
+    const [siteBeneficiaireDon, setSiteBeneficiaireDon] = useState('')
+    const [checkboxChecked, setCheckboxChecked] = useState(false) //remerciemeD
     const [dateRemerciement, setDateRemerciement] = useState(new Date())
 
     const [Dons, setDons] = useState<Don[]>([]) // list of dons
@@ -65,24 +84,27 @@ function DonsPage() {
         setIsPopUpOpen(false)
         setCheckboxChecked(false)
     }
-    const handleEntiteDonatrice = (
+    const handleEntiteDonatriceChange = (
         event: React.ChangeEvent<HTMLInputElement>,
     ) => {
         setEntiteDonatrice(event.target.value)
-        console.log('italie')
+    }
+
+    const handleSiteBeneficiaireDonChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setSiteBeneficiaireDon(event.target.value)
     }
 
     const handleDatePropositionDon = (
         event: React.ChangeEvent<HTMLInputElement>,
     ) => {
-        console.log('date')
         setDatePropositionDon(new Date(event.target.value))
     }
 
     const handleDateRemerciement = (
         event: React.ChangeEvent<HTMLInputElement>,
     ) => {
-        console.log('date')
         setDateRemerciement(new Date(event.target.value))
     }
 
@@ -90,6 +112,42 @@ function DonsPage() {
         event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         setSelectedTypeDon(event.target.value)
+    }
+
+    const handleDebutMiseDispoChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setDebutMiseDispo(new Date(event.target.value))
+    }
+
+    const handleFinMiseDispoChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setFinMiseDispo(new Date(event.target.value))
+    }
+
+    const handleDateAcceptationRefusDonChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setDateAcceptationRefusDon(new Date(event.target.value))
+    }
+
+    const handleCodeUtilisateurSaisieDonChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setCodeUtilisateurSaisieDon(event.target.value)
+    }
+
+    const handleCodeUtilisateurAccepteRefuseDonChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setCodeUtilisateurAccepteRefuseDon(event.target.value)
+    }
+
+    const handleStatutAcceptationDonChange = (
+        event: React.ChangeEvent<HTMLSelectElement>,
+    ) => {
+        setStatutAcceptationDon(event.target.value)
     }
 
     const handleMarchandiseChange = (
@@ -101,7 +159,6 @@ function DonsPage() {
     const handleCommentairesChange = (
         event: React.ChangeEvent<HTMLInputElement>,
     ) => {
-        console.log('mais')
         setCommentaires(event.target.value)
     }
 
@@ -120,6 +177,7 @@ function DonsPage() {
             selectedTypeDon: string,
             selectedTypeMarchandise: string,
             commentaires: string,
+            statutAcceptationDon: string,
         ) => {
             const fields: {
                 id: string
@@ -137,7 +195,7 @@ function DonsPage() {
                     type: 'search',
                     value: EntiteDonatrice,
                     url: '../api/select/societe/entite',
-                    onInputChange: handleEntiteDonatrice,
+                    onInputChange: handleEntiteDonatriceChange,
                 },
                 {
                     id: 'date_proposition_don',
@@ -161,47 +219,51 @@ function DonsPage() {
                 {
                     id: 'date_debut_mise_disposition',
                     type: 'date',
-                    value: null,
+                    value: debutMiseDispo.toISOString().split('T')[0],
+                    onInputChange: handleDebutMiseDispoChange,
                 },
                 {
                     id: 'date_fin_mise_disposition',
                     type: 'date',
-                    value: null,
+                    value: finMiseDispo.toISOString().split('T')[0],
+                    onInputChange: handleFinMiseDispoChange,
                 }, //depend de si date_debut_mise_disposition (pas avant stp)
                 {
                     id: 'commentaires',
                     type: 'input',
                     value: commentaires,
-                    placeholder: 'Don de ',
+                    placeholder: 'Exemple: Don de chocolat',
                     onInputChange: handleCommentairesChange,
-                }, //exemple: Dons de chocolat
+                },
                 { id: 'pieces_associees', type: 'file', value: null }, //type blob ?
                 {
                     id: 'code_Utilisateur_saisie_don',
                     type: 'number',
-                    value: null,
-                }, // default : login
+                    value: codeUtilisateurSaisieDon,
+                    placeholder: 'Exemple: 15',
+                    onInputChange: handleCodeUtilisateurSaisieDonChange,
+                }, // a voir si search / default : login
                 {
                     id: 'statut_acceptation_don',
                     type: 'select',
-                    value: 'B',
+                    value: statutAcceptationDon,
                     url: '../api/select/dons',
+                    onChange: handleStatutAcceptationDonChange,
                 },
-                {
-                    id: 'date_acceptation_refus_don',
-                    type: 'date',
-                    value: null,
-                }, //que si status different de attente
                 {
                     id: 'code_Utilisateur_accepte_refuse_don',
                     type: 'number',
-                    value: null,
-                }, // a voir si select
+                    placeholder: 'Exemple: 4',
+                    value: codeUtilisateurAccepteRefuseDon,
+                    onInputChange: handleCodeUtilisateurAccepteRefuseDonChange,
+                }, // a voir si search / default : login
                 {
                     id: 'code_site_beneficiaire_don',
-                    type: 'number',
-                    value: null,
-                }, //y'en a trop
+                    type: 'search',
+                    url: '../api/select/sites',
+                    value: siteBeneficiaireDon,
+                    onInputChange: handleSiteBeneficiaireDonChange,
+                },
                 {
                     id: 'indicateur_remerciement',
                     type: 'checkbox',
@@ -214,6 +276,7 @@ function DonsPage() {
                     value: dateRemerciement.toISOString().split('T')[0],
                     onInputChange: handleDateRemerciement,
                 },
+
             ]
 
             if (selectedTypeDon === 'SIP') {
@@ -235,6 +298,16 @@ function DonsPage() {
                     url: '../api/dons/type-produits',
                     onChange: handleMarchandiseChange,
                 })
+            }
+
+            if (statutAcceptationDon !== 'B') {
+                setLastStatutAcceptationDon(statutAcceptationDon)
+                fields.push(                {
+                    id: 'date_acceptation_refus_don',
+                    type: 'date',
+                    value: dateAcceptationRefusDon.toISOString().split('T')[0],
+                    onInputChange: handleDateAcceptationRefusDonChange,
+                }) //que si status different de attente)
             }
 
             if (
@@ -263,6 +336,7 @@ function DonsPage() {
             commentaires,
             selectedTypeDon,
             selectedTypeMarchandise,
+            statutAcceptationDon,
         ],
     )
 
@@ -285,6 +359,7 @@ function DonsPage() {
                     selectedTypeDon,
                     selectedTypeMarchandise,
                     commentaires,
+                    statutAcceptationDon,
                 ),
             )
         }
@@ -295,6 +370,7 @@ function DonsPage() {
         itemsPerPage,
         selectedTypeDon,
         selectedTypeMarchandise,
+        statutAcceptationDon,
         generateFields,
     ])
 
