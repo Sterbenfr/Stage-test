@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import React, { useEffect, useState } from 'react'
 import List from '../../components/list'
@@ -43,6 +44,7 @@ function DonsPage() {
     const [selectedTypeDon, setSelectedTypeDon] = useState(
         lastSelectedTypeDon !== '' ? lastSelectedTypeDon : 'FIN',
     )
+    const [commentaires, setCommentaires] = useState('')
 
     const [EntiteDonatrice, setEntiteDonatrice] = useState('2')
 
@@ -73,12 +75,20 @@ function DonsPage() {
         event: React.ChangeEvent<HTMLInputElement>,
     ) => {
         setEntiteDonatrice(event.target.value)
+        console.log('italie')
     }
 
     const handleMarchandiseChange = (
         event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         setSelectedTypeMarchandise(event.target.value)
+    }
+
+    const handleCommentairesChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        console.log('mais')
+        setCommentaires(event.target.value)
     }
 
     type FieldType =
@@ -92,7 +102,11 @@ function DonsPage() {
         | 'enum'
 
     const generateFields = useCallback(
-        (selectedTypeDon: string, selectedTypeMarchandise: string) => {
+        (
+            selectedTypeDon: string,
+            selectedTypeMarchandise: string,
+            commentaires: string,
+        ) => {
             const fields: {
                 id: string
                 type: FieldType
@@ -100,7 +114,9 @@ function DonsPage() {
                 placeholder?: string
                 url?: string
                 onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
-                onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+                onInputChange?: (
+                    event: React.ChangeEvent<HTMLInputElement>,
+                ) => void
             }[] = [
                 {
                     id: 'code_Entite_donatrice',
@@ -119,7 +135,7 @@ function DonsPage() {
                     id: 'code_contact_Entite_donatrice',
                     type: 'select',
                     value: null,
-                    url: `../api/select/societe/entite/${EntiteDonatrice}/contact`, 
+                    url: `../api/select/societe/entite/${EntiteDonatrice}/contact`,
                 },
                 {
                     id: 'code_type_don',
@@ -138,7 +154,13 @@ function DonsPage() {
                     type: 'date',
                     value: null,
                 }, //depend de si date_debut_mise_disposition (pas avant stp)
-                { id: 'commentaires', type: 'input', value: null, placeholder: "Don de "}, //exemple: Dons de chocolat
+                {
+                    id: 'commentaires',
+                    type: 'input',
+                    value: commentaires,
+                    placeholder: 'Don de ',
+                    onInputChange: handleCommentairesChange,
+                },
                 { id: 'pieces_associees', type: 'file', value: null }, //type blob ?
                 {
                     id: 'code_Utilisateur_saisie_don',
@@ -210,13 +232,15 @@ function DonsPage() {
                 })
             }
             if (EntiteDonatrice !== undefined && fields[2] !== undefined) {
-                fields[2].url=`../api/select/societe/entite/${parseInt(EntiteDonatrice)}/contact`
+                fields[2].url = `../api/select/societe/entite/${parseInt(
+                    EntiteDonatrice,
+                )}/contact`
                 console.log(fields[2].url)
             }
             console.log(EntiteDonatrice)
             return fields
         },
-        [checkboxChecked, EntiteDonatrice],
+        [checkboxChecked, EntiteDonatrice, commentaires],
     )
 
     useEffect(() => {
@@ -235,7 +259,13 @@ function DonsPage() {
                 await res.json()
             setDons(data)
             setTotalItems(total) // set the total items
-            setFields(generateFields(selectedTypeDon, selectedTypeMarchandise))
+            setFields(
+                generateFields(
+                    selectedTypeDon,
+                    selectedTypeMarchandise,
+                    commentaires,
+                ),
+            )
         }
 
         fetchDons()
@@ -245,7 +275,7 @@ function DonsPage() {
         itemsPerPage,
         selectedTypeDon,
         selectedTypeMarchandise,
-        generateFields
+        generateFields,
     ])
 
     const handlePageChange = (newPage: number) => {
@@ -273,14 +303,16 @@ function DonsPage() {
                 }))}
                 functions={{
                     fonc1: () => {
-                        isPopUpOpen ? setIsPopUpOpen(false) : setIsPopUpOpen(true)
+                        isPopUpOpen
+                            ? setIsPopUpOpen(false)
+                            : setIsPopUpOpen(true)
                     },
                     fonc2: () => {
                         console.log('fonc2')
                     },
                 }}
             />
-            <Pagination 
+            <Pagination
                 onPageChange={handlePageChange}
                 onItemsPerPageChange={handleItemsPerPageChange}
                 totalItems={totalItems}

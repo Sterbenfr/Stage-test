@@ -35,7 +35,14 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
         setInputs(fields)
     }, [fields])
 
-    const handleInputChange = (id: string, value: string | boolean) => {
+    const handleInputChange = (
+        id: string,
+        value: string | boolean,
+        fonct?: React.ChangeEventHandler<HTMLInputElement>,
+    ) => {
+        if (fonct) {
+            fonct
+        }
         const updatedInputs = inputs.map(input =>
             input.id === id ? { ...input, value } : input,
         )
@@ -127,6 +134,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, fields, url }) => {
                                         handleInputChange(
                                             input.id,
                                             e.target.value,
+                                            input.onInputChange,
                                         )
                                     }
                                 />
