@@ -55,7 +55,7 @@ export async function POST(req: NextApiRequest) {
         !ModalitesLivraison.date_prevue_livraison ||
         !ModalitesLivraison.adresse_enlevement ||
         !ModalitesLivraison.adresse_livraison ||
-        !ModalitesLivraison.nombre_palette_prevu ||
+        !ModalitesLivraison.nombre_palettes_prevu ||
         !ModalitesLivraison.nombre_palettes_consignees_prevu ||
         !ModalitesLivraison.nombre_cartons_prevu ||
         !ModalitesLivraison.poids_prevu_kg ||
