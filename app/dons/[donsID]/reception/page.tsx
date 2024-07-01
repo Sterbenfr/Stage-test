@@ -98,39 +98,55 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
                             url={`http://localhost:3000/api/dons/${params.donsID}/reception`}
                             fields={[
                                 {
-                                    id: 'code_Utilisateur_Prospecteur',
-                                    type: 'search',
+                                    id: 'numero_reception',
+                                    type: 'number',
                                     value: null,
-                                    url: '../api/select/sites/utilisateurs',
                                 },
                                 {
-                                    id: 'code_Entite_Prospectee',
-                                    type: 'search',
+                                    id: 'numero_livraison',
+                                    type: 'number',
                                     value: null,
-                                    url: '../api/select/societe/entite',
                                 },
                                 {
-                                    id: 'date_interaction',
+                                    id: 'date_reception',
                                     type: 'date',
                                     value: null,
                                 },
                                 {
-                                    id: 'code_type_interaction',
-                                    type: 'select',
+                                    id: 'heure_reception',
+                                    type: 'date',
                                     value: null,
-                                    url: '../api/dons/type-interactions',
                                 },
                                 {
-                                    id: 'code_modalite_interaction',
-                                    type: 'select',
-                                    value: null,
-                                    url: '../api/dons/type-modalite-interactions',
-                                },
-                                {
-                                    id: 'code_contact_entite',
-                                    type: 'input',
+                                    id: 'nombre_palettes_recues',
+                                    type: 'number',
                                     value: null,
                                 }, //remplissage auto
+                                {
+                                    id: 'nombre_palettes_consignees_recues',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'nombre_palettes_consignees_rendues',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'nombre_cartons_recus',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'poids_recu_kg',
+                                    type: 'number',
+                                    value: null,
+                                },
+                                {
+                                    id: 'produits_sur_palettes',
+                                    type: 'number',
+                                    value: null,
+                                },
                                 {
                                     id: 'commentaires',
                                     type: 'input',
@@ -139,11 +155,6 @@ function ReceptionsPage({ params }: { params: { donsID: string } }) {
                                 {
                                     id: 'pieces_associees',
                                     type: 'file',
-                                    value: null,
-                                },
-                                {
-                                    id: 'date_relance',
-                                    type: 'date',
                                     value: null,
                                 },
                             ]}
